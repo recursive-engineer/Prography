@@ -14,3 +14,26 @@
     artwork1.css
         ・artwork_frame.htmlで読み込まれるスタイルシート
 
+Github関連
+    clone（初回のみ）
+        ・git clone git@github.com/recursive-engineer/Prography
+    push関連（githubへの反映）
+        ・git init（初回のみ）
+        ・git add .
+        ・git branch -M main（初回のみ、場合によってブランチ名は変える）
+        ・git remote add origin git@github.com:recursive-engineer/practice-git.git（初回のみ）
+        ・git push -u origin main（場合によってブランチ名は変える）
+    pull（ローカルへの反映）
+        ・git fetch —prune（リモートにないファイルをローカルから削除）
+        ・git pull ブランチ名
+        ・git log（最新のコミットメッセージがあるか確認）
+    checkout（ブランチの移動）
+        ・git checkout ブランチ名
+
+エラーが出るとき
+    git pushで permission denied が出る場合(Windows)
+        ・ssh-agent bash
+        ・ssh-add ~/.ssh/github-dc
+        を実行してからもう一度実行    
+    sshが通っているか確認
+        ・ssh -T git@github.com
