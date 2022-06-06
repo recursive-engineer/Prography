@@ -1,0 +1,17 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.btn-indigo{
+  color: $indigo;
+  border-color: $indigo;
+}
+
+.btn-indigo:hover{
+  color: $white;
+  background-color: $indigo;
+}
+
+#canvas{
+  margin:10px;
+  width:450px;
+  height:330px;
+}
