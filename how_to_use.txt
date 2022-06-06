@@ -3,6 +3,7 @@
 ファイル構造
     artwork_frame.html
         ・閲覧ページ
+        ・headで変数art_numの値を変えると表示するartworkを切り替えられる
     artwork1.htmlなど
         ・artwork_frame.htmlで読み込まれる各作品
     artwork1.scss/artwork1.css
