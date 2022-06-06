@@ -26,7 +26,7 @@ Github関連
         ・git push -u origin main（場合によってブランチ名は変える）
     pull（ローカルへの反映）
         ・git fetch —prune（リモートにないファイルをローカルから削除）
-        ・git pull ブランチ名
+        ・git pull origin ブランチ名
         ・git log（最新のコミットメッセージがあるか確認）
     checkout（ブランチの移動）
         ・git checkout ブランチ名
