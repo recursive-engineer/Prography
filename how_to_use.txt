@@ -1,0 +1,16 @@
+開発者のための使い方
+
+ファイル構造
+    artwork_frame.html
+        ・閲覧ページ
+    artwork1.htmlなど
+        ・artwork_frame.htmlで読み込まれる各作品
+    artwork1.scss/artwork1.css
+        ・artwork1.htmlで読み込まれるスタイルシート
+    artwork1.js
+        ・artwork1.htmlで読み込まれるJSファイル
+    header.html
+        ・すべてのページで読み込まれるヘッダー
+    artwork1.css
+        ・artwork_frame.htmlで読み込まれるスタイルシート
+

@@ -1,6 +1,6 @@
 $(function(){
     $.ajax({
-        url: '../nav.html', // includeしたいファイルのパスを指定
+        url: '../header.html', // includeしたいファイルのパスを指定
         dataType: 'html', // htmlのまま
         // 読み込み成功時の処理
         success: function (data) {
