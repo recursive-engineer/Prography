@@ -10,8 +10,139 @@
   background-color: $indigo;
 }
 
-#canvas{
-  margin:10px;
-  width:450px;
-  height:330px;
+#artwork{
+  width:500px;
+  height:500px;
 }
+#images{
+  margin:10px;
+  display:flex;
+  #old_and_matrix{
+    #old_image{
+      width:150px;
+      height:100px;
+      background-color: $white;
+    }
+    #convert{
+      #down_arrow{
+        width:150px;
+        height:20px;
+        padding-left:70px;
+        padding-right:70px;
+      }
+      #matrix_and_arrow{
+        padding-left:20px;
+        width:150px;
+        height:80px;
+        display:flex;
+        #parenth_right{
+          //height:90px;
+          transform:scale(1.5,3);
+          transform-origin: top left;
+        }
+        #matrix{
+          margin-left:5px;
+          margin-right:5px;
+          width:80px;
+          height:90px;
+        }
+        #parenth_left{
+          height:90px;
+          transform:scale(1.5,3);
+          transform-origin: top left;
+        }
+        #right_arrow{
+          margin-left:5px;
+          padding-top:30px;
+          height:90px;
+        }
+      }
+    }
+  }
+  #new_image{
+    width:300px;
+    height:200px;
+    margin-left:10px;
+    background-color: $white;
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0;
+}
+
+#inputs{
+  width:500px;
+  height:250px;
+  margin-top:20px;
+  #input1{
+    width:500px;
+    height:160px;
+    .input1_row{
+      width:500px;
+      height:30px;
+      display:flex;
+      margin-top:10px;
+      .param{
+        margin-left:5px;
+        height:30px;
+        width:165px;
+        display:flex;
+        .param_box{
+          height:30px;
+          width:65px;
+          .param_title{
+            height:15px;
+            width:65px;
+            text-align:center;
+            font-size:10px;
+            margin: 0px;
+          }
+          .param_value{
+            height:15px;
+            width:65px;
+            text-align:center;
+            font-size:10px;
+            margin: 0px;
+          }
+        }
+        .param_input{
+          height:30px;
+          width:90px;
+        }
+      }
+    }
+  }
+  #input2{
+    width:500px;
+    height:50px;
+    display:flex;
+    justify-content: flex-end;
+    #init{
+      margin-left:10px;
+      height:40px;
+      border-radius:5px;
+    }
+    #apply_div{
+      margin-left:10px;
+      margin-right:10px;
+      height:50px;
+      #apply{
+        height:40px;
+        width:60px;
+        border-color:$indigo;
+        color:$indigo;
+      }
+      .progress{
+        margin-top:5px;
+        height:5px;
+        width:60px;
+        #progress{
+          background-color:$indigo;
+        }
+      }
+    }
+  }
+}
+
