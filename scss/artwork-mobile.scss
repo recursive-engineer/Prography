@@ -1,0 +1,150 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "variable";
+
+body{
+  background-color:$gray-940;
+  #header{
+    width:100%;
+    position: fixed;
+    top:0;
+    left:0;
+  }
+  #outer_frame{
+    width:96vmin;
+    height:calc(96vmin + 30px);
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    background-color:$gray-860;
+    box-shadow: 15px 15px 10px $black;
+    border:solid 1px $gray-800;
+    #inner_frame{
+      width:calc(96vmin - 20px)px;
+      height:calc(96vmin - 20px)px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      display: flex;
+    }
+    #caption{
+      margin-left:15px;
+      margin-right:15px;
+      margin-bottom:15px;
+      height:60px;
+      background-color: $gray-860;
+      justify-content: space-between;
+      #titles{
+        margin-top:5px;
+        margin-bottom:5px;
+        margin-left:10px;
+        height:55px;
+        #title{
+          margin: 0px;
+          height:20px; 
+          font-size:20px;
+          font-weight:900;
+          color: $white;
+        }
+        #subtitle{
+          margin-top:5px;
+          margin-bottom:0;
+          height:15px;
+          font-size:15px;
+          font-weight:300;
+          color: $white;
+        }
+      }
+      #author_frame{
+        height:60px;
+        margin-right:10px;
+        #author_icon{
+          width:30px;
+          height:30px;
+          margin-bottom:10px;
+        }
+        #author_info{
+          margin-left:5px;
+          height:45px;
+          #author_name{
+            margin: 0px;
+            padding:0px;
+            height:15px;
+            color:$white;
+            font-size:15px;
+            font-weight: 500;
+          }
+          #author_profession{
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding:0px;
+            height:10px;
+            color:$white;
+            font-size:10px;
+            font-weight: 300;
+          }
+          .btn{
+            margin:0px;
+            padding:0px;
+            height:20px;
+            width:80px;
+            background-color: $indigo-300;
+            font-size:10px;
+            color:$white;
+          }
+        }
+      }
+    }
+  }
+  #viewers{
+    margin:auto;
+    width:100%;
+    height:100px;
+    position: relative;
+    #floor{
+      padding-top:50px;
+      margin-left:2%;
+      margin-right:2%;
+      z-index: 10;
+      height: 0px;
+      width: 96%;
+      border-bottom: 50px solid $gray-820;
+	    border-left: 50px solid transparent;
+	    border-right: 50px solid transparent;
+      div{
+        position: absolute;
+      }
+      div:nth-of-type(1){
+        width:calc(96% - 100px);
+        border-top: 1px solid $gray-800;
+      }
+      div:nth-of-type(2){
+        border-left: 1px solid $gray-800;
+        height:71px;
+        width:0px;
+        transform: translate(-25px, -10.5px) rotate(45deg);
+      }
+      div:nth-of-type(3){
+        border-right: 1px solid $gray-800;
+        height:71px;
+        left:calc(98% - 25px);
+        width:0px;
+        transform: translate(0px, -10.5px) rotate(315deg);
+      }
+      div:nth-of-type(4){
+        width:96%;
+        left:2%;
+        top:100px;
+        border-bottom: 1px solid $gray-800;
+      }
+    }
+    #viewer{
+      z-index: 20;
+    }
+  }
+  #reputation{
+    margin:auto;
+    width:96%;
+    height:500px;
+    background-color: $gray-860;
+  }
+}

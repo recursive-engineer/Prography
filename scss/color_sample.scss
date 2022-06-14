@@ -1,0 +1,83 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "variable";
+
+$indigo:rgb(85,90,215);
+$yellow:rgb(200,220,50);
+$purple:rgb(170,60,245);
+$green:rgb(100,220,110);
+$red:rgb(250,100,110);
+$blue:rgb(100,200,255);
+$turquoise:rgb(50,210,200);
+$dark-gray:rgb(70,70,70);
+$light-gray:rgb(180,180,180);
+
+@mixin drawBox($color){
+  width:100px;
+  height:100px;
+  margin: 20px;
+  position: relative;
+  .faceA{
+    width:50px;
+    height:50px;
+    position: absolute;
+    transform: translate(25px,0px) rotate(135deg) skew(15deg,15deg);
+    background-color:lighten($color: $color, $amount: 15%);
+  }
+  .faceB{
+    width:50px;
+    height:50px;
+    position: absolute;
+    transform: translate(3.35px,37.5px) rotate(15deg) skew(15deg,15deg);
+    background-color:$color;
+  }
+  .faceC{
+    width:50px;
+    height:50px;
+    position: absolute;
+    transform: translate(46.65px,37.5px) rotate(75deg) skew(15deg,15deg);
+    background-color:darken($color: $color, $amount: 15%);
+  }
+}
+
+body{
+  background-color:$gray-940;
+  #header{
+    position: fixed;
+    top:0;
+    left:0;
+  }
+  #frame{
+    margin-top: 50px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    #box1{
+      @include drawBox($indigo);
+    }
+    #box2{
+      @include drawBox($yellow);
+    }
+    #box3{
+      @include drawBox($purple);
+    }
+    #box4{
+      @include drawBox($green);
+    }
+    #box5{
+      @include drawBox($red);
+    }
+    #box6{
+      @include drawBox($blue);
+    }
+    #box7{
+      @include drawBox($turquoise)
+    }
+    #box8{
+      @include drawBox($dark-gray);
+    }
+    #box9{
+      @include drawBox($light-gray);
+    }
+  }
+}

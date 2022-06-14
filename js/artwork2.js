@@ -15,27 +15,36 @@ function main(){
     [matrix,matrix_val]=input_update(new_image,new_ctx,matrix,matrix_val);
 }
 
-function drawImage(canvas,ctx){
+async function drawImage(canvas,ctx){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     const img = new Image();
-    img.src="./png/ukiyoe1.jpeg";
-    img.onload=fitImage;
-    function fitImage(){
-        var v_ratio=canvas.width/this.naturalWidth;
-        var h_ratio=canvas.height/this.naturalHeight;
-        var ratio=Math.min(h_ratio,v_ratio);
-        var centerShift_x=(canvas.width-this.naturalWidth*ratio)/2;
-        var centerShift_y=(canvas.height-this.naturalHeight*ratio)/2;
-        ctx.drawImage(img,0,0,this.naturalWidth,this.naturalHeight,centerShift_x,centerShift_y,this.naturalWidth*ratio,this.naturalHeight*ratio);
-    }
+    const res = await loadImage("./png/ukiyoe1.jpeg").catch(e => {
+        console.log('onload error', e);
+    });
+    var v_ratio=canvas.width/res.naturalWidth;
+    var h_ratio=canvas.height/res.naturalHeight;
+    var ratio=Math.min(h_ratio,v_ratio);
+    var centerShift_x=(canvas.width-res.naturalWidth*ratio)/2;
+    var centerShift_y=(canvas.height-res.naturalHeight*ratio)/2;
+    ctx.drawImage(res,0,0,res.naturalWidth,res.naturalHeight,centerShift_x,centerShift_y,res.naturalWidth*ratio,res.naturalHeight*ratio);
+}
+
+function loadImage(src){
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = (e) => reject(e);
+      img.src = src;
+    });
 }
 
 function do_filter(canvas,ctx,matrix){
     const imageData=ctx.getImageData(0,0,canvas.width,canvas.height);
     let data = imageData.data;
-    //let data=[1,2,3,4];
-    //console.log(matrix);
+    //let data=[100,255,30,40];
     filter(data,matrix).then(function (data){
         //console.log(data);
+        console.log("filtered");
         ctx.putImageData(imageData,0,0);
     });
 }
@@ -98,15 +107,15 @@ function inputs(){
     var color_matrix=zeros(4,4);
     for(let i=1;i<5;i++){
         var col=document.createElement('div');
-        col.style="width:80px;height:15px;display:flex;";
+        col.style="width:120px;height:15px;display:flex;";
         matrix.appendChild(col);
         for(let j=1;j<5;j++){
             var elem=document.createElement('p');
-            elem.style="width:30px;padding:5px;font-size:12px;text-align:center;";
+            elem.style="width:30px;font-size:12px;text-align:center;";
             elem.className="elem";
             elem.setAttribute("row",i-1);
             elem.setAttribute("col",j-1);
-            if(i==j){elem.textContent=1;}else{elem.textContent=0;}
+            if(i==j){elem.textContent="1";}else{elem.textContent="0";}
             col.appendChild(elem);
         }
     }
@@ -132,23 +141,31 @@ function input_update(canvas,ctx,matrix,matrix_val){
             var parag=param[i].getElementsByClassName("param_value");
             matrix_val[i]=Number(this.value);
             parag[0].textContent=Number(this.value);
-            //console.log("before_calc");
-            console.log(matrix_val);
             matrix=calc_matrix(matrix_val);
-            //console.log("after_calc");
-            //console.log(matrix);
             var matrix_view=round1(matrix);
             for(let j=0;j<elem.length;j++){
                 var row=elem[j].getAttribute("row");
                 var col=elem[j].getAttribute("col");
                 elem[j].textContent=matrix_view[row][col];
             }
+            drawImage(canvas,ctx).then(function(){
+                console.log("do_filter");
+                do_filter(canvas,ctx,matrix);
+            });
         });
     }
     apply.addEventListener("click",function(){
-        //console.log(color_matrix);
-        drawImage(canvas,ctx);
-        do_filter(canvas,ctx,matrix);
+        var param=document.getElementsByClassName('param');
+        for(let i=0;i<param.length;i++){
+            var input=param[i].getElementsByTagName("input");
+                var parag=param[i].getElementsByClassName("param_value");
+                matrix_val[i]=Number(input[0].value);
+                matrix=calc_matrix(matrix_val);
+        }
+        drawImage(canvas,ctx).then(function(){
+            console.log("do_filter");
+            do_filter(canvas,ctx,matrix);
+        });
     });
     
     init.addEventListener("click",function(){
@@ -177,7 +194,10 @@ function input_update(canvas,ctx,matrix,matrix_val){
         }
         matrix=calc_matrix(matrix_val);
         console.log(matrix);
-        do_filter(canvas,ctx,matrix);
+        drawImage(canvas,ctx).then(function(){
+            console.log("filter");
+            do_filter(canvas,ctx,matrix);
+        });
     });
     return [matrix,matrix_val];
 }
@@ -197,12 +217,12 @@ function calc_matrix(matrix_val){
     var mirror_b=matrix_val[11];
     var scale_matrix=[[scale_r,0,0,0],[0,scale_g,0,0],[0,0,scale_b,0],[0,0,0,1]];
     var para_matrix=[[1,0,0,para_r],[0,1,0,para_g],[0,0,1,para_b],[0,0,0,1]];
-    var para_r1_matrix=[[1,0,0,0],[0,1,0,-0.5],[0,0,1,-0.5],[0,0,0,1]];
-    var para_r2_matrix=[[1,0,0,0],[0,1,0,0.5],[0,0,1,0.5],[0,0,0,1]];
-    var para_g1_matrix=[[1,0,0,-0.5],[0,1,0,0],[0,0,1,-0.5],[0,0,0,1]];
-    var para_g2_matrix=[[1,0,0,0.5],[0,1,0,0],[0,0,1,0.5],[0,0,0,1]];
-    var para_b1_matrix=[[1,0,0,-0.5],[0,1,0,-0.5],[0,0,1,0],[0,0,0,1]];
-    var para_b2_matrix=[[1,0,0,0.5],[0,1,0,0.5],[0,0,1,0],[0,0,0,1]];
+    var para_r1_matrix=[[1,0,0,0],[0,1,0,-127],[0,0,1,-127],[0,0,0,1]];
+    var para_r2_matrix=[[1,0,0,0],[0,1,0,127],[0,0,1,127],[0,0,0,1]];
+    var para_g1_matrix=[[1,0,0,-127],[0,1,0,0],[0,0,1,-127],[0,0,0,1]];
+    var para_g2_matrix=[[1,0,0,127],[0,1,0,0],[0,0,1,127],[0,0,0,1]];
+    var para_b1_matrix=[[1,0,0,-127],[0,1,0,-127],[0,0,1,0],[0,0,0,1]];
+    var para_b2_matrix=[[1,0,0,127],[0,1,0,127],[0,0,1,0],[0,0,0,1]];
     var rot_r_matrix=[[1,0,0,0],[0,Math.cos(rot_r),-Math.sin(rot_r),0],[0,Math.sin(rot_r),Math.cos(rot_r),0],[0,0,0,1]];
     var rot_g_matrix=[[Math.cos(rot_g),0,Math.sin(rot_g),0],[0,1,0,0],[-Math.sin(rot_g),0,Math.cos(rot_g),0],[0,0,0,1]];
     var rot_b_matrix=[[Math.cos(rot_b),-Math.sin(rot_b),0,0],[Math.sin(rot_b),Math.cos(rot_b),0,0],[0,0,1,0],[0,0,0,1]];

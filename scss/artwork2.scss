@@ -1,4 +1,5 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "variable";
 
 .btn-indigo{
   color: $indigo;
@@ -10,139 +11,169 @@
   background-color: $indigo;
 }
 
-#artwork{
+body{
   width:500px;
   height:500px;
-}
-#images{
-  margin:10px;
-  display:flex;
-  #old_and_matrix{
-    #old_image{
-      width:150px;
-      height:100px;
-      background-color: $white;
-    }
-    #convert{
-      #down_arrow{
-        width:150px;
-        height:20px;
-        padding-left:70px;
-        padding-right:70px;
-      }
-      #matrix_and_arrow{
-        padding-left:20px;
-        width:150px;
-        height:80px;
-        display:flex;
-        #parenth_right{
-          //height:90px;
-          transform:scale(1.5,3);
-          transform-origin: top left;
-        }
-        #matrix{
-          margin-left:5px;
-          margin-right:5px;
-          width:80px;
-          height:90px;
-        }
-        #parenth_left{
-          height:90px;
-          transform:scale(1.5,3);
-          transform-origin: top left;
-        }
-        #right_arrow{
-          margin-left:5px;
-          padding-top:30px;
-          height:90px;
-        }
-      }
-    }
-  }
-  #new_image{
-    width:300px;
-    height:200px;
-    margin-left:10px;
-    background-color: $white;
-  }
-}
-
-input[type="number"]::-webkit-inner-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0;
-}
-
-#inputs{
-  width:500px;
-  height:250px;
-  margin-top:20px;
-  #input1{
+  #artwork{
     width:500px;
-    height:160px;
-    .input1_row{
-      width:500px;
-      height:30px;
+    height:500px;
+    #line1{
+      margin:10px;
       display:flex;
-      margin-top:10px;
-      .param{
-        margin-left:5px;
-        height:30px;
-        width:165px;
-        display:flex;
-        .param_box{
-          height:30px;
-          width:65px;
-          .param_title{
-            height:15px;
-            width:65px;
-            text-align:center;
-            font-size:10px;
-            margin: 0px;
+      #old_and_matrix{
+        #old_image{
+          width:150px;
+          height:100px;
+          background-color: $white;
+        }
+        #convert{
+          width:150px;
+          #down_arrow{
+            width:150px;
+            height:20px;
+            padding-left:70px;
+            padding-right:70px;
           }
-          .param_value{
-            height:15px;
-            width:65px;
-            text-align:center;
-            font-size:10px;
-            margin: 0px;
+          #matrix_and_arrow{
+            width:150px;
+            height:80px;
+            display:flex;
+            #parenth_right{
+              width:10px;
+              height:90px;
+              transform:scale(1.5,3);
+              transform-origin: top left;
+            }
+            #matrix{
+              padding-top:10px;
+              margin-left:5px;
+              margin-right:5px;
+              width:120px;
+              height:90px;
+            }
+            #parenth_left{
+              width:10px;
+              height:90px;
+              transform:scale(1.5,3);
+              transform-origin: top left;
+            }
+            #right_arrow{
+              margin-left:5px;
+              width:10px;
+              padding-top:30px;
+              height:90px;
+            }
           }
         }
-        .param_input{
+      }
+      #new_image{
+        width:300px;
+        height:200px;
+        margin-left:10px;
+        background-color: $white;
+      }
+    }
+    
+    input[type="number"]::-webkit-inner-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0;
+    }
+    
+    #line2{
+      width:500px;
+      height:200px;
+      margin-top:20px;
+      #input1{
+        width:500px;
+        height:160px;
+        .input1_row{
+          width:500px;
           height:30px;
-          width:90px;
+          display:flex;
+          margin-top:10px;
+          .param{
+            margin-left:5px;
+            height:30px;
+            width:165px;
+            display:flex;
+            .param_box{
+              height:30px;
+              width:65px;
+              .param_title{
+                height:15px;
+                width:65px;
+                text-align:center;
+                font-size:10px;
+                margin: 0px;
+              }
+              .param_value{
+                height:15px;
+                width:65px;
+                text-align:center;
+                font-size:10px;
+                margin: 0px;
+              }
+            }
+            .param_input{
+              height:30px;
+              width:90px;
+            }
+          }
         }
       }
     }
-  }
-  #input2{
-    width:500px;
-    height:50px;
-    display:flex;
-    justify-content: flex-end;
-    #init{
-      margin-left:10px;
-      height:40px;
-      border-radius:5px;
-    }
-    #apply_div{
-      margin-left:10px;
-      margin-right:10px;
+    #line3{
+      width:500px;
+      display:flex;
       height:50px;
-      #apply{
-        height:40px;
-        width:60px;
-        border-color:$indigo;
-        color:$indigo;
+      padding-left:10px;
+      padding-right:10px;
+      #color_map{
+        width:180px;
+        height:50px;
       }
-      .progress{
-        margin-top:5px;
-        height:5px;
-        width:60px;
-        #progress{
-          background-color:$indigo;
+      #inputs{
+        margin-left:10px;
+        margin-top:10px;
+        height:50px;
+        width:290px;
+        #buttons{
+          display:flex;
+          #init{
+            height:40px;
+            width:90px;
+            border-radius:5px;
+          }
+          #load{
+            margin-left:10px;
+            height:40px;
+            width:90px;
+            border-color:$red;
+            color:$red;
+          }
+          #save{
+            margin-left:10px;
+            height:40px;
+            width:90px;
+            border-color:$indigo;
+            color:$indigo;
+          }
+        }
+        .progress{
+          margin-top:5px;
+          height:5px;
+          width:290px;
+          #progress{
+            background-color:$indigo;
+          }
         }
       }
     }
   }
 }
 
+.form-range {
+  &::-webkit-slider-thumb {
+    @include gradient-bg($indigo);
+  }
+}

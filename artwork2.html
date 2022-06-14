@@ -11,7 +11,7 @@
     </head>
     <body onLoad="main()">
         <div id="artwork">
-            <div id="images">
+            <div id="line1">
                 <div id="old_and_matrix">
                     <canvas id="old_image" width="150px" height="100px" class="mx-auto d-flex lign-items-center"></canvas>
                     <div id="convert">
@@ -26,7 +26,7 @@
                 </div>
                 <canvas id="new_image" width="300px" height="200px" class="mx-auto d-flex lign-items-center"></canvas>
             </div>
-            <div id="inputs">
+            <div id="line2">
                 <div id="input1">
                     <div class="input1_row">
                         <div class="param" id="r_scale">
@@ -34,21 +34,21 @@
                                 <p class="param_title">r軸拡大縮小</p>
                                 <p class="param_value">1</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="0" max="2" step="0.1" value="1">
+                            <input class="param_input form-range" type="range" min="-2" max="2" step="0.5" value="1">
                         </div>
                         <div class="param" id="g_scale">
                             <div class="param_box">
                                 <p class="param_title">g軸拡大縮小</p>
                                 <p class="param_value">1</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="0" max="2" step="0.1" value="1">
+                            <input class="param_input form-range" type="range" min="-2" max="2" step="0.5" value="1">
                         </div>
                         <div class="param" id="b_scale">
                             <div class="param_box">
                                 <p class="param_title">b軸拡大縮小</p>
                                 <p class="param_value">1</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="0" max="2" step="0.1" value="1">
+                            <input class="param_input form-range" type="range" min="-2" max="2" step="0.5" value="1">
                         </div>
                     </div>
                     <div class="input1_row">
@@ -57,21 +57,21 @@
                                 <p class="param_title">r軸平行移動</p>
                                 <p class="param_value">0</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-1" max="1" step="0.1" value="0">
+                            <input class="param_input form-range" type="range" min="-256" max="256" step="64" value="0">
                         </div>
                         <div class="param" id="g_para">
                             <div class="param_box">
                                 <p class="param_title">g軸平行移動</p>
                                 <p class="param_value">0</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-1" max="1" step="0.1" value="0">
+                            <input class="param_input form-range" type="range" min="-256" max="256" step="64" value="0">
                         </div>
                         <div class="param" id="b_para">
                             <div class="param_box">
                                 <p class="param_title">b軸平行移動</p>
                                 <p class="param_value">0</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-1" max="1" step="0.1" value="0">
+                            <input class="param_input form-range" type="range" min="-256" max="256" step="64" value="0">
                         </div>
                     </div>
                     <div class="input1_row">
@@ -80,54 +80,82 @@
                                 <p class="param_title">r軸回転</p>
                                 <p class="param_value">0</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-180" max="180" step="10" value="0">
+                            <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
                         </div>
                         <div class="param" id="g_rot">
                             <div class="param_box">
                                 <p class="param_title">g軸回転</p>
                                 <p class="param_value">0</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-180" max="180" step="10" value="0">
+                            <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
                         </div>
                         <div class="param" id="b_rot">
                             <div class="param_box">
                                 <p class="param_title">b軸回転</p>
                                 <p class="param_value">0</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-180" max="180" step="10" value="0">
+                            <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
                         </div>
                     </div>
                     <div class="input1_row">
                         <div class="param" id="rg_mirror">
                             <div class="param_box">
-                                <p class="param_title">rg平面鏡映</p>
-                                <p class="param_value">1</p>
+                                <p class="param_title">r軸剪断</p>
+                                <p class="param_value">0</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-1" max="1" step="2" value="1">
+                            <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
                         </div>
                         <div class="param" id="gb_mirror">
                             <div class="param_box">
-                                <p class="param_title">gb平面鏡映</p>
-                                <p class="param_value">1</p>
+                                <p class="param_title">g軸剪断</p>
+                                <p class="param_value">0</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-1" max="1" step="2" value="1">
+                            <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
                         </div>
                         <div class="param" id="br_mirror">
                             <div class="param_box">
-                                <p class="param_title">br平面鏡映</p>
+                                <p class="param_title">b軸剪断</p>
+                                <p class="param_value">0</p>
+                            </div>
+                            <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
+                        </div>
+                    </div>
+                    <div class="input1_row">
+                        <div class="param" id="rg_mirror">
+                            <div class="param_box">
+                                <p class="param_title">明度</p>
                                 <p class="param_value">1</p>
                             </div>
-                            <input class="param_input form-range" type="range" min="-1" max="1" step="2" value="1">
+                            <input class="param_input form-range" type="range" min="-2" max="2" step="0.5" value="1">
+                        </div>
+                        <div class="param" id="gb_mirror">
+                            <div class="param_box">
+                                <p class="param_title">彩度</p>
+                                <p class="param_value">1</p>
+                            </div>
+                            <input class="param_input form-range" type="range" min="-2" max="2" step="0.5" value="1">
+                        </div>
+                        <div class="param" id="br_mirror">
+                            <div class="param_box">
+                                <p class="param_title">色相</p>
+                                <p class="param_value">0</p>
+                            </div>
+                            <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
                         </div>
                     </div>
                 </div>
-                <div id="input2">
-                    <button id="init" type="button" class="btn btn-secondary">初期化</button>
-                    <div id="apply_div">
-                        <button type="button" class="btn" id="apply">適用</button>
-                        <div class="progress">
-                            <div id="progress" value=0 role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-striped progress-bar-animated"></div>
-                        </div>
+            </div>
+            <div id="line3">
+                <div id="color_map">
+                </div>
+                <div id="inputs">
+                    <div id="buttons">
+                        <button id="init" type="button" class="btn btn-secondary">初期化</button>
+                        <button id="load" type="button" class="btn">読み込み</button>
+                        <button id="save" type="button" class="btn">保存</button>
+                    </div>
+                    <div class="progress">
+                        <div id="progress" value=0 role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-striped progress-bar-animated"></div>
                     </div>
                 </div>
             </div>
