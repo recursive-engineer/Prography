@@ -203,3 +203,214 @@
     }
   }
 }
+
+@mixin drawIfBlock($bg,$color){
+  width:220px;
+  height:76px;
+  margin:10px;
+  //background-color: $white-50;
+  position: relative;
+  @if $bg=="dark"{
+    //前面
+    .front1{
+      width:10px;
+      height:60px;
+      position:absolute;
+      transform:translate(0px,6px);
+      background-color:$color;
+    }
+    .front2{
+      height:20px;
+      border-left:10px solid $color;
+      border-top:10px solid transparent;
+      position: absolute;
+      transform: translate(10px,6px);
+    }
+    .front3{
+      height:30px;
+      border-right:10px solid $color;
+      border-top:10px solid transparent;
+      border-bottom:10px solid transparent;
+      position: absolute;
+      transform: translate(20px,6px);
+    }
+    .front4{
+      height:30px;
+      border-left:10px solid $color;
+      border-bottom:10px solid transparent;
+      position: absolute;
+      transform: translate(30px,6px);
+    }
+    .front5{
+      width:170px;
+      height:20px;
+      position: absolute;
+      transform: translate(40px,6px);
+      background-color:$color;
+    }
+    .front6{
+      height:30px;
+      border-right:10px solid $color;
+      border-bottom:10px solid transparent;
+      position: absolute;
+      transform: translate(10px,46px);
+    }
+    .front7{
+      height:30px;
+      border-left:10px solid $color;
+      border-top:10px solid transparent;
+      border-bottom:10px solid transparent;
+      position: absolute;
+      transform: translate(20px,46px);
+    }
+    .front8{
+      height:20px;
+      border-right:10px solid $color;
+      border-top:10px solid transparent;
+      position: absolute;
+      transform: translate(30px,46px);
+    }
+    .front9{
+      width:170px;
+      height:20px;
+      position: absolute;
+      transform: translate(40px,46px);
+      background-color:$color;
+    }
+    //側面
+    .side1{
+      width:6px;
+      height:20px;
+      position: absolute;
+      transform: translate(210px,3px) skew(0deg,-45deg);
+      background-color:darken($color: $color, $amount: 15%);
+    }
+    .side2{
+      width:6px;
+      height:20px;
+      position: absolute;
+      transform: translate(210px,43px) skew(0deg,-45deg);
+      background-color:darken($color: $color, $amount: 15%);
+    }
+    .side3{
+      height:20px;
+      border-left:6px solid darken($color: $color, $amount: 15%);
+      border-bottom:6px solid transparent;
+      position: absolute;
+      transform: translate(10px,26px);
+    }
+    //上面
+    .top1{
+      width:10px;
+      height:6px;
+      position: absolute;
+      transform: translate(3px,0px) skew(-45deg,0deg);
+      background-color:lighten($color: $color, $amount: 15%);
+    }
+    .top2{
+      width:180px;
+      height:6px;
+      position: absolute;
+      transform: translate(33px,0px) skew(-45deg,0deg);
+      background-color:lighten($color: $color, $amount: 15%);
+    }
+    .top3{
+      width:10px;
+      height:6px;
+      position: absolute;
+      transform: translate(13px,40px) skew(-45deg,0deg);
+      background-color:lighten($color: $color, $amount: 15%);
+    }
+    .top4{
+      width:170px;
+      height:6px;
+      position: absolute;
+      transform: translate(43px,40px) skew(-45deg,0deg);
+      background-color:lighten($color: $color, $amount: 15%);
+    }
+    //斜面
+    .slope1{
+      width:14.14px;
+      height:8.48px;
+      position: absolute;
+      transform: translate(11.12px,3.96px) rotate(45deg);
+      background-color:darken($color: $color, $amount: 10%);
+    }
+    .slope2{
+      width:14.14px;
+      height:8.48px;
+      position: absolute;
+      transform: translate(21.12px,43.96px) rotate(45deg);
+      background-color:darken($color: $color, $amount: 10%);
+    }
+
+    //変数
+    .var1{
+      width:48px;
+      border-left:4px solid transparent;
+      border-right:4px solid transparent;
+      border-bottom:4px solid lighten($color: $color, $amount: 10%);
+      position: absolute;
+      transform: translate(60px,20px);
+    }
+    .var2{
+      width:40px;
+      border-left:4px solid transparent;
+      border-right:4px solid transparent;
+      border-bottom:4px solid darken($color: $color, $amount: 5%);
+      position: absolute;
+      transform: translate(64px,16px);
+    }
+    .var3{
+      width:8px;
+      height:4px;
+      position: absolute;
+      transform: translate(62px,8px) skew(45deg,0deg);
+      background-color:darken($color: $color, $amount: 15%);
+    }
+    .var4{
+      width:8px;
+      border-right:4px solid transparent;
+      border-left:4px solid transparent;
+      border-top:4px solid darken($color: $color, $amount: 15%);
+      position: absolute;
+      transform: translate(64px,12px);
+    }
+    .var5{
+      width:32px;
+      height:4px;
+      position: absolute;
+      transform: translate(70px,12px) skew(-45deg,0deg);
+      background-color:darken($color: $color, $amount: 5%);
+    }
+    .var6{
+      width:40px;
+      border-right:4px solid transparent;
+      border-left:4px solid transparent;
+      border-top:4px solid darken($color: $color, $amount: 5%);
+      position: absolute;
+      transform: translate(68px,8px);
+    }
+
+    //文字
+    .text1{
+      text-align: center;
+      width:20px;
+      height:16px;
+      position: absolute;
+      transform: translate(35px,8px);
+      color:$black-50;
+      font-size:10px;
+    }
+    .text2{
+      text-align: center;
+      width:30px;
+      height:16px;
+      position: absolute;
+      transform: translate(115px,8px);
+      color:$black-50;
+      font-size:10px;
+    }
+    
+  }
+}
