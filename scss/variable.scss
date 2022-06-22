@@ -12,26 +12,26 @@ $light-gray:rgb(180,180,180);
 
 $indigo-00: #4400ff;
 
-$white-90:rgb(165,165,255);
-$white-80:rgb(175,175,255);
-$white-70:rgb(185,185,255);
-$white-60:rgb(195,195,255);
-$white-50:rgb(205,205,255);
-$white-40:rgb(215,215,255);
-$white-30:rgb(225,225,225);
-$white-20:rgb(235,235,255);
-$white-10:rgb(245,245,255);
+$white-90:rgb(210,210,255);
+$white-80:rgb(215,215,255);
+$white-70:rgb(220,220,255);
+$white-60:rgb(225,225,255);
+$white-50:rgb(230,230,255);
+$white-40:rgb(235,235,255);
+$white-30:rgb(240,240,225);
+$white-20:rgb(245,245,255);
+$white-10:rgb(250,250,255);
 $white-00:rgb(255,255,255);
 
-$black-90:rgb(90,90,180);
-$black-80:rgb(80,80,160);
-$black-70:rgb(70,70,140);
-$black-60:rgb(60,60,120);
-$black-50:rgb(50,50,100);
-$black-40:rgb(40,40,80);
-$black-30:rgb(30,30,60);
-$black-20:rgb(20,20,40);
-$black-10:rgb(5,5,30);
+$black-90:rgb(45,45,90);
+$black-80:rgb(40,40,80);
+$black-70:rgb(35,35,70);
+$black-60:rgb(30,30,60);
+$black-50:rgb(25,25,50);
+$black-40:rgb(20,20,40);
+$black-30:rgb(15,15,30);
+$black-20:rgb(10,10,20);
+$black-10:rgb(5,5,10);
 $black-00:rgb(00,00,00);
 
 $indigo-90:lighten($color: $indigo, $amount: 30%);
@@ -53,16 +53,6 @@ $yellow-40:darken($color: $yellow, $amount: 10%);
 $yellow-30:darken($color: $yellow, $amount: 15%);
 $yellow-20:darken($color: $yellow, $amount: 20%);
 $yellow-10:darken($color: $yellow, $amount: 30%);
-
-$purple-90:lighten($color: $purple, $amount: 30%);
-$purple-80:lighten($color: $purple, $amount: 20%);
-$purple-70:lighten($color: $purple, $amount: 15%);
-$purple-60:lighten($color: $purple, $amount: 10%);
-$purple-50:$purple;
-$purple-40:darken($color: $purple, $amount: 10%);
-$purple-30:darken($color: $purple, $amount: 15%);
-$purple-20:darken($color: $purple, $amount: 20%);
-$purple-10:darken($color: $purple, $amount: 30%);
 
 $green-90:lighten($color: $green, $amount: 30%);
 $green-80:lighten($color: $green, $amount: 20%);

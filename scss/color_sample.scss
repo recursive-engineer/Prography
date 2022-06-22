@@ -11,7 +11,7 @@ body{
   }
   #frame3{
     background-color:$black-10;
-    margin-top: 45px;
+    margin-top: 50px;
     z-index: 0;
     padding: 10px;
     display: flex;
@@ -39,24 +39,21 @@ body{
       @include drawBox("dark",$yellow);
     }
     #box3{
-      @include drawBox("dark",$purple);
-    }
-    #box4{
       @include drawBox("dark",$green);
     }
-    #box5{
+    #box4{
       @include drawBox("dark",$red);
     }
-    #box6{
+    #box5{
       @include drawBox("dark",$blue);
     }
-    #box7{
+    #box6{
       @include drawBox("dark",$turquoise)
     }
-    #box8{
+    #box7{
       @include drawBox("dark",$dark-gray);
     }
-    #box9{
+    #box8{
       @include drawBox("dark",$light-gray);
     }
   }
@@ -74,24 +71,21 @@ body{
       @include drawBox("light",$yellow);
     }
     #box3{
-      @include drawBox("light",$purple);
-    }
-    #box4{
       @include drawBox("light",$green);
     }
-    #box5{
+    #box4{
       @include drawBox("light",$red);
     }
-    #box6{
+    #box5{
       @include drawBox("light",$blue);
     }
-    #box7{
+    #box6{
       @include drawBox("light",$turquoise)
     }
-    #box8{
+    #box7{
       @include drawBox("light",$dark-gray);
     }
-    #box9{
+    #box8{
       @include drawBox("light",$light-gray);
     }
   }

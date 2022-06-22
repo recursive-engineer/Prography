@@ -1,17 +1,16 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "variable";
 
-
 body{
   padding: 0px;
   margin: 0px;
-  height: 45px;
+  height: 50px;
   .navbar{
     padding: 0px 10px;
     margin: 0px;
-    height: 45px;
-    background-color:$black-20;
-    border-bottom:solid 1px $black-40;
+    height: 50px;
+    background-color:$black-40;
+    border-bottom:solid 1px $black-60;
     #site_name{
       padding:0px;
       margin:5px;
@@ -21,6 +20,7 @@ body{
         margin-right: 10px;
       }
       .title{
+        margin-top: 5px;
         vertical-align: middle;
         font-size: 20px;
         color: $white-10;
@@ -32,34 +32,21 @@ body{
         font-weight: 200;
       }
     }
-    .btn-indigo{
-      color: $indigo-50;
-      border-color: $indigo-50;
-    }
-    
-    .btn-indigo:hover{
-      color: $white;
-      border-color: $indigo-60;
-      background-color: $indigo-60;
-    }
     #form{
-      height:25px;
+      height:30px;
       padding:0px;
-      margin:0px;
+      margin:0 auto;
       #search{
         #search_input{
-          height:25px;
+          height:30px;
           padding: 0px 8px;
           font-size: 15px;
-        }
-        #search_button{
-          height:25px;
-          width:80px;
-          padding: 0px 8px;
-          font-size: 15px;
+          color:$black-90;
+          background-color: $black-10;
+          border-color: $black-40;
         }
         .search-indigo:focus{
-          border-color: $indigo-60;
+          border-color: $black-60;
         }
       }
     }

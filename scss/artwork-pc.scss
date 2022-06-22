@@ -1,8 +1,9 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "variable";
 
+
 body{
-  background-color:$gray-940;
+  background-color:$black-10;
   #header{
     position: fixed;
     top:0;
@@ -14,9 +15,9 @@ body{
     margin-top: 60px;
     margin-left: auto;
     margin-right: auto;
-    background-color:$gray-860;
+    background-color:$black-30;
     box-shadow: 15px 15px 10px $black;
-    border:solid 1px $gray-800;
+    border:solid 1px $black-50;
     #inner_frame{
       width:500px;
       height:500px;
@@ -32,7 +33,6 @@ body{
       margin-right:15px;
       margin-bottom:15px;
       height:60px;
-      background-color: $gray-860;
       justify-content: space-between;
       #titles{
         margin-top:5px;
@@ -44,7 +44,7 @@ body{
           height:20px; 
           font-size:20px;
           font-weight:900;
-          color: $white;
+          color: $white-10;
         }
         #subtitle{
           margin-top:5px;
@@ -52,7 +52,7 @@ body{
           height:15px;
           font-size:15px;
           font-weight:300;
-          color: $white;
+          color: $white-10;
         }
       }
       #author_frame{
@@ -88,7 +88,7 @@ body{
             padding:0px;
             height:20px;
             width:80px;
-            background-color: $indigo-300;
+            background-color: $indigo-50;
             font-size:10px;
             color:$white;
           }
@@ -108,7 +108,7 @@ body{
       z-index: 10;
       height: 0px;
       width: 96%;
-      border-bottom: 50px solid $gray-820;
+      border-bottom: 50px solid $black-40;
 	    border-left: 50px solid transparent;
 	    border-right: 50px solid transparent;
       div{
@@ -116,16 +116,16 @@ body{
       }
       div:nth-of-type(1){
         width:calc(96% - 100px);
-        border-top: 1px solid $gray-800;
+        border-top: 1px solid $black-60;
       }
       div:nth-of-type(2){
-        border-left: 1px solid $gray-800;
+        border-left: 1px solid $black-60;
         height:71px;
         width:0px;
         transform: translate(-25px, -10.5px) rotate(45deg);
       }
       div:nth-of-type(3){
-        border-right: 1px solid $gray-800;
+        border-right: 1px solid $black-60;
         height:71px;
         left:calc(98% - 25px);
         width:0px;
@@ -135,7 +135,7 @@ body{
         width:96%;
         left:2%;
         top:100px;
-        border-bottom: 1px solid $gray-800;
+        border-bottom: 1px solid $black-60;
       }
     }
     #viewer{
@@ -146,6 +146,6 @@ body{
     margin:auto;
     width:96%;
     height:500px;
-    background-color: $gray-860;
+    background-color: $black-30;
   }
 }
