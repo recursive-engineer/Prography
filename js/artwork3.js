@@ -13,16 +13,15 @@ function init(){
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(width, height);
-
+    renderer.shadowMap.enabled = true;
     // シーンを作成
     const scene = new THREE.Scene();
 
     // カメラを作成
     const camera = new THREE.PerspectiveCamera(45, width / height, 1, 100);
     camera.position.set(0, 0, +10);
-
+    
     // 箱を作成
-
     function fractal_box(n,size){
         var box = new THREE.Group();
         if(n==0){
@@ -30,6 +29,8 @@ function init(){
             const material7 = new THREE.MeshStandardMaterial({color: 0xffffff});
             const box7 = new THREE.Mesh(geometry, material7);
             box7.position.set(-size*2**n/2, -size*2**n/2, -size*2**n/2);
+            box7.receiveShadow = true;
+            box7.castShadow = true;
             box.add(box7);
         }else{
             const box1=fractal_box(n-1,size);
@@ -48,6 +49,8 @@ function init(){
             const material7 = new THREE.MeshStandardMaterial({color: 0xffffff});
             const box7=new THREE.Mesh(geometry, material7);
             box7.position.set(-size*2**n/2,-size*2**n/2,-size*2**n/2);
+            box7.receiveShadow = true;
+            box7.castShadow = true;
             box.add(box1);
             box.add(box2);
             box.add(box3);
@@ -59,23 +62,29 @@ function init(){
         return box;
     }
     
-    const n=2;
+    const n=4;
     const size=1;
     const center=10-size*4*2**n;
     const box=fractal_box(n,size);
     box.position.set(0, 0, center);
+    //box.receiveShadow = true;
+    //box.castShadow = true;
     scene.add(box);
+    
 
-    scene.fog = new THREE.Fog(0x000000, size*4*2**n-60*2**n, size*4*2**n+60*2**n);
-    const light1 = new THREE.DirectionalLight(0xFF0000,1);
+    //scene.fog = new THREE.Fog(0x000000, size*4*2**n-60*2**n, size*4*2**n+60*2**n);
+    const light1 = new THREE.SpotLight(0xFFFFFF,1,500,Math.PI,50,1);
     light1.position.set(1,1,1);
+    light1.castShadow = true;
     scene.add(light1);
-    const light2 = new THREE.DirectionalLight(0x00FF00,1);
+    const light2 = new THREE.SpotLight(0x00FF00,2,500,Math.PI,10,1);
     light2.position.set(-1,1,1);
-    scene.add(light2);
-    const light3 = new THREE.DirectionalLight(0x0000FF,1);
+    light2.castShadow = true;
+    //scene.add(light2);
+    const light3 = new THREE.SpotLight(0x0000FF,2,500,Math.PI/4,10,0.5);
     light3.position.set(0,-1,1);
-    scene.add(light3);
+    light3.castShadow = true;
+    //scene.add(light3);
     const light4 = new THREE.AmbientLight(0xFFFFFF,0.5);
     scene.add(light4);
 

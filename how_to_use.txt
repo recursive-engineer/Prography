@@ -39,3 +39,8 @@ Github関連
         を実行してからもう一度実行    
     sshが通っているか確認
         ・ssh -T git@github.com
+
+//////
+Ori'sTest
+//////
+ ako test

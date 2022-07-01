@@ -6,10 +6,12 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="scss/artwork2.css">
+        <script type="module" src="js/artwork2.js"></script>
+        <script src="https://unpkg.com/three@0.140.2/build/three.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <title>Prography</title>
     </head>
-    <body onLoad="main()">
+    <body>
         <div id="artwork">
             <div id="line1">
                 <div id="old_and_matrix">
@@ -98,21 +100,21 @@
                         </div>
                     </div>
                     <div class="input1_row">
-                        <div class="param" id="rg_mirror">
+                        <div class="param" id="rg_shear">
                             <div class="param_box">
                                 <p class="param_title">r軸剪断</p>
                                 <p class="param_value">0</p>
                             </div>
                             <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
                         </div>
-                        <div class="param" id="gb_mirror">
+                        <div class="param" id="gb_shear">
                             <div class="param_box">
                                 <p class="param_title">g軸剪断</p>
                                 <p class="param_value">0</p>
                             </div>
                             <input class="param_input form-range" type="range" min="-180" max="180" step="30" value="0">
                         </div>
-                        <div class="param" id="br_mirror">
+                        <div class="param" id="br_shear">
                             <div class="param_box">
                                 <p class="param_title">b軸剪断</p>
                                 <p class="param_value">0</p>
@@ -121,21 +123,21 @@
                         </div>
                     </div>
                     <div class="input1_row">
-                        <div class="param" id="rg_mirror">
+                        <div class="param" id="rg_bright">
                             <div class="param_box">
                                 <p class="param_title">明度</p>
                                 <p class="param_value">1</p>
                             </div>
                             <input class="param_input form-range" type="range" min="-2" max="2" step="0.5" value="1">
                         </div>
-                        <div class="param" id="gb_mirror">
+                        <div class="param" id="gb_chroma">
                             <div class="param_box">
                                 <p class="param_title">彩度</p>
                                 <p class="param_value">1</p>
                             </div>
                             <input class="param_input form-range" type="range" min="-2" max="2" step="0.5" value="1">
                         </div>
-                        <div class="param" id="br_mirror">
+                        <div class="param" id="br_hue">
                             <div class="param_box">
                                 <p class="param_title">色相</p>
                                 <p class="param_value">0</p>
@@ -162,5 +164,4 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
-    <script src="js/artwork2.js"></script>
 </html>

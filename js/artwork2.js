@@ -1,9 +1,12 @@
+window.addEventListener('DOMContentLoaded',  main);
+
 function main(){
     var old_image=document.getElementById('old_image');
     var new_image=document.getElementById('new_image');
     if(old_image.getContext){
         var old_ctx=old_image.getContext('2d');
         drawImage(old_image,old_ctx);
+        drawCube(old_image,old_ctx);
     }
     if(new_image.getContext){
         var new_ctx=new_image.getContext('2d');
@@ -28,6 +31,33 @@ async function drawImage(canvas,ctx){
     var centerShift_y=(canvas.height-res.naturalHeight*ratio)/2;
     ctx.drawImage(res,0,0,res.naturalWidth,res.naturalHeight,centerShift_x,centerShift_y,res.naturalWidth*ratio,res.naturalHeight*ratio);
 }
+
+function drawCube(canvas,ctx){
+    // レンダラーを作成
+    const renderer = new THREE.WebGLRenderer({
+        canvas: document.querySelector('#old_image')
+    });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(canvas.width,canvas.height);
+    // シーンを作成
+    const scene = new THREE.Scene();
+    // カメラを作成
+    const camera = new THREE.PerspectiveCamera(45,canvas.width/canvas.height,1,100);
+    camera.position.set(0, 0, +10);
+    // 箱を作成
+    const size=20
+    const geometry = new THREE.BoxGeometry(size,size,size);
+    const material = new THREE.MeshStandardMaterial({color: 0x000000});
+    const box = new THREE.Mesh(geometry, material);
+    box.position.set(0,0,0);
+    scene.add(box);
+
+    const light = new THREE.AmbientLight(0xFFFFFF,0.5);
+    scene.add(light);
+
+    renderer.render(scene, camera);
+}
+
 
 function loadImage(src){
     return new Promise((resolve, reject) => {
@@ -119,12 +149,12 @@ function inputs(){
             col.appendChild(elem);
         }
     }
-    var apply=document.getElementById('apply');
-    apply.addEventListener("mouseover",function(){
-        apply.style="background-color: #6610f2;color:white;";
+    var save=document.getElementById('save');
+    save.addEventListener("mouseover",function(){
+        save.style="background-color: #6610f2;color:white;";
     });
-    apply.addEventListener("mouseleave",function(){
-        apply.style="background-color: white;border-color: #6610f2;color:#6610f2;";
+    save.addEventListener("mouseleave",function(){
+        save.style="background-color: white;border-color: #6610f2;color:#6610f2;";
     });
     return color_matrix;
 }
@@ -133,7 +163,7 @@ function input_update(canvas,ctx,matrix,matrix_val){
     var elem=document.getElementsByClassName('elem');
     var param=document.getElementsByClassName('param');
     var init=document.getElementById('init');
-    var apply=document.getElementById('apply');
+    var load=document.getElementById('load');
     var progress=document.getElementById('progress');
     for(let i=0;i<param.length;i++){
         var input=param[i].getElementsByTagName("input");
@@ -154,7 +184,7 @@ function input_update(canvas,ctx,matrix,matrix_val){
             });
         });
     }
-    apply.addEventListener("click",function(){
+    load.addEventListener("click",function(){
         var param=document.getElementsByClassName('param');
         for(let i=0;i<param.length;i++){
             var input=param[i].getElementsByTagName("input");

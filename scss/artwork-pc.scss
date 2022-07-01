@@ -9,8 +9,8 @@ body{
     top:0;
     left:0;
   }
-  #outer_frame{
-    width:530px;
+  .outer_frame{
+    width:1030px;
     height: 600px;
     margin-top: 60px;
     margin-left: auto;
@@ -18,15 +18,27 @@ body{
     background-color:$black-30;
     box-shadow: 15px 15px 10px $black;
     border:solid 1px $black-50;
-    #inner_frame{
-      width:500px;
+    .inner_frame{
+      display: flex;
+      width:1000px;
       height:500px;
       margin-top:15px;
       margin-left:15px;
       margin-right:15px;
       margin-bottom: 10px;
-      display: flex;
-      overflow: hidden;
+      #artwork{
+        width:500px;
+        height:500px;
+        display: flex;
+        overflow: hidden;
+      }
+      #code{
+        width:500px;
+        height:500px;
+        padding: 10px;
+        background-color: $black-50;
+        color: $white-10;
+      }
     }
     #caption{
       margin-left:15px;
