@@ -1,3 +1,5 @@
+window.addEventListener('DOMContentLoaded',  main);
+
 function main(){
     const width=450;
     var canvas=document.createElement('canvas');
@@ -5,7 +7,7 @@ function main(){
     canvas.width=width;
     canvas.height=width-120;
     canvas.className="mx-auto d-flex lign-items-center";
-    var artwork=document.getElementById('artwork');
+    var artwork=document.getElementById('art');
     artwork.appendChild(canvas);
     var inputs_val=[5,"#ffffff","#000000",0,0]
     if(canvas.getContext){

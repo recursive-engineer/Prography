@@ -31,13 +31,41 @@ body{
         height:500px;
         display: flex;
         overflow: hidden;
+        background-color: $white-10;
       }
-      #code{
+      #code-area{
         width:500px;
         height:500px;
-        padding: 10px;
-        background-color: $black-50;
-        color: $white-10;
+        #buttons{
+          margin: 0px 10px;
+          width:490px;
+          height:30px;
+          font-size: 15px;
+          display: flex;
+          #file-menu{
+            width:400px;
+            height:30px;
+            padding: 0px;
+          }
+          #submit{
+            margin-left: 10px;
+            width:80px;
+            height:30px;
+            padding: 0px;
+          }
+        }
+        #code{
+          margin-left:10px;
+          margin-top: 10px;
+          width:490px;
+          height:460px;
+          padding: 10px;
+          background-color: $black-50;
+          color: $white-10;
+          code{
+            text-align: left;
+          }
+        }
       }
     }
     #caption{

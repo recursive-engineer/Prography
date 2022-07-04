@@ -23,7 +23,7 @@ Github関連
         ・git add .
         ・git commit -m "何を変更したか短く記述"
         ・git branch -M main（初回のみ、場合によってブランチ名は変える）
-        ・git remote add origin git@github.com:recursive-engineer/practice-git.git（初回のみ）
+        ・git remote add origin git@github.com:recursive-engineer/Prography（初回のみ）
         ・git push -u origin main（場合によってブランチ名は変える）
     pull（ローカルへの反映）
         ・git fetch —prune（リモートにないファイルをローカルから削除）
