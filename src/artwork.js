@@ -19,12 +19,23 @@ getArt = async function (art_id) {
 
 updateArt = async function (art_id, body) {
   console.log("artwork.js,updateArt");
-  console.log(body.html);
+  console.log(body.file);
+  console.log(body.file_name);
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
-    const sql = "UPDATE artwork SET html=? WHERE id=?;";
-    let param = [body.html, art_id];
+    switch (body.file_name) {
+      case "HTML":
+        var sql = "UPDATE artwork SET html=? WHERE id=?;";
+        break;
+      case "JavaScript":
+        var sql = "UPDATE artwork SET js=? WHERE id=?;";
+        break;
+      case "CSS":
+        var sql = "UPDATE artwork SET css=? WHERE id=?;";
+        break;
+    }
+    let param = [body.file, art_id];
     const [rows, fields] = await connection.query(sql, param);
     return rows;
   } catch (err) {

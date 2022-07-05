@@ -106,7 +106,7 @@
           "//" + window.location.host + "/api/artwork" + "/" + art_id
         );
         display_code(response, file_name);
-        display_artwork(response, file_name);
+        display_artwork(response);
       }
 
       function display_code(response, file_name) {
@@ -128,14 +128,18 @@
         var artwork = document.getElementById("artwork");
         artwork.innerHTML = response[0].html;
         var script = document.createElement("script");
-        script.setAttribute("src", "../js/artwork1.js");
+        //script.setAttribute("src", "../js/artwork1.js");
+        script.textContent = response[0].js;
         artwork.appendChild(script);
       }
 
       $("#update").on("click", async function () {
         var code = document.getElementById("code");
+        var file_name = document.getElementById("codes").value;
+
         const data = {
-          html: code.value,
+          file: code.value,
+          file_name: file_name,
         };
         const response = await httpUpdate(
           "//" + window.location.host + "/api/artwork",
@@ -148,12 +152,12 @@
 
       function codeChange() {
         if (document.getElementById("codes")) {
-          id = document.getElementById("codes").value;
-          if (id == "HTML") {
+          var file_name = document.getElementById("codes").value;
+          if (file_name == "HTML") {
             get_code("html");
-          } else if (id == "CSS") {
+          } else if (file_name == "CSS") {
             get_code("css");
-          } else if (id == "JavaScript") {
+          } else if (file_name == "JavaScript") {
             get_code("js");
           }
         }
