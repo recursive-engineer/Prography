@@ -1,56 +1,54 @@
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../.../node_modules/bootstrap/scss/bootstrap";
 @import "variable";
 
-body{
+body {
   padding: 0px;
   margin: 0px;
   height: 50px;
-  .navbar{
+  .navbar {
     padding: 0px 10px;
     margin: 0px;
     height: 50px;
-    background-color:$black-40;
-    border-bottom:solid 1px $black-60;
-    #site_name{
-      padding:0px;
-      margin:5px;
-      height:40px;
+    background-color: $black-40;
+    border-bottom: solid 1px $black-60;
+    #site_name {
+      padding: 0px;
+      margin: 5px;
+      height: 40px;
       display: flex;
-      #logo{
+      #logo {
         margin-right: 10px;
       }
-      .title{
+      .title {
         margin-top: 5px;
         vertical-align: middle;
         font-size: 20px;
         color: $white-10;
       }
-      .pro{
+      .pro {
         font-weight: 500;
       }
-      .graphy{
+      .graphy {
         font-weight: 200;
       }
     }
-    #form{
-      height:30px;
-      padding:0px;
-      margin:0 auto;
-      #search{
-        #search_input{
-          height:30px;
+    #form {
+      height: 30px;
+      padding: 0px;
+      margin: 0 auto;
+      #search {
+        #search_input {
+          height: 30px;
           padding: 0px 8px;
           font-size: 15px;
-          color:$black-90;
+          color: $black-90;
           background-color: $black-10;
           border-color: $black-40;
         }
-        .search-indigo:focus{
+        .search-indigo:focus {
           border-color: $black-60;
         }
       }
     }
   }
 }
-
-
