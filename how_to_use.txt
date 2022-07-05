@@ -40,6 +40,8 @@ Github関連
     sshが通っているか確認
         ・ssh -T git@github.com
 
+npm use v16.15.1
+sudo netstat -anp | grep sshd
 //////
 Ori'sTest
 //////
