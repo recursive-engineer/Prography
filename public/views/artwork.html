@@ -46,10 +46,10 @@
                 <option value="CSS">CSS</option>
                 <option value="JavaScript">JavaScript</option>
               </select>
-              <button id="update" name="update" type="submit">更新</button>
-              <button id="submit" name="submit" type="submit">投稿</button>
+              <button id="update" type="button">更新</button>
+              <button id="submit" type="button">投稿</button>
             </div>
-            <textarea id="code" name="coding" cols="30" rows="15"></textarea>
+            <textarea id="code" cols="30" rows="15"></textarea>
           </form>
         </div>
       </div>
@@ -99,43 +99,66 @@
 
     <script type="text/javascript">
       var art_id = 1;
-      $(async function () {
+      get_code("html");
+
+      async function get_code(file_name) {
         const response = await httpGet(
           "//" + window.location.host + "/api/artwork" + "/" + art_id
         );
-        display_code(response);
+        display_code(response, file_name);
+        display_artwork(response, file_name);
+      }
+
+      function display_code(response, file_name) {
+        var code = document.getElementById("code");
+        switch (file_name) {
+          case "html":
+            code.textContent = response[0].html;
+            break;
+          case "js":
+            code.textContent = response[0].js;
+            break;
+          case "css":
+            code.textContent = response[0].css;
+            break;
+        }
+      }
+
+      function display_artwork(response) {
+        var artwork = document.getElementById("artwork");
+        artwork.innerHTML = response[0].html;
+        var script = document.createElement("script");
+        script.setAttribute("src", "../js/artwork1.js");
+        artwork.appendChild(script);
+      }
+
+      $("#update").on("click", async function () {
+        var code = document.getElementById("code");
+        const data = {
+          html: code.value,
+        };
+        const response = await httpUpdate(
+          "//" + window.location.host + "/api/artwork",
+          data,
+          art_id
+        );
+        console.log(response);
+        location.reload();
       });
 
-      function display_code(response) {
-        var artwork = document.getElementById("artwork");
-        artwork.textContent = response[0].html;
-        console.log(response[0].html);
-      }
-      /*
-      var mysql = require("mysql");
-      var client = mysql.createClient({
-        host: localhost,
-        user: "root",
-        password: "root",
-        database: "prography",
-      });
-      client.query("SELECT * FROM artwork", function (error, response) {
-        if (error) throw error;
-        console.log(response);
-      });
       function codeChange() {
         if (document.getElementById("codes")) {
           id = document.getElementById("codes").value;
           if (id == "HTML") {
-            console.log("HTML");
+            get_code("html");
           } else if (id == "CSS") {
-            console.log("CSS");
+            get_code("css");
           } else if (id == "JavaScript") {
-            console.log("JavaScript");
+            get_code("js");
           }
         }
         window.onload = codeChange;
-      }*/
+      }
       var title = document.getElementById("title");
       var code = document.getElementById("code");
       var subtitle = document.getElementById("subtitle");

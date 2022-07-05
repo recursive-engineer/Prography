@@ -4,16 +4,18 @@ var router = express.Router();
 const artwork = require("../../src/artwork.js");
 
 router.get("/artwork/:art_id", async function (req, res, next) {
+  console.log("index.js,router.get");
   const getArt = await artwork.getArt(req.params.art_id);
   res.send(getArt);
 });
 
-/* タスクを登録するルーティング 
-router.post("/tasks", async function (req, res, next) {
-  const postTasks = await tasks.postTasks(req.body);
-  res.send(postTasks);
+router.patch("/artwork/:art_id", async function (req, res, next) {
+  console.log("index.js,router.patch");
+  const updateArt = await artwork.updateArt(req.params.art_id, req.body);
+  res.send(updateArt);
 });
 
+/*
 タスク一覧を取得するルーティング
 router.get("/tasks/:user_id", async function (req, res, next) {
   const getTasks = await tasks.getTasks(req.params.user_id);

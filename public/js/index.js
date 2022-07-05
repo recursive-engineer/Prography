@@ -1,4 +1,5 @@
 const httpGet = async function (url) {
+  console.log("index.js,httpGet");
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -9,18 +10,23 @@ const httpGet = async function (url) {
   }
 };
 
-/*
-const httpGet = async function (url) {
+const httpUpdate = async function (url, data, art_id) {
+  console.log("index.js,httpUpdate");
   try {
-    const response = await fetch(url, {
-      method: "GET", // GET
+    const response = await fetch(url + "/" + art_id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
-    return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
+    return response.json();
   } catch (err) {
     console.log(err);
   }
 };
 
+/*
 // 登録用API実行メソッド
 const httpPost = async function (url, data) {
   console.log(url);
