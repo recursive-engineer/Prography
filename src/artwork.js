@@ -1,5 +1,35 @@
 const mysql = require("mysql2/promise");
 const config = require("../config.js");
+const fs = require("fs");
+
+writeCode = function (response) {
+  console.log("index.js,writeCode");
+  const head = fs.readFileSync("public/views/artwork-head.txt", "utf-8");
+  const tail = fs.readFileSync("public/views/artwork-tail.txt", "utf-8");
+  const html = response[0].html;
+  const css = response[0].css;
+  const js = response[0].js;
+  try {
+    fs.writeFileSync("public/views/artwork.html", head);
+    fs.appendFileSync("public/views/artwork.html", html);
+    fs.appendFileSync("public/views/artwork.html", tail);
+    console.log("HTMLが正常に書き込み完了しました");
+  } catch (e) {
+    console.log(e.message);
+  }
+  try {
+    fs.writeFileSync("public/scss/artwork.css", css);
+    console.log("CSSが正常に書き込み完了しました");
+  } catch (e) {
+    console.log(e.message);
+  }
+  try {
+    fs.writeFileSync("public/js/artwork.js", js);
+    console.log("JavaScriptが正常に書き込み完了しました");
+  } catch (e) {
+    console.log(e.message);
+  }
+};
 
 getArt = async function (art_id) {
   console.log("artwork.js,getArt");
@@ -45,5 +75,6 @@ updateArt = async function (art_id, body) {
   }
 };
 
+exports.writeCode = writeCode;
 exports.getArt = getArt;
 exports.updateArt = updateArt;

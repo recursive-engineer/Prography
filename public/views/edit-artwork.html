@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../scss/header.css" type="text/css" />
+    <!--<link href="colored-code/src/prettify.css" type="text/css" rel="stylesheet">-->
+    <!--<script type="text/javascript" src="colored-code/src/prettify.js"></script>-->
+    <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
+    <link
+      rel="stylesheet"
+      href="../scss/artwork-pc.css"
+      media="screen"
+      type="text/css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      var art_id = 1;
+    </script>
+    <title>Prography</title>
+  </head>
+  <!--<body onload="prettyPrint()">-->
+  <body>
+    <iframe
+      id="header"
+      class="iframe-preview"
+      src="header.html"
+      width="100%"
+      height="50px"
+      frameborder="0"
+    ></iframe>
+    <div class="outer_frame">
+      <div class="inner_frame">
+        <iframe
+          id="artwork"
+          class="iframe-preview"
+          src="artwork.html"
+          width="500px"
+          height="500px"
+          frameborder="0"
+        ></iframe>
+        <div id="code-area">
+          <form method="post">
+            <div id="buttons">
+              <select id="codes" class="form-control" onchange="codeChange();">
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+                <option value="JavaScript">JavaScript</option>
+              </select>
+              <button id="update" type="button">更新</button>
+              <button id="submit" type="button">投稿</button>
+            </div>
+            <textarea id="code" cols="30" rows="15"></textarea>
+          </form>
+        </div>
+      </div>
+      <div id="caption" class="d-flex">
+        <div id="titles">
+          <p id="title">Title Here</p>
+          <p id="subtitle">Subtitle Here</p>
+        </div>
+        <div id="author_frame" class="d-flex">
+          <div id="author_icon"></div>
+          <div id="author_info">
+            <p id="author_name">Author Name Here</p>
+            <p id="author_profession">Profession Here</p>
+            <button class="btn" type="submit">Follow</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="viewers">
+      <div id="floor">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div id="viewer"></div>
+    </div>
+    <div id="reputation"></div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="../js/index.js"></script>
+
+    <script type="text/javascript">
+      var art_id = 1;
+      get_code("html");
+
+      async function get_code(file_name) {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/artwork" + "/" + art_id
+        );
+        display_code(response, file_name);
+        document.getElementById("artwork").contentWindow.location.reload();
+      }
+
+      function display_code(response, file_name) {
+        var code = document.getElementById("code");
+        switch (file_name) {
+          case "html":
+            code.textContent = response[0].html;
+            break;
+          case "js":
+            code.textContent = response[0].js;
+            break;
+          case "css":
+            code.textContent = response[0].css;
+            break;
+        }
+      }
+      /*
+      function display_artwork(response) {
+        var artwork = document.getElementById("artwork");
+        artwork.innerHTML = response[0].html;
+        var script = document.createElement("script");
+        //script.setAttribute("src", "../js/artwork1.js");
+        script.textContent = response[0].js;
+        artwork.appendChild(script);
+      }*/
+
+      $("#update").on("click", async function () {
+        var code = document.getElementById("code");
+        var file_name = document.getElementById("codes").value;
+
+        const data = {
+          file: code.value,
+          file_name: file_name,
+        };
+        const response = await httpUpdate(
+          "//" + window.location.host + "/api/artwork",
+          data,
+          art_id
+        );
+        console.log(response);
+        location.reload();
+      });
+
+      function codeChange() {
+        if (document.getElementById("codes")) {
+          var file_name = document.getElementById("codes").value;
+          if (file_name == "HTML") {
+            get_code("html");
+          } else if (file_name == "CSS") {
+            get_code("css");
+          } else if (file_name == "JavaScript") {
+            get_code("js");
+          }
+        }
+        window.onload = codeChange;
+      }
+      var title = document.getElementById("title");
+      var code = document.getElementById("code");
+      var subtitle = document.getElementById("subtitle");
+      var author_name = document.getElementById("author_name");
+      var profession = document.getElementById("author_profession");
+      var artwork = document.getElementById("artwork");
+      //artwork.setAttribute("src","artwork"+art_id+".html");
+      switch (art_id) {
+        case 1:
+          title.textContent = "The Sierpinski";
+          author_name.textContent = "RaiRai000";
+          break;
+        case 2:
+          title.textContent = "色空間におけるアフィン変換";
+          subtitle.textContent = "The Affine-Transforming of Color-Space";
+          author_name.textContent = "RaiRai000";
+          profession.textContent = "Media Artist";
+          break;
+        case 3:
+          title.textContent = "空間描画";
+          subtitle.textContent = "3d drawing";
+          author_name.textContent = "RaiRai000";
+          profession.textContent = "Media Artist";
+          break;
+        default:
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

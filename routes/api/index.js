@@ -1,4 +1,5 @@
 var express = require("express");
+
 var router = express.Router();
 
 const artwork = require("../../src/artwork.js");
@@ -6,6 +7,8 @@ const artwork = require("../../src/artwork.js");
 router.get("/artwork/:art_id", async function (req, res, next) {
   console.log("index.js,router.get");
   const getArt = await artwork.getArt(req.params.art_id);
+  //console.log(getArt);
+  artwork.writeCode(getArt);
   res.send(getArt);
 });
 
