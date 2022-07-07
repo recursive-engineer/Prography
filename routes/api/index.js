@@ -18,6 +18,32 @@ router.patch("/artwork/:art_id", async function (req, res, next) {
   res.send(updateArt);
 });
 
+//  組織管理ユーザ関連API
+
+/* ユーザを1件取するルーティング */
+router.get("/get/ouser/:id", async function (req, res, next) {
+  const getUserId = await o_get.getUserId(req.params.id);
+  res.send(getUserId);
+});
+
+/* 組織所属ユーザを登録するルーティング */
+router.post("/regist/ouser", async function (req, res, next) {
+  const createOuser = await o_create.postCreateOuser(req.body)
+  res.send(createOuser);
+});
+
+/* ユーザを1件更新するルーティング */
+router.patch("/update/ouser/:id", async function (req, res, next) {
+  const patchUserId = await o_update.patchUserId(req.params.id, req.body);
+  res.send(patchUserId);
+});
+
+/* ユーザを削除するルーティング */
+router.delete("/delete/ouser/:id", async function (req, res, next) {
+  const deleteUserId = await o_delete.deleteUserId(req.params.id);
+  res.send(deleteUserId);
+});
+
 /*
 タスク一覧を取得するルーティング
 router.get("/tasks/:user_id", async function (req, res, next) {
