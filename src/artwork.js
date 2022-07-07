@@ -3,7 +3,7 @@ const config = require("../config.js");
 const fs = require("fs");
 
 writeCode = function (response) {
-  console.log("index.js,writeCode");
+  console.log("artwork.js,writeCode");
   const head = fs.readFileSync("public/views/artwork-head.txt", "utf-8");
   const tail = fs.readFileSync("public/views/artwork-tail.txt", "utf-8");
   const html = response[0].html;
@@ -18,7 +18,7 @@ writeCode = function (response) {
     console.log(e.message);
   }
   try {
-    fs.writeFileSync("public/scss/artwork.css", css);
+    fs.writeFileSync("public/scss/artwork.scss", css);
     console.log("CSSが正常に書き込み完了しました");
   } catch (e) {
     console.log(e.message);

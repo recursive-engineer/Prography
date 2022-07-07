@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,9 +9,13 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../scss/header.css" type="text/css" />
-    <!--<link href="colored-code/src/prettify.css" type="text/css" rel="stylesheet">-->
-    <!--<script type="text/javascript" src="colored-code/src/prettify.js"></script>-->
+    <link rel="stylesheet" href="../scss/codemirror.css" />
+    <link rel="stylesheet" href="../scss/monokai.css" />
+    <script src="../js/codemirror.js"></script>
+    <!-- 言語に応じたjsファイルを読み込む -->
+    <script src="../mode/javascript/javascript.js"></script>
+    <script src="../mode/xml/xml.js"></script>
+    <script src="../mode/css/css.js"></script>
     <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
     <link
       rel="stylesheet"
@@ -19,7 +23,7 @@
       media="screen"
       type="text/css"
     />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="../js/indent.js"></script>
     <script type="text/javascript">
       var art_id = 1;
     </script>
@@ -56,7 +60,13 @@
               <button id="update" type="button">更新</button>
               <button id="submit" type="button">投稿</button>
             </div>
-            <textarea id="code" cols="30" rows="15"></textarea>
+            <textarea
+              id="editor"
+              cols="30"
+              rows="15"
+              wrap="off"
+              style="overflow: scroll"
+            ></textarea>
           </form>
         </div>
       </div>
@@ -96,11 +106,6 @@
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
 
     <script src="../js/index.js"></script>
 
@@ -116,17 +121,46 @@
         document.getElementById("artwork").contentWindow.location.reload();
       }
 
+      var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        mode: "text/html",
+        tabMode: "indent",
+        theme: "monokai",
+        lineNumbers: true,
+        heyMap: "default",
+        matchBrackets: true,
+        indentUnit: 4,
+        indentWithTabs: true,
+        enterMode: "keep",
+        lineWrapping: false,
+        smartIndent: true,
+        onCursorActivity: function () {
+          editor.setLineClass(hlLine, null, null);
+          hlLine = editor.setLineClass(
+            editor.getCursor().line,
+            null,
+            "activeline"
+          );
+        },
+      });
+      editor.setSize(490, 460);
+      editor.on("change", function () {
+        editor.save();
+      });
+
       function display_code(response, file_name) {
-        var code = document.getElementById("code");
+        var code = document.getElementById("editor");
         switch (file_name) {
           case "html":
-            code.textContent = response[0].html;
+            editor.setValue(response[0].html);
+            editor.setOption("mode", "text/html");
             break;
           case "js":
-            code.textContent = response[0].js;
+            editor.setValue(response[0].js);
+            editor.setOption("mode", "javascript");
             break;
           case "css":
-            code.textContent = response[0].css;
+            editor.setValue(response[0].css);
+            editor.setOption("mode", "css");
             break;
         }
       }
@@ -141,7 +175,7 @@
       }*/
 
       $("#update").on("click", async function () {
-        var code = document.getElementById("code");
+        var code = document.getElementById("editor");
         var file_name = document.getElementById("codes").value;
 
         const data = {
@@ -170,6 +204,7 @@
         }
         window.onload = codeChange;
       }
+
       var title = document.getElementById("title");
       var code = document.getElementById("code");
       var subtitle = document.getElementById("subtitle");

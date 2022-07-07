@@ -1,8 +1,8 @@
 main();
 
 function main() {
-  const width = 450;
-  var canvas = document.createElement("canvas");
+	const width = 450;
+ 	var canvas = document.createElement("canvas");
   canvas.style = "margin:10px;";
   canvas.width = width;
   canvas.height = width - 120;
@@ -52,7 +52,7 @@ function inputs(artwork) {
   input1_input.min = 1;
   input1_input.max = 8;
   input1_input.step = 1;
-  input1_input.value = 5;
+  input1_input.value = 4;
   var input1_value = document.createElement("p");
   input1_value.textContent = input1_input.value;
   input1_value.id = "input1_value";
