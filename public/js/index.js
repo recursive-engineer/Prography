@@ -26,11 +26,10 @@ const httpUpdate = async function (url, data, art_id) {
   }
 };
 
-/*
-// 登録用API実行メソッド
 const httpPost = async function (url, data) {
   console.log(url);
   console.log(data);
+  console.log("index.js httpPost 1");
   try {
     const response = await fetch(url, {
       method: "POST", // POST
@@ -39,13 +38,15 @@ const httpPost = async function (url, data) {
       },
       body: JSON.stringify(data),
     });
-    console.log(response.json());
+    console.log("index.js httpPost 2");
+    console.log(response);
     return response; // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);
   }
 };
 
+/*
 // 更新用API実行メソッド
 const httpUpdate = async function (url,data,user_id,task_id) {
   try {

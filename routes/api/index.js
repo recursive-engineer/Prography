@@ -1,10 +1,12 @@
 var express = require("express");
+console.log("ここまで到達2");
 
 var router = express.Router();
 
 const artwork = require("../../src/artwork.js");
+const user = require("../../src/user.js");
 
-router.get("/artwork/:art_id", async function (req, res, next) {
+router.get("/editor/:art_id", async function (req, res, next) {
   console.log("index.js,router.get");
   const getArt = await artwork.getArt(req.params.art_id);
   //console.log(getArt);
@@ -12,7 +14,7 @@ router.get("/artwork/:art_id", async function (req, res, next) {
   res.send(getArt);
 });
 
-router.patch("/artwork/:art_id", async function (req, res, next) {
+router.patch("/editor/:art_id", async function (req, res, next) {
   console.log("index.js,router.patch");
   const updateArt = await artwork.updateArt(req.params.art_id, req.body);
   res.send(updateArt);
@@ -20,28 +22,12 @@ router.patch("/artwork/:art_id", async function (req, res, next) {
 
 //  組織管理ユーザ関連API
 
-/* ユーザを1件取するルーティング */
-router.get("/get/ouser/:id", async function (req, res, next) {
-  const getUserId = await o_get.getUserId(req.params.id);
-  res.send(getUserId);
-});
-
 /* 組織所属ユーザを登録するルーティング */
-router.post("/regist/ouser", async function (req, res, next) {
-  const createOuser = await o_create.postCreateOuser(req.body)
-  res.send(createOuser);
-});
-
-/* ユーザを1件更新するルーティング */
-router.patch("/update/ouser/:id", async function (req, res, next) {
-  const patchUserId = await o_update.patchUserId(req.params.id, req.body);
-  res.send(patchUserId);
-});
-
-/* ユーザを削除するルーティング */
-router.delete("/delete/ouser/:id", async function (req, res, next) {
-  const deleteUserId = await o_delete.deleteUserId(req.params.id);
-  res.send(deleteUserId);
+router.post("/regist/user", async function (req, res, next) {
+  console.log("index.js router.post 1");
+  const createUser = await user.postCreateUser(req.body);
+  console.log("index.js router.post 2");
+  res.send(createUser);
 });
 
 /*

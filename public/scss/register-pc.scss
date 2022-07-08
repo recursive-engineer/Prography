@@ -1,0 +1,22 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "variable";
+
+body {
+  background-color: $black-10;
+  display: flex;
+  form {
+    margin: auto;
+    margin-top: 50px;
+    #user-form {
+      .form-group {
+        margin-bottom: 10px;
+        label {
+          color: $white-10;
+        }
+        .form-control {
+          width: 300px;
+        }
+      }
+    }
+  }
+}

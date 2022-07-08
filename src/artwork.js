@@ -1,6 +1,24 @@
 const mysql = require("mysql2/promise");
 const config = require("../config.js");
 const fs = require("fs");
+const puppeteer = require("puppeteer");
+
+getThumbnail = async function (art_id) {
+  const browser = await puppeteer.launch({
+    executablePath:
+      "node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium",
+  });
+  const page = await browser.newPage();
+
+  try {
+    await page.goto("https://techblog.zozo.com/entry/puppeteer");
+    await page.screenshot({ path: "public/image/thumbnail/screenshot.png" });
+  } catch (err) {
+    console.log("error");
+  } finally {
+    await browser.close();
+  }
+};
 
 writeCode = function (response) {
   console.log("artwork.js,writeCode");
@@ -78,3 +96,4 @@ updateArt = async function (art_id, body) {
 exports.writeCode = writeCode;
 exports.getArt = getArt;
 exports.updateArt = updateArt;
+exports.getThumbnail = getThumbnail;
