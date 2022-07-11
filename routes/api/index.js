@@ -1,5 +1,4 @@
 var express = require("express");
-console.log("ここまで到達2");
 
 var router = express.Router();
 
@@ -15,14 +14,22 @@ router.get("/editor/:art_id", async function (req, res, next) {
 });
 
 router.patch("/editor/:art_id", async function (req, res, next) {
-  console.log("index.js,router.patch");
+  console.log("index.js,router.patch 1");
   const updateArt = await artwork.updateArt(req.params.art_id, req.body);
+  const getArt = await artwork.getArt(req.params.art_id);
+  artwork.writeCode(getArt);
+  console.log("index.js,router.patch 2");
   res.send(updateArt);
 });
 
-//  組織管理ユーザ関連API
+router.post("/submit/:art_id", async function (req, res, next) {
+  console.log("index.js router.post 1");
+  await artwork.createThumbnail(req.params.art_id);
+  const createArt = await artwork.publishArt(req.params.art_id);
+  console.log("index.js router.post 2");
+  res.send(createArt);
+});
 
-/* 組織所属ユーザを登録するルーティング */
 router.post("/regist/user", async function (req, res, next) {
   console.log("index.js router.post 1");
   const createUser = await user.postCreateUser(req.body);

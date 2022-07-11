@@ -156,17 +156,9 @@
             break;
         }
       }
-      /*
-      function display_artwork(response) {
-        var artwork = document.getElementById("artwork");
-        artwork.innerHTML = response[0].html;
-        var script = document.createElement("script");
-        //script.setAttribute("src", "../js/artwork1.js");
-        script.textContent = response[0].js;
-        artwork.appendChild(script);
-      }*/
 
       $("#update").on("click", async function () {
+        console.log("html update");
         var code = document.getElementById("editor");
         var file_name = document.getElementById("codes").value;
 
@@ -196,6 +188,14 @@
         }
         window.onload = codeChange;
       }
+
+      $("#submit").on("click", async function () {
+        console.log("edit-artwork.html 1");
+        const response = await httpPost2(
+          "//" + window.location.host + "/api/submit" + "/" + art_id
+        );
+        console.log("edit-artwork.html 2");
+      });
 
       var title = document.getElementById("title");
       var code = document.getElementById("code");

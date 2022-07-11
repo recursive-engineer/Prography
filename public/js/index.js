@@ -46,6 +46,20 @@ const httpPost = async function (url, data) {
   }
 };
 
+const httpPost2 = async function (url) {
+  console.log("index.js httpPost2 1");
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+    });
+    console.log("index.js httpPost2 2");
+    console.log(response);
+    return response; // JSON のレスポンスを JavaScript のオブジェクトに変換
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 /*
 // 更新用API実行メソッド
 const httpUpdate = async function (url,data,user_id,task_id) {
