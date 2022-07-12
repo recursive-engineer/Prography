@@ -20207,47 +20207,43 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-body {
-  padding: 0px;
-  margin: 0px;
-  height: 50px;
-}
-body nav {
+nav {
   padding: 0px 10px;
   margin: 0px;
   height: 50px;
+  width: 100%;
   background-color: rgb(20, 20, 40);
   border-bottom: solid 1px rgb(30, 30, 60);
   display: flex;
 }
-body nav #site_name {
+nav #site_name {
   padding: 0px;
   margin: 5px;
   height: 40px;
   display: flex;
 }
-body nav #site_name #logo {
+nav #site_name #logo {
   margin-right: 10px;
 }
-body nav #site_name .title {
+nav #site_name .title {
   margin-top: 5px;
   vertical-align: middle;
   font-size: 20px;
   color: rgb(250, 250, 255);
 }
-body nav #site_name .pro {
+nav #site_name .pro {
   font-weight: 500;
 }
-body nav #site_name .graphy {
+nav #site_name .graphy {
   font-weight: 200;
 }
-body nav #form {
+nav #form {
   height: 30px;
   width: calc(100% - 500px);
   padding: 0px;
   margin: 10px 0px 10px 100px;
 }
-body nav #form #search #search_input {
+nav #form #search #search_input {
   height: 30px;
   width: 100%;
   padding: 0px 8px;
@@ -20256,10 +20252,10 @@ body nav #form #search #search_input {
   background-color: rgb(5, 5, 10);
   border-color: rgb(20, 20, 40);
 }
-body nav #form #search .search-indigo:focus {
+nav #form #search .search-indigo:focus {
   border-color: rgb(30, 30, 60);
 }
-body nav button {
+nav button {
   border-radius: 5px;
   margin: 10px 0px 10px 10px;
   width: 120px;
@@ -20268,18 +20264,21 @@ body nav button {
   display: flex;
   padding: 5px 15px;
 }
-body nav #new-code {
+nav #new-code {
   background-color: #3a1fad;
 }
-body nav #my-page {
+nav #my-page {
   margin-left: 10px;
   background-color: #3a1fad;
 }
-body nav i {
+nav button:hover {
+  filter: saturate(200%);
+}
+nav i {
   color: rgb(250, 250, 255);
   font-weight: 1000;
 }
-body nav .button-text {
+nav .button-text {
   margin-left: 5px;
   font-size: 14px;
   color: rgb(250, 250, 255);

@@ -29,34 +29,21 @@ createThumbnail = async function (art_id) {
   console.log("artwork.js createThumbnail 2");
 };
 
-writeCode = function (response) {
-  console.log("artwork.js,writeCode");
-  const head = fs.readFileSync("public/views/artwork-head.txt", "utf-8");
-  const tail = fs.readFileSync("public/views/artwork-tail.txt", "utf-8");
-  const html = response[0].html;
-  const css = response[0].css;
-  const js = response[0].js;
-  console.log(response[0].js);
-  try {
-    fs.writeFileSync("public/views/artwork.html", head);
-    fs.appendFileSync("public/views/artwork.html", html);
-    fs.appendFileSync("public/views/artwork.html", tail);
-    console.log("HTMLが正常に書き込み完了しました");
-  } catch (e) {
-    console.log(e.message);
+updateArt = function (art_id, file_name, data) {
+  console.log("artwork.js updateArt 1");
+  switch (file_name) {
+    case "html":
+      fs.writeFileSync("public/artworks/html/" + art_id + ".html", data.code);
+      break;
+    case "scss":
+      fs.writeFileSync("public/artworks/scss/" + art_id + ".scss", data.code);
+      break;
+    case "js":
+      fs.writeFileSync("public/artworks/js/" + art_id + ".js", data.code);
+      break;
   }
-  try {
-    fs.writeFileSync("public/scss/artwork.scss", css);
-    console.log("CSSが正常に書き込み完了しました");
-  } catch (e) {
-    console.log(e.message);
-  }
-  try {
-    fs.writeFileSync("public/js/artwork.js", js);
-    console.log("JavaScriptが正常に書き込み完了しました");
-  } catch (e) {
-    console.log(e.message);
-  }
+  console.log("artwork.js updateArt 2");
+  return 0;
 };
 
 publishArt = async function (art_id) {
@@ -76,52 +63,49 @@ publishArt = async function (art_id) {
   console.log("artwork.js,postArt 2");
 };
 
-getArt = async function (art_id) {
-  console.log("artwork.js,getArt");
-  let connection = null;
-  try {
-    connection = await mysql.createConnection(config.dbSetting);
-    const sql = "SELECT * FROM artwork WHERE id = ?;";
-    let param = [art_id];
-    const [rows, fields] = await connection.query(sql, param);
-    return rows;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.end();
+getArt = async function (art_id, file_name) {
+  console.log("artwork.js,getArt 1");
+  switch (file_name) {
+    case "html":
+      var code = fs.readFileSync(
+        "public/artworks/html/" + art_id + ".html",
+        "utf-8"
+      );
+      break;
+    case "scss":
+      var code = fs.readFileSync(
+        "public/artworks/scss/" + art_id + ".scss",
+        "utf-8"
+      );
+      break;
+    case "js":
+      var code = fs.readFileSync(
+        "public/artworks/js/" + art_id + ".js",
+        "utf-8"
+      );
+      break;
   }
+  console.log("artwork.js,getArt 2");
+  return code;
 };
 
-updateArt = async function (art_id, body) {
-  console.log("artwork.js,updateArt");
-  console.log(body.file);
-  console.log(body.file_name);
-  let connection = null;
-  try {
-    connection = await mysql.createConnection(config.dbSetting);
-    switch (body.file_name) {
-      case "HTML":
-        var sql = "UPDATE artwork SET html=? WHERE id=?;";
-        break;
-      case "JavaScript":
-        var sql = "UPDATE artwork SET js=? WHERE id=?;";
-        break;
-      case "CSS":
-        var sql = "UPDATE artwork SET css=? WHERE id=?;";
-        break;
-    }
-    let param = [body.file, art_id];
-    const [rows, fields] = await connection.query(sql, param);
-    return rows;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.end();
-  }
+copyCode = async function (art_id) {
+  var html = fs.readFileSync(
+    "public/artworks/html/" + art_id + ".html",
+    "utf-8"
+  );
+  var scss = fs.readFileSync(
+    "public/artworks/scss/" + art_id + ".scss",
+    "utf-8"
+  );
+  var js = fs.readFileSync("public/artworks/js/" + art_id + ".js", "utf-8");
+  fs.writeFileSync("public/views/artwork.html", html);
+  fs.writeFileSync("public/views/artwork.scss", scss);
+  fs.writeFileSync("public/views/artwork.js", js);
 };
 
-exports.writeCode = writeCode;
 exports.getArt = getArt;
 exports.updateArt = updateArt;
 exports.publishArt = publishArt;
+exports.copyCode = copyCode;
 exports.createThumbnail = createThumbnail;

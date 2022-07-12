@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "node": "nodemon -e ejs,js,json ./bin/www",
-    "sass": "sass public/scss/:public/scss/ --no-source-map --watch",
+    "sass": "sass public/scss/:public/scss/ public/views/:public/views/ public/artworks/scss/:public/artworks/scss/ --no-source-map --watch",
     "start": "npm run node & npm run sass"
   },
   "dependencies": {

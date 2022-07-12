@@ -20213,101 +20213,186 @@ body {
 }
 body #header {
   position: fixed;
-  width: 100%;
   top: 0;
   left: 0;
-}
-body #user-info {
-  margin-top: 50px;
   width: 100%;
-  height: 300px;
-  background-color: rgb(5, 5, 10);
-  position: relative;
 }
-body #user-info img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-}
-body #user-info #icons {
-  padding-top: 50px;
-  position: absolute;
-  top: 25px;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-body #user-info #icons #icon {
-  margin: 0 auto;
-  width: 150px;
-  height: 150px;
-}
-body #user-info #icons #icon img {
-  width: 150px;
-  height: 150px;
-}
-body #user-info #icons #author-name {
-  margin: 0 auto;
-  padding-top: 5px;
-  width: 250px;
-  height: 20px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 500;
-  color: rgb(245, 245, 255);
-  text-shadow: 0 0 7px rgb(5, 5, 10);
-}
-body #user-info #icons #profession {
-  margin: 0 auto;
-  padding-top: 10px;
-  width: 250px;
-  height: 20px;
-  text-align: center;
-  font-size: 15px;
-  font-weight: 200;
-  color: rgb(235, 235, 255);
-  text-shadow: 0 0 7px rgb(5, 5, 10);
-}
-body #menu {
-  width: 100%;
-  height: 40px;
+body .outer_frame {
+  width: 1030px;
+  height: 600px;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: rgb(15, 15, 30);
+  box-shadow: 15px 15px 10px #000;
+  border: solid 1px rgb(25, 25, 50);
+}
+body .outer_frame .inner_frame {
+  display: flex;
+  width: 1000px;
+  height: 500px;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+body .outer_frame .inner_frame #artwork {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  overflow: hidden;
+  background-color: rgb(250, 250, 255);
+  margin-right: 10px;
+}
+body .outer_frame .inner_frame #code-area {
+  width: 500px;
+  height: 500px;
+}
+body .outer_frame .inner_frame #code-area form #buttons {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 490px;
+  height: 30px;
+  font-size: 15px;
   display: flex;
 }
-body #menu #menu-center {
-  margin: 0 auto;
-  width: 520px;
+body .outer_frame .inner_frame #code-area form #buttons #codes {
+  width: 310px;
+  height: 30px;
+  padding: 0px;
 }
-body #menu #menu-center button {
-  margin: 0;
-  width: 100px;
-  height: 40px;
-  border: none;
-  background: transparent;
-  color: rgb(245, 245, 255);
+body .outer_frame .inner_frame #code-area form #buttons #update {
+  margin-left: 10px;
+  width: 80px;
+  height: 30px;
+  padding: 0px;
 }
-body #menu #menu-center .selected {
-  background: rgb(30, 30, 60);
+body .outer_frame .inner_frame #code-area form #buttons #submit {
+  margin-left: 10px;
+  width: 80px;
+  height: 30px;
+  padding: 0px;
 }
-body #artworks {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+body .outer_frame #caption {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  height: 60px;
+  justify-content: space-between;
 }
-body #artworks li {
-  height: 0;
-  padding-bottom: 100%;
-  position: relative;
-  background-color: rgb(250, 250, 255);
+body .outer_frame #caption #titles {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  height: 55px;
 }
-body #artworks li img {
-  position: absolute;
+body .outer_frame #caption #titles #title {
+  margin: 0px;
+  height: 20px;
+  font-size: 20px;
+  font-weight: 900;
+  color: rgb(250, 250, 255);
+}
+body .outer_frame #caption #titles #subtitle {
+  margin-top: 5px;
+  margin-bottom: 0;
+  height: 15px;
+  font-size: 15px;
+  font-weight: 300;
+  color: rgb(250, 250, 255);
+}
+body .outer_frame #caption #author_frame {
+  height: 60px;
+  margin-right: 10px;
+}
+body .outer_frame #caption #author_frame #author_icon {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+body .outer_frame #caption #author_frame #author_info {
+  margin-left: 5px;
+  height: 45px;
+}
+body .outer_frame #caption #author_frame #author_info #author_name {
+  margin: 0px;
+  padding: 0px;
+  height: 15px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+}
+body .outer_frame #caption #author_frame #author_info #author_profession {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 0px;
+  height: 10px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 300;
+}
+body .outer_frame #caption #author_frame #author_info .btn {
+  margin: 0px;
+  padding: 0px;
+  height: 20px;
+  width: 80px;
+  background-color: rgb(90, 60, 220);
+  font-size: 10px;
+  color: #fff;
+}
+body #viewers {
+  margin: auto;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100px;
+  position: relative;
 }
-body #artworks li img:hover {
-  opacity: 0.5;
+body #viewers #floor {
+  padding-top: 50px;
+  margin-left: 2%;
+  margin-right: 2%;
+  z-index: 10;
+  height: 0px;
+  width: 96%;
+  border-bottom: 50px solid rgb(20, 20, 40);
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+}
+body #viewers #floor div {
+  position: absolute;
+}
+body #viewers #floor div:nth-of-type(1) {
+  width: calc(96% - 100px);
+  border-top: 1px solid rgb(30, 30, 60);
+}
+body #viewers #floor div:nth-of-type(2) {
+  border-left: 1px solid rgb(30, 30, 60);
+  height: 71px;
+  width: 0px;
+  transform: translate(-25px, -10.5px) rotate(45deg);
+}
+body #viewers #floor div:nth-of-type(3) {
+  border-right: 1px solid rgb(30, 30, 60);
+  height: 71px;
+  left: calc(98% - 25px);
+  width: 0px;
+  transform: translate(0px, -10.5px) rotate(315deg);
+}
+body #viewers #floor div:nth-of-type(4) {
+  width: 96%;
+  left: 2%;
+  top: 100px;
+  border-bottom: 1px solid rgb(30, 30, 60);
+}
+body #viewers #viewer {
+  z-index: 20;
+}
+body #reputation {
+  margin: auto;
+  width: 96%;
+  height: 500px;
+  background-color: rgb(15, 15, 30);
+}
+
+.CodeMirror {
+  font-size: 10pt;
 }

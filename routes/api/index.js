@@ -5,21 +5,29 @@ var router = express.Router();
 const artwork = require("../../src/artwork.js");
 const user = require("../../src/user.js");
 
-router.get("/editor/:art_id", async function (req, res, next) {
-  console.log("index.js,router.get");
-  const getArt = await artwork.getArt(req.params.art_id);
-  //console.log(getArt);
-  artwork.writeCode(getArt);
-  res.send(getArt);
+router.get("/editor/:art_id/:file_name", async function (req, res, next) {
+  console.log("index.js,router.get 1");
+  const getArt = await artwork.getArt(req.params.art_id, req.params.file_name);
+  console.log("index.js,router.get 2");
+  res.json({ text: getArt });
+});
+
+router.patch("/editor/:art_id/:file_name", async function (req, res, next) {
+  console.log("index.js,router.patch 1");
+  const updateArt = await artwork.updateArt(
+    req.params.art_id,
+    req.params.file_name,
+    req.body
+  );
+  console.log("index.js,router.patch 2");
+  res.json({ text: updateArt });
 });
 
 router.patch("/editor/:art_id", async function (req, res, next) {
   console.log("index.js,router.patch 1");
-  const updateArt = await artwork.updateArt(req.params.art_id, req.body);
-  const getArt = await artwork.getArt(req.params.art_id);
-  artwork.writeCode(getArt);
+  const copyCode = await artwork.copyCode(req.params.art_id);
   console.log("index.js,router.patch 2");
-  res.send(updateArt);
+  res.json({ text: copyCode });
 });
 
 router.post("/submit/:art_id", async function (req, res, next) {

@@ -1,5 +1,4 @@
 const httpGet = async function (url) {
-  console.log("index.js,httpGet");
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -10,10 +9,9 @@ const httpGet = async function (url) {
   }
 };
 
-const httpUpdate = async function (url, data, art_id) {
-  console.log("index.js,httpUpdate");
+const httpUpdate = async function (url, data) {
   try {
-    const response = await fetch(url + "/" + art_id, {
+    const response = await fetch(url, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -26,10 +24,18 @@ const httpUpdate = async function (url, data, art_id) {
   }
 };
 
+const httpCopy = async function (url) {
+  try {
+    const response = await fetch(url, {
+      method: "PATCH",
+    });
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const httpPost = async function (url, data) {
-  console.log(url);
-  console.log(data);
-  console.log("index.js httpPost 1");
   try {
     const response = await fetch(url, {
       method: "POST", // POST
@@ -38,8 +44,6 @@ const httpPost = async function (url, data) {
       },
       body: JSON.stringify(data),
     });
-    console.log("index.js httpPost 2");
-    console.log(response);
     return response; // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);
@@ -47,13 +51,10 @@ const httpPost = async function (url, data) {
 };
 
 const httpPost2 = async function (url) {
-  console.log("index.js httpPost2 1");
   try {
     const response = await fetch(url, {
       method: "POST",
     });
-    console.log("index.js httpPost2 2");
-    console.log(response);
     return response; // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);

@@ -13,43 +13,47 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
     />
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <link rel="shortcut icon" href="../image/favicon.ico" />
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/main.js"></script>
     <link rel="stylesheet" href="../scss/header.css" />
-    <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
-
-    <link
-      rel="stylesheet"
-      href="../scss/editor-pc.css"
-      media="screen"
-      type="text/css"
-    />
     <link rel="stylesheet" href="../scss/codemirror.css" />
     <link rel="stylesheet" href="../scss/monokai.css" />
     <script src="../js/codemirror.js"></script>
     <script src="../mode/javascript/javascript.js"></script>
     <script src="../mode/xml/xml.js"></script>
     <script src="../mode/css/css.js"></script>
-
+    <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
+    <link
+      rel="stylesheet"
+      href="../scss/editor-pc.css"
+      media="screen"
+      type="text/css"
+    />
     <title>Prography</title>
   </head>
   <body>
     <header id="header"></header>
     <div class="outer_frame">
       <div class="inner_frame">
-        <div id="artwork"></div>
+        <iframe
+          id="artwork"
+          class="iframe-preview"
+          src="artwork.html"
+          width="500px"
+          height="500px"
+          frameborder="0"
+        ></iframe>
         <div id="code-area">
           <form method="post">
             <div id="buttons">
-              <select
-                id="codes"
-                class="form-control"
-                onchange="codeChange();"
-                onclick="codeClick();"
-              >
-                <option value="html">html</option>
-                <option value="scss">scss</option>
-                <option value="js">javascript</option>
+              <select id="codes" class="form-control" onchange="codeChange();">
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+                <option value="JavaScript">JavaScript</option>
               </select>
               <button id="update" type="button">更新</button>
               <button id="submit" type="button">投稿</button>
@@ -79,11 +83,33 @@
         </div>
       </div>
     </div>
+    <div id="viewers">
+      <div id="floor">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div id="viewer"></div>
+    </div>
+    <div id="reputation"></div>
 
     <script src="../js/index.js"></script>
 
     <script type="text/javascript">
       $("#header").load("header.html");
+      var query = location.search;
+      var value = query.split("=");
+      var art_id = value[1];
+      get_code("html");
+
+      async function get_code(file_name) {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/editor" + "/" + art_id
+        );
+        display_code(response, file_name);
+        document.getElementById("artwork").contentWindow.location.reload();
+      }
 
       var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
         mode: "text/html",
@@ -111,86 +137,62 @@
         editor.save();
       });
 
-      var query = window.location.search;
-      var value = query.split("=");
-      var art_id = value[1];
-
-      getCode("html");
-      getArtwork(art_id);
-
-      function getArtwork(art_id) {
-        //writeCode(art_id);
-        $("#artwork").load("../artworks/html/" + art_id + ".html");
-      }
-
-      async function writeCode(art_id) {
-        const response = await httpCopy(
-          "//" + window.location.host + "/api/editor/" + art_id
-        );
-      }
-
-      async function getCode(file_name) {
-        const response = await httpGet(
-          "//" +
-            window.location.host +
-            "/api/editor/" +
-            art_id +
-            "/" +
-            file_name
-        );
-        var doc = editor.getDoc();
-        doc.setValue(response.text);
-        editor.clearHistory();
+      function display_code(response, file_name) {
+        var code = document.getElementById("editor");
         switch (file_name) {
           case "html":
+            editor.setValue(response[0].html);
             editor.setOption("mode", "text/html");
             break;
-          case "scss":
-            editor.setOption("mode", "css");
-            break;
           case "js":
+            editor.setValue(response[0].js);
             editor.setOption("mode", "javascript");
+            break;
+          case "css":
+            editor.setValue(response[0].css);
+            editor.setOption("mode", "css");
             break;
         }
       }
 
-      function codeChange() {
-        var file_name = document.getElementById("codes").value;
-        getCode(file_name);
-      }
-
-      function codeClick() {
+      $("#update").on("click", async function () {
+        console.log("html update");
         var code = document.getElementById("editor");
         var file_name = document.getElementById("codes").value;
-        updateCode(code.value, file_name);
-      }
 
-      async function updateCode(code, file_name) {
         const data = {
-          code: code,
+          file: code.value,
+          file_name: file_name,
         };
         const response = await httpUpdate(
-          "//" +
-            window.location.host +
-            "/api/editor/" +
-            art_id +
-            "/" +
-            file_name,
-          data
+          "//" + window.location.host + "/api/editor",
+          data,
+          art_id
         );
-        getArtwork(art_id);
-      }
-
-      $("#update").on("click", async function () {
-        var code = document.getElementById("editor");
-        var file_name = document.getElementById("codes").value;
-        updateCode(code.value, file_name);
+        console.log(response);
+        location.reload();
       });
 
+      function codeChange() {
+        if (document.getElementById("codes")) {
+          var file_name = document.getElementById("codes").value;
+          if (file_name == "HTML") {
+            get_code("html");
+          } else if (file_name == "CSS") {
+            get_code("css");
+          } else if (file_name == "JavaScript") {
+            get_code("js");
+          }
+        }
+        window.onload = codeChange;
+      }
+
       $("#submit").on("click", async function () {
+        console.log("edit-artwork.html 1");
         const response = await httpPost2(
           "//" + window.location.host + "/api/submit" + "/" + art_id
         );
+        console.log("edit-artwork.html 2");
       });
 
       var title = document.getElementById("title");
@@ -200,7 +202,6 @@
       var profession = document.getElementById("author_profession");
       var artwork = document.getElementById("artwork");
       //artwork.setAttribute("src","artwork"+art_id+".html");
-
       switch (art_id) {
         case 1:
           title.textContent = "The Sierpinski";

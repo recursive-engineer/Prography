@@ -20215,6 +20215,7 @@ body #header {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
 }
 body .outer_frame {
   width: 1030px;
@@ -20258,19 +20259,33 @@ body .outer_frame .inner_frame #code-area form #buttons {
 body .outer_frame .inner_frame #code-area form #buttons #codes {
   width: 310px;
   height: 30px;
-  padding: 0px;
+  padding: 0px 20px;
+  background-color: rgb(5, 5, 10);
+  color: rgb(230, 230, 255);
+  border: 1px solid rgb(45, 45, 90);
 }
 body .outer_frame .inner_frame #code-area form #buttons #update {
   margin-left: 10px;
   width: 80px;
   height: 30px;
   padding: 0px;
+  border: none;
+  border-radius: 5px;
+  background-color: #9bab26;
+  color: rgb(250, 250, 255);
 }
 body .outer_frame .inner_frame #code-area form #buttons #submit {
   margin-left: 10px;
   width: 80px;
   height: 30px;
   padding: 0px;
+  border: none;
+  border-radius: 5px;
+  background-color: #d33a47;
+  color: rgb(250, 250, 255);
+}
+body .outer_frame .inner_frame #code-area form #buttons button:hover {
+  filter: saturate(200%);
 }
 body .outer_frame #caption {
   margin-left: 15px;
@@ -20338,58 +20353,6 @@ body .outer_frame #caption #author_frame #author_info .btn {
   background-color: rgb(90, 60, 220);
   font-size: 10px;
   color: #fff;
-}
-body #viewers {
-  margin: auto;
-  width: 100%;
-  height: 100px;
-  position: relative;
-}
-body #viewers #floor {
-  padding-top: 50px;
-  margin-left: 2%;
-  margin-right: 2%;
-  z-index: 10;
-  height: 0px;
-  width: 96%;
-  border-bottom: 50px solid rgb(20, 20, 40);
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-}
-body #viewers #floor div {
-  position: absolute;
-}
-body #viewers #floor div:nth-of-type(1) {
-  width: calc(96% - 100px);
-  border-top: 1px solid rgb(30, 30, 60);
-}
-body #viewers #floor div:nth-of-type(2) {
-  border-left: 1px solid rgb(30, 30, 60);
-  height: 71px;
-  width: 0px;
-  transform: translate(-25px, -10.5px) rotate(45deg);
-}
-body #viewers #floor div:nth-of-type(3) {
-  border-right: 1px solid rgb(30, 30, 60);
-  height: 71px;
-  left: calc(98% - 25px);
-  width: 0px;
-  transform: translate(0px, -10.5px) rotate(315deg);
-}
-body #viewers #floor div:nth-of-type(4) {
-  width: 96%;
-  left: 2%;
-  top: 100px;
-  border-bottom: 1px solid rgb(30, 30, 60);
-}
-body #viewers #viewer {
-  z-index: 20;
-}
-body #reputation {
-  margin: auto;
-  width: 96%;
-  height: 500px;
-  background-color: rgb(15, 15, 30);
 }
 
 .CodeMirror {
