@@ -37,6 +37,12 @@ router.post("/regist/user", async function (req, res, next) {
   res.send(createUser);
 });
 
+router.get("/my-page/:user_id", async function (req, res, next) {
+  console.log("index.js,router.get");
+  const getArtworks = await user.getArtworks(req.params.user_id);
+  res.send(getArtworks);
+});
+
 /*
 タスク一覧を取得するルーティング
 router.get("/tasks/:user_id", async function (req, res, next) {

@@ -23,4 +23,21 @@ postCreateUser = async function (body) {
   }
 };
 
+getArtworks = async function (user_id) {
+  console.log("user.js getArtworks");
+  let connection = null;
+  try {
+    connection = await mysql.createConnection(config.dbSetting);
+    const sql = "SELECT * FROM artwork WHERE id = ?;";
+    let param = [art_id];
+    const [rows, fields] = await connection.query(sql, param);
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.end();
+  }
+};
+
 exports.postCreateUser = postCreateUser;
+exports.getArtworks = getArtworks;

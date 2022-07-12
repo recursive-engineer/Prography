@@ -5,12 +5,13 @@ body {
   padding: 0px;
   margin: 0px;
   height: 50px;
-  .navbar {
+  nav {
     padding: 0px 10px;
     margin: 0px;
     height: 50px;
     background-color: $black-40;
     border-bottom: solid 1px $black-60;
+    display: flex;
     #site_name {
       padding: 0px;
       margin: 5px;
@@ -34,11 +35,13 @@ body {
     }
     #form {
       height: 30px;
+      width: calc(100% - 500px);
       padding: 0px;
-      margin: 0 auto;
+      margin: 10px 0px 10px 100px;
       #search {
         #search_input {
           height: 30px;
+          width: 100%;
           padding: 0px 8px;
           font-size: 15px;
           color: $black-90;
@@ -49,6 +52,31 @@ body {
           border-color: $black-60;
         }
       }
+    }
+    button {
+      border-radius: 5px;
+      margin: 10px 0px 10px 10px;
+      width: 120px;
+      height: 30px;
+      border: none;
+      display: flex;
+      padding: 5px 15px;
+    }
+    #new-code {
+      background-color: $indigo-30;
+    }
+    #my-page {
+      margin-left: 10px;
+      background-color: $indigo-30;
+    }
+    i {
+      color: $white-10;
+      font-weight: 1000;
+    }
+    .button-text {
+      margin-left: 5px;
+      font-size: 14px;
+      color: $white-10;
     }
   }
 }
