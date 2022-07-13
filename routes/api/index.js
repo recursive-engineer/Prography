@@ -13,10 +13,18 @@ router.get("/editor/:art_id/:file_name", async function (req, res, next) {
 });
 
 router.get("/editor/:art_id", async function (req, res, next) {
-  //console.log("index.js,router.get 1");
+  console.log("index.js,router.get 1");
   const Info = await artwork.getArtInfo(req.params.art_id);
-  //console.log("index.js,router.get 2");
+  console.log("index.js,router.get 2");
   res.send(Info);
+});
+
+router.get("/newcode/:user_id", async function (req, res, next) {
+  //console.log("index.js,router.get 1");
+  const art_id = await artwork.createNewCode(req.params.user_id);
+  await artwork.createNewFile(art_id);
+  //console.log("index.js,router.get 2");
+  res.json({ id: art_id });
 });
 
 router.patch("/editor/:art_id/:file_name", async function (req, res, next) {
@@ -28,13 +36,6 @@ router.patch("/editor/:art_id/:file_name", async function (req, res, next) {
   );
   //console.log("index.js,router.patch 2");
   res.json({ text: updateArt });
-});
-
-router.patch("/editor/:art_id", async function (req, res, next) {
-  //console.log("index.js,router.patch 1");
-  const copyCode = await artwork.copyCode(req.params.art_id);
-  //console.log("index.js,router.patch 2");
-  res.json({ text: copyCode });
 });
 
 router.post("/editor/:art_id", async function (req, res, next) {

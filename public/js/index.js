@@ -24,17 +24,6 @@ const httpUpdate = async function (url, data) {
   }
 };
 
-const httpCopy = async function (url) {
-  try {
-    const response = await fetch(url, {
-      method: "PATCH",
-    });
-    return response.json();
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 const httpPost = async function (url, data) {
   //console.log("index.js httpPost 1");
   try {

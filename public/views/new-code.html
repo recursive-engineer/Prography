@@ -85,6 +85,10 @@
     <script type="text/javascript">
       $("#header").load("header.html");
 
+      var query = window.location.search;
+      var value = query.split("=");
+      var user_id = value[1];
+
       var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
         mode: "text/html",
         tabMode: "indent",
@@ -111,28 +115,40 @@
         editor.save();
       });
 
-      var query = window.location.search;
-      var value = query.split("=");
-      var art_id = value[2];
-      var value2 = value[1].split(",");
-      var user_id = value2[0];
+      function sleep(waitSec, callbackFunc) {
+        var spanedSec = 0;
+        var waitFunc = function () {
+          spanedSec++;
+          if (spanedSec >= waitSec) {
+            if (callbackFunc) callbackFunc();
+            return;
+          }
+          clearTimeout(id);
+          id = setTimeout(waitFunc, 1000);
+        };
+        var id = setTimeout(waitFunc, 1000);
+      }
 
-      getCode("html");
-      getArtwork();
-      getInfo();
+      var art_id = init();
 
-      function getArtwork() {
-        //writeCode(art_id);
+      async function init() {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/newcode/" + user_id
+        );
+        sleep(2, function () {
+          var art_id = response.id;
+          getArtwork(art_id);
+          getCode(art_id, "html");
+          getInfo(art_id);
+          return art_id;
+        });
+      }
+
+      function getArtwork(art_id) {
         $("#artwork").load("../artworks/html/" + art_id + ".html");
       }
 
-      async function writeCode(art_id) {
-        const response = await httpCopy(
-          "//" + window.location.host + "/api/editor/" + art_id
-        );
-      }
-
-      async function getCode(file_name) {
+      async function getCode(art_id, file_name) {
         const response = await httpGet(
           "//" +
             window.location.host +
@@ -157,9 +173,24 @@
         }
       }
 
+      async function getInfo(art_id) {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/editor/" + art_id
+        );
+        var title = document.getElementById("title");
+        var subtitle = document.getElementById("subtitle");
+        var user_name = document.getElementById("user_name");
+        var profession = document.getElementById("profession");
+
+        title.value = response[0].title;
+        subtitle.value = response[0].subtitle;
+        user_name.textContent = response[0].user_name;
+        profession.textContent = response[0].profession;
+      }
+
       function codeChange() {
         var file_name = document.getElementById("codes").value;
-        getCode(file_name);
+        getCode(art_id, file_name);
       }
 
       function codeClick() {
@@ -219,20 +250,6 @@
           data
         );
       });
-
-      async function getInfo() {
-        const response = await httpGet(
-          "//" + window.location.host + "/api/editor/" + art_id
-        );
-        var title = document.getElementById("title");
-        var subtitle = document.getElementById("subtitle");
-        var user_name = document.getElementById("user_name");
-        var profession = document.getElementById("profession");
-        title.value = response[0].title;
-        subtitle.value = response[0].subtitle;
-        user_name.textContent = response[0].user_name;
-        profession.textContent = response[0].profession;
-      }
     </script>
   </body>
 </html>

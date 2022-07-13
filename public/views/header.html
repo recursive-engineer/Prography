@@ -16,7 +16,7 @@
     <i class="bi bi-columns"></i>
     <div class="button-text">gallery</div>
   </button>
-  <button id="new-code">
+  <button id="new-code" onclick="openNewCode();">
     <i class="bi bi-code-slash"></i>
     <div class="button-text">new code</div>
   </button>
@@ -34,6 +34,11 @@
     async function openMyPage() {
       location.href =
         "//" + window.location.host + "/views/my-page.html?user_id=" + user_id;
+    }
+
+    async function openNewCode() {
+      location.href =
+        "//" + window.location.host + "/views/new-code.html?user_id=" + user_id;
     }
 
     searchWidth();
