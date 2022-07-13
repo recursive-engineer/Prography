@@ -4,7 +4,7 @@ const fs = require("fs");
 const puppeteer = require("puppeteer");
 
 createThumbnail = async function (art_id) {
-  console.log("artwork.js createThumbnail 1");
+  //console.log("artwork.js createThumbnail 1");
   const browser = await puppeteer.launch({
     executablePath:
       "node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium",
@@ -17,8 +17,9 @@ createThumbnail = async function (art_id) {
       height: 500,
     });
     //await page.goto("//" + window.location.host + "/views/artwork.html");
-    await page.goto("http://localhost:3000/views/artwork.html");
-    await page.screenshot({
+    await page.goto("http://localhost:3000/views/editor.html?art_id=" + art_id);
+    const selector = await page.$("#artwork");
+    await selector.screenshot({
       path: "public/image/thumbnail/" + art_id + ".png",
     });
   } catch (err) {
@@ -26,11 +27,11 @@ createThumbnail = async function (art_id) {
   } finally {
     await browser.close();
   }
-  console.log("artwork.js createThumbnail 2");
+  //console.log("artwork.js createThumbnail 2");
 };
 
 updateArt = function (art_id, file_name, data) {
-  console.log("artwork.js updateArt 1");
+  //console.log("artwork.js updateArt 1");
   switch (file_name) {
     case "html":
       fs.writeFileSync("public/artworks/html/" + art_id + ".html", data.code);
@@ -42,29 +43,29 @@ updateArt = function (art_id, file_name, data) {
       fs.writeFileSync("public/artworks/js/" + art_id + ".js", data.code);
       break;
   }
-  console.log("artwork.js updateArt 2");
+  //console.log("artwork.js updateArt 2");
   return 0;
 };
 
 publishArt = async function (art_id) {
-  console.log("artwork.js,postArt 1");
+  //console.log("artwork.js,postArt 1");
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
-    var sql = "UPDATE artwork SET publish=1 WHERE id=?;";
+    var sql = "UPDATE t_artwork SET publish=1 WHERE id=?;";
     let param = [art_id];
     const [rows, fields] = await connection.query(sql, param);
+    //console.log("artwork.js,postArt 2");
     return rows;
   } catch (err) {
     console.log(err);
   } finally {
     connection.end();
   }
-  console.log("artwork.js,postArt 2");
 };
 
 getArt = async function (art_id, file_name) {
-  console.log("artwork.js,getArt 1");
+  //console.log("artwork.js,getArt 1");
   switch (file_name) {
     case "html":
       var code = fs.readFileSync(
@@ -85,8 +86,48 @@ getArt = async function (art_id, file_name) {
       );
       break;
   }
-  console.log("artwork.js,getArt 2");
+  //console.log("artwork.js,getArt 2");
   return code;
+};
+
+getArtInfo = async function (art_id) {
+  //console.log("artwork.js getArtInfo 1");
+  let connection = null;
+  try {
+    connection = await mysql.createConnection(config.dbSetting);
+    var sql =
+      "SELECT * FROM t_artwork INNER JOIN t_user ON t_artwork.author_id = t_user.id where t_user.id = ?;";
+    let param = [art_id];
+    const [rows, fields] = await connection.query(sql, param);
+    //console.log("artwork.js getArtInfo 2");
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.end();
+  }
+};
+
+updateInfo = async function (art_id, data) {
+  //console.log("artwork.js updateInfo 1");
+  let connection = null;
+  try {
+    connection = await mysql.createConnection(config.dbSetting);
+    if (data.type == "title") {
+      var sql = "UPDATE t_artwork SET title=? WHERE id=?;";
+    }
+    if (data.type == "subtitle") {
+      var sql = "UPDATE t_artwork SET subtitle=? WHERE id=?;";
+    }
+    let param = [data.content, art_id];
+    const [rows, fields] = await connection.query(sql, param);
+    //console.log("artwork.js updateInfo 2");
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.end();
+  }
 };
 
 copyCode = async function (art_id) {
@@ -105,7 +146,9 @@ copyCode = async function (art_id) {
 };
 
 exports.getArt = getArt;
-exports.updateArt = updateArt;
+exports.getArtInfo = getArtInfo;
+exports.updateInfo = updateInfo;
 exports.publishArt = publishArt;
+exports.updateArt = updateArt;
 exports.copyCode = copyCode;
 exports.createThumbnail = createThumbnail;

@@ -13,13 +13,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
     />
-    <script
-      src="https://code.jquery.com/jquery-3.5.0.min.js"
-      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="shortcut icon" href="../image/favicon.ico" />
     <link rel="stylesheet" href="../scss/header.css" />
     <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
+
     <link
       rel="stylesheet"
       href="../scss/my-page-pc.css"
@@ -55,7 +53,10 @@
 
     <script type="text/javascript">
       $("#header").load("header.html");
-      var user_id = 1;
+
+      var query = window.location.search;
+      var value = query.split("=");
+      var user_id = value[1];
       get_artworks(user_id);
 
       async function get_artworks(user_id) {
@@ -85,12 +86,45 @@
         location.href =
           "//" +
           window.location.host +
-          "/views/editor.html?art_id=" +
+          "/views/editor.html?user_id=" +
+          user_id +
+          ",art_id=" +
           e.target.id;
       }
 
       $("#portfolio").on("click", async function () {
         console.log(document.getElementById("1").classList.contains("artwork"));
+      });
+
+      artworkWidth();
+
+      function artworkWidth() {
+        var width = document.body.clientWidth;
+        if (width > 1200) {
+          $("#artworks").attr(
+            "style",
+            "grid-template-columns:repeat(6, minmax(0, 1fr));"
+          );
+        } else if (width > 600) {
+          $("#artworks").attr(
+            "style",
+            "grid-template-columns:repeat(3, minmax(0, 1fr));"
+          );
+        } else if (width > 400) {
+          $("#artworks").attr(
+            "style",
+            "grid-template-columns:repeat(2, minmax(0, 1fr));"
+          );
+        } else {
+          $("#artworks").attr(
+            "style",
+            "grid-template-columns:repeat(1, minmax(0, 1fr));"
+          );
+        }
+      }
+
+      $(window).resize(function (event) {
+        artworkWidth();
       });
     </script>
     <script

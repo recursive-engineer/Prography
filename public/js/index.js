@@ -36,6 +36,7 @@ const httpCopy = async function (url) {
 };
 
 const httpPost = async function (url, data) {
+  //console.log("index.js httpPost 1");
   try {
     const response = await fetch(url, {
       method: "POST", // POST
@@ -44,6 +45,7 @@ const httpPost = async function (url, data) {
       },
       body: JSON.stringify(data),
     });
+    //console.log("index.js httpPost 2");
     return response; // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);

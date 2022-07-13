@@ -20237,22 +20237,15 @@ nav #site_name .pro {
 nav #site_name .graphy {
   font-weight: 200;
 }
-nav #form {
+nav #search {
   height: 30px;
-  width: calc(100% - 500px);
-  padding: 0px;
-  margin: 10px 0px 10px 100px;
-}
-nav #form #search #search_input {
-  height: 30px;
-  width: 100%;
   padding: 0px 8px;
   font-size: 15px;
   color: rgb(45, 45, 90);
   background-color: rgb(5, 5, 10);
   border-color: rgb(20, 20, 40);
 }
-nav #form #search .search-indigo:focus {
+nav #search:focus {
   border-color: rgb(30, 30, 60);
 }
 nav button {
@@ -20264,6 +20257,18 @@ nav button {
   display: flex;
   padding: 5px 15px;
 }
+nav button i {
+  color: rgb(250, 250, 255);
+  font-weight: 1000;
+}
+nav button .button-text {
+  margin-left: 10px;
+  font-size: 14px;
+  color: rgb(250, 250, 255);
+}
+nav #gallery {
+  background-color: #3a1fad;
+}
 nav #new-code {
   background-color: #3a1fad;
 }
@@ -20273,13 +20278,4 @@ nav #my-page {
 }
 nav button:hover {
   filter: saturate(200%);
-}
-nav i {
-  color: rgb(250, 250, 255);
-  font-weight: 1000;
-}
-nav .button-text {
-  margin-left: 5px;
-  font-size: 14px;
-  color: rgb(250, 250, 255);
 }

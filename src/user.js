@@ -28,7 +28,7 @@ getArtworks = async function (user_id) {
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
-    const sql = "SELECT id FROM artwork WHERE author_id = ?;";
+    const sql = "SELECT id FROM t_artwork WHERE author_id = ?;";
     let param = [user_id];
     const [rows, fields] = await connection.query(sql, param);
     return rows;

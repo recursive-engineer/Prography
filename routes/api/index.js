@@ -6,47 +6,61 @@ const artwork = require("../../src/artwork.js");
 const user = require("../../src/user.js");
 
 router.get("/editor/:art_id/:file_name", async function (req, res, next) {
-  console.log("index.js,router.get 1");
+  //console.log("index.js,router.get 1");
   const getArt = await artwork.getArt(req.params.art_id, req.params.file_name);
-  console.log("index.js,router.get 2");
+  //console.log("index.js,router.get 2");
   res.json({ text: getArt });
 });
 
+router.get("/editor/:art_id", async function (req, res, next) {
+  //console.log("index.js,router.get 1");
+  const Info = await artwork.getArtInfo(req.params.art_id);
+  //console.log("index.js,router.get 2");
+  res.send(Info);
+});
+
 router.patch("/editor/:art_id/:file_name", async function (req, res, next) {
-  console.log("index.js,router.patch 1");
+  //console.log("index.js,router.patch 1");
   const updateArt = await artwork.updateArt(
     req.params.art_id,
     req.params.file_name,
     req.body
   );
-  console.log("index.js,router.patch 2");
+  //console.log("index.js,router.patch 2");
   res.json({ text: updateArt });
 });
 
 router.patch("/editor/:art_id", async function (req, res, next) {
-  console.log("index.js,router.patch 1");
+  //console.log("index.js,router.patch 1");
   const copyCode = await artwork.copyCode(req.params.art_id);
-  console.log("index.js,router.patch 2");
+  //console.log("index.js,router.patch 2");
   res.json({ text: copyCode });
 });
 
+router.post("/editor/:art_id", async function (req, res, next) {
+  //console.log("index.js router.post 1");
+  const updateInfo = await artwork.updateInfo(req.params.art_id, req.body);
+  //console.log("index.js router.post 2");
+  res.send(updateInfo);
+});
+
 router.post("/submit/:art_id", async function (req, res, next) {
-  console.log("index.js router.post 1");
+  //console.log("index.js router.post 1");
   await artwork.createThumbnail(req.params.art_id);
   const createArt = await artwork.publishArt(req.params.art_id);
-  console.log("index.js router.post 2");
+  //console.log("index.js router.post 2");
   res.send(createArt);
 });
 
 router.post("/regist/user", async function (req, res, next) {
-  console.log("index.js router.post 1");
+  //console.log("index.js router.post 1");
   const createUser = await user.postCreateUser(req.body);
-  console.log("index.js router.post 2");
+  //console.log("index.js router.post 2");
   res.send(createUser);
 });
 
 router.get("/my-page/:user_id", async function (req, res, next) {
-  console.log("index.js,router.get");
+  //console.log("index.js,router.get");
   const getArtworks = await user.getArtworks(req.params.user_id);
   res.send(getArtworks);
 });

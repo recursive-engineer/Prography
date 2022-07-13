@@ -30,25 +30,16 @@ nav {
       font-weight: 200;
     }
   }
-  #form {
+  #search {
     height: 30px;
-    width: calc(100% - 500px);
-    padding: 0px;
-    margin: 10px 0px 10px 100px;
-    #search {
-      #search_input {
-        height: 30px;
-        width: 100%;
-        padding: 0px 8px;
-        font-size: 15px;
-        color: $black-90;
-        background-color: $black-10;
-        border-color: $black-40;
-      }
-      .search-indigo:focus {
-        border-color: $black-60;
-      }
-    }
+    padding: 0px 8px;
+    font-size: 15px;
+    color: $black-90;
+    background-color: $black-10;
+    border-color: $black-40;
+  }
+  #search:focus {
+    border-color: $black-60;
   }
   button {
     border-radius: 5px;
@@ -58,6 +49,18 @@ nav {
     border: none;
     display: flex;
     padding: 5px 15px;
+    i {
+      color: $white-10;
+      font-weight: 1000;
+    }
+    .button-text {
+      margin-left: 10px;
+      font-size: 14px;
+      color: $white-10;
+    }
+  }
+  #gallery {
+    background-color: $indigo-30;
   }
   #new-code {
     background-color: $indigo-30;
@@ -68,14 +71,5 @@ nav {
   }
   button:hover {
     filter: saturate(200%);
-  }
-  i {
-    color: $white-10;
-    font-weight: 1000;
-  }
-  .button-text {
-    margin-left: 5px;
-    font-size: 14px;
-    color: $white-10;
   }
 }

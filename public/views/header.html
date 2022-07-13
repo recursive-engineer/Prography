@@ -4,36 +4,55 @@
     <div class="title pro">Pro</div>
     <div class="title graphy">graphy</div>
   </div>
-  <form id="form">
-    <div id="search">
-      <input
-        id="search_input"
-        class="form-control"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-        aria-describedby="button-addon2"
-      />
-    </div>
-  </form>
+  <input
+    id="search"
+    class="form-control"
+    type="search"
+    placeholder="Search"
+    aria-label="Search"
+    aria-describedby="button-addon2"
+  />
+  <button id="gallery">
+    <i class="bi bi-columns"></i>
+    <div class="button-text">gallery</div>
+  </button>
   <button id="new-code">
     <i class="bi bi-code-slash"></i>
     <div class="button-text">new code</div>
   </button>
-  <button id="my-page">
+  <button id="my-page" onclick="openMyPage();">
     <i class="bi bi-house"></i>
     <div class="button-text">my page</div>
   </button>
   <script>
-    var width = $("#form").width();
-    if (width > 500) {
-      $("#search_input").width(500);
+    var query = window.location.search;
+    var value = query.split("=");
+    var art_id = value[2];
+    var value2 = value[1].split(",");
+    var user_id = value2[0];
+
+    async function openMyPage() {
+      location.href =
+        "//" + window.location.host + "/views/my-page.html?user_id=" + user_id;
     }
-    $(window).resize(function (event) {
-      var width = $("#form").width();
-      if (width > 500) {
-        $("#search_input").width(500);
+
+    searchWidth();
+    function searchWidth() {
+      var width = document.body.clientWidth;
+      if (width > 1060) {
+        $("#search").attr(
+          "style",
+          "margin: 10px calc(100% - 1010px) 10px 50px;"
+        );
+        $("#search").outerWidth(400);
+      } else {
+        $("#search").attr("style", "margin: 10px 50px 10px 50px;");
+        $("#search").outerWidth(width - 660);
       }
+    }
+
+    $(window).resize(function (event) {
+      searchWidth();
     });
   </script>
 </nav>

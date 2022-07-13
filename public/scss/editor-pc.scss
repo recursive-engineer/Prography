@@ -74,7 +74,10 @@ body {
               background-color: $red-40;
               color: $white-10;
             }
-            button:hover {
+            #update:hover {
+              filter: saturate(400%);
+            }
+            #submit:hover {
               filter: saturate(200%);
             }
           }
@@ -92,19 +95,25 @@ body {
         margin-bottom: 5px;
         margin-left: 10px;
         height: 55px;
+        display: flex;
+        flex-flow: column;
         #title {
           margin: 0px;
-          height: 20px;
+          height: 25px;
           font-size: 20px;
           font-weight: 900;
+          background-color: $black-30;
+          border: none;
           color: $white-10;
         }
         #subtitle {
           margin-top: 5px;
           margin-bottom: 0;
-          height: 15px;
+          height: 20px;
           font-size: 15px;
           font-weight: 300;
+          background-color: $black-30;
+          border: none;
           color: $white-10;
         }
       }
@@ -119,7 +128,7 @@ body {
         #author_info {
           margin-left: 5px;
           height: 45px;
-          #author_name {
+          #user_name {
             margin: 0px;
             padding: 0px;
             height: 15px;
@@ -127,7 +136,7 @@ body {
             font-size: 15px;
             font-weight: 500;
           }
-          #author_profession {
+          #profession {
             margin-top: 5px;
             margin-bottom: 5px;
             padding: 0px;
