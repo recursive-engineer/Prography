@@ -26,23 +26,32 @@ postCreateUser = async function (body) {
 
 postLoginUser = async function (body) {
   let connection = null;
-
+  console.log("user.js postloginuser1");
   try {
     connection = await mysql.createConnection(config.dbSetting);
     await connection.beginTransaction();
     let sql = '';
     let d = [];
     const password = body.password;
-    if (password === '') {
-        sql = "SELECT * FROM t_user password ? WHERE id =?";
-        d = [body.password,id];
+    //if (password === '') {
+        sql = "SELECT * FROM t_user WHERE user_name=?";
+        d = [body.userName];
         console.log("成功");
-    } else {
+    /*} else {
       console.log(password);
       console.log("失敗");
-    }
+    }*/
     const [rows, fields] = await connection.query(sql, d);
     await connection.commit();
+    console.log("user.js postloginuser2");
+    for(var i=0;i<rows.length;i++) {
+      if(rows[i].password == password) {
+        console.log("if rows1");
+        return rows[i].id;
+      }
+    }
+    console.log("if rows2");
+    return 0;
   } catch (err) {
     await connection.rollback();
     console.log("エラー" + err);

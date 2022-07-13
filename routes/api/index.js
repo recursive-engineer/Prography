@@ -43,8 +43,8 @@ router.post("/login/user", async function (req, res, next) {
   console.log(req.body.password);
   const loginUser = await user.postLoginUser(req.body);
   console.log("index.js router.post 2");
-  console.log(req.body.password);
-  res.send(loginUser);
+  console.log(loginUser);
+  res.json({result:loginUser});
 });
 
 /*ログイン

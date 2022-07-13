@@ -39,8 +39,7 @@ const httpPost = async function (url, data) {
       body: JSON.stringify(data),
     });
     console.log("index.js httpPost 2");
-    console.log(response);
-    return response; // JSON のレスポンスを JavaScript のオブジェクトに変換
+    return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);
   }

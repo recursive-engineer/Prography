@@ -56,7 +56,7 @@
           data-dismiss="modal"
           class="btn btn-primary"
         >
-          登録
+          ログイン
         </button>
       </div>
     </form>
@@ -73,6 +73,7 @@
     <script>
       
       $("#login-user").on("click", async function () {
+        console.log("login click1");
         const data = {
           userName: $("#login-user-name").val(),
           email: $("#login-email").val(),
@@ -83,9 +84,21 @@
           "//" + window.location.host + "/api/login/user",
           data
         );
-        window.location.reload();
+        console.log("login click2");
+        //window.location.reload();
+        console.log(response.result);
+        
+          if(response.result == 0) {
+          alert("ユーザー名または、パスワードが間違っています。");
+          } else {
+          var user_id = response.result;
+          location.href="//" + window.location.host + "/views/my-page.html?user_id=" + user_id;
+        }
+        
       });
       /*ログイン押下*/
+      
+
     </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
