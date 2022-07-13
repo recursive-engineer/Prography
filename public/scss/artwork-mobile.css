@@ -1,9 +1,9 @@
-/* Error: Undefined variable.
+/* Error: Can't find stylesheet to import.
  *   ,
- * 5 |   background-color: $gray-940;
- *   |                     ^^^^^^^^^
+ * 1 | @import "../../node_modules/bootstrap/scss/bootstrap";
+ *   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *   '
- *   public/scss/artwork-mobile.scss 5:21  root stylesheet */
+ *   public/scss/artwork-mobile.scss 1:9  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -13,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a   \2577 \a 5 \2502    background-color: $gray-940;\a   \2502                      ^^^^^^^^^\a   \2575 \a   public/scss/artwork-mobile.scss 5:21  root stylesheet";
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"../../node_modules/bootstrap/scss/bootstrap\";\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   public/scss/artwork-mobile.scss 1:9  root stylesheet";
 }
