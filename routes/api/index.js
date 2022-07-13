@@ -37,7 +37,17 @@ router.post("/regist/user", async function (req, res, next) {
   res.send(createUser);
 });
 
-/*
+
+router.post("/login/user", async function (req, res, next) {
+  console.log("index.js router.post 1");
+  console.log(req.body.password);
+  const loginUser = await user.postLoginUser(req.body);
+  console.log("index.js router.post 2");
+  console.log(req.body.password);
+  res.send(loginUser);
+});
+
+/*ログイン
 タスク一覧を取得するルーティング
 router.get("/tasks/:user_id", async function (req, res, next) {
   const getTasks = await tasks.getTasks(req.params.user_id);
