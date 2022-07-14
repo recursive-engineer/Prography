@@ -34,7 +34,9 @@ router.post("/regist/user", async function (req, res, next) {
   console.log("index.js router.post 1");
   const createUser = await user.postCreateUser(req.body);
   console.log("index.js router.post 2");
-  res.send(createUser);
+  //res.send(createUser);
+  console.log(createUser);
+  res.json({result:createUser})
 });
 
 

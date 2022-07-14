@@ -33,14 +33,9 @@ postLoginUser = async function (body) {
     let sql = '';
     let d = [];
     const password = body.password;
-    //if (password === '') {
-        sql = "SELECT * FROM t_user WHERE user_name=?";
-        d = [body.userName];
-        console.log("成功");
-    /*} else {
-      console.log(password);
-      console.log("失敗");
-    }*/
+    sql = "SELECT * FROM t_user WHERE user_name=?";
+    d = [body.userName];
+    console.log("成功");
     const [rows, fields] = await connection.query(sql, d);
     await connection.commit();
     console.log("user.js postloginuser2");

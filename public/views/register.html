@@ -76,7 +76,7 @@
           userName: $("#create-user-name").val(),
           email: $("#create-email").val(),
           password: $("#create-password").val(),
-          oid: $("#organization-id").val(),
+          //oid: $("#organization-id").val(),
         };
 
         const response = await httpPost(
@@ -84,7 +84,9 @@
           data
         );
         console.log("register.html 2");
-        window.location.reload();
+        var user_id = response.result;
+        location.href="//" + window.location.host + "/views/login.html";
+        //window.location.reload();
       });
     </script>
     <script
