@@ -115,33 +115,20 @@
         editor.save();
       });
 
-      function sleep(waitSec, callbackFunc) {
-        var spanedSec = 0;
-        var waitFunc = function () {
-          spanedSec++;
-          if (spanedSec >= waitSec) {
-            if (callbackFunc) callbackFunc();
-            return;
-          }
-          clearTimeout(id);
-          id = setTimeout(waitFunc, 1000);
-        };
-        var id = setTimeout(waitFunc, 1000);
-      }
+      var art_id = 1;
 
-      var art_id = init();
+      init().then(function (id) {
+        getArtwork(id);
+        getCode(id, "html");
+        getInfo(id);
+        art_id = id;
+      });
 
       async function init() {
         const response = await httpGet(
           "//" + window.location.host + "/api/newcode/" + user_id
         );
-        sleep(2, function () {
-          var art_id = response.id;
-          getArtwork(art_id);
-          getCode(art_id, "html");
-          getInfo(art_id);
-          return art_id;
-        });
+        return await response.id;
       }
 
       function getArtwork(art_id) {
