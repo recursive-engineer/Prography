@@ -1,4 +1,5 @@
 var express = require("express");
+//const { route } = require("../../app.js");
 
 var router = express.Router();
 
@@ -46,8 +47,31 @@ router.post("/login/user", async function (req, res, next) {
   const loginUser = await user.postLoginUser(req.body);
   console.log("index.js router.post 2");
   console.log(loginUser);
+  console.log(req.body.userName);
+  req.session.id = ({results:loginUser});
+  console.log(req.session.id);
   res.json({result:loginUser});
 });
+
+router.get("/views/my-page", async function (req, res, next) {
+  const userId = await user.getUserId(req.body);
+  res.json({result:userId});
+  /*const userId = req.session.id;
+  console.log(`userID:${userId}`);
+  // セッション情報のユーザーIDとundefinedを比較するif文
+  if (req.session.userId === undefined) {
+    console.log('ログインしていません');
+  } else {
+    console.log('ログインしています');
+  }
+  connection.query(
+    'SELECT * FROM articles',
+    (error, result) => {
+      res.render('my-page.html', { articles: result });
+    }
+  );*/
+});
+
 
 /*ログイン
 タスク一覧を取得するルーティング

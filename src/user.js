@@ -2,6 +2,7 @@
 const mysql = require("mysql2/promise");
 const config = require("../config.js");
 
+
 postCreateUser = async function (body) {
   let connection = null;
 
@@ -53,7 +54,27 @@ postLoginUser = async function (body) {
   } finally {
     connection.end();
   }
-}
+};
+
+
+getUserId = async function (id) {
+  const userId = req.session.id;
+  console.log(`userID:${userId}`);
+  let connection = null;
+  try {
+    connection = await mysql.createConnection(config.dbSetting);
+    //const sql = "SELECT * FROM articles WHERE id = ?;";
+    const sql = "SELECT * FROM articles;";
+    let param = [id];
+    const [rows, fields] = await connection.query(sql, param);
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.end();
+  }
+};
 
 exports.postCreateUser = postCreateUser;
 exports.postLoginUser = postLoginUser;
+exports.getUserId = getUserId;

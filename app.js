@@ -21,9 +21,22 @@ app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+//  ログイン　////////////////////////////////////////////////////////
+app.use(session({
+  secret: 'secretsecretsecret',
+  resave: false,
+  saveUninitialized: true,
+  //cookie: { secure: true }  ここを削除(SSH化して、HTTPS接続じゃないと使えない)
+}));
+
+app.use(bodyParser.json());
+
+
+//////////////////////////////////////////////////////////
 
 app.use("/api", apiRouter);
 
@@ -38,7 +51,6 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-//  ログイン　////////////////////////////////////////////////////////
 
 /*const sess = {
   secret: 'secretsecretsecret',
@@ -55,6 +67,23 @@ if (app.get('env') === 'production') {
 app.use(session(sess))
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/views/my-page', (req, res) => {
+  const userId = req.session.id;
+console.log(`userID:${userId}`);
+  // セッション情報のユーザーIDとundefinedを比較するif文
+  if(req.session.userId === undefined) {
+    console.log('ログインしていません')
+  }else{
+    console.log('ログインしています')
+  }
+  connection.query(
+    'SELECT * FROM articles',
+    (error, result) => {
+      res.render('my-page.html', { articles: result });
+    }
+  );
+});
 
 app.get('/login', (req, res) => {
   res
