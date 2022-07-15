@@ -118,7 +118,7 @@
       var art_id = 0;
 
       init().then(function (response) {
-        console.log(response.end);
+        console.log(response.id);
         var id = response.id;
         getArtwork(id);
         getCode(id, "html");
@@ -212,7 +212,6 @@
 
       $("#submit").on("click", async function () {
         const data = {
-          url: "new-code.html",
           user_id: user_id,
           art_id: art_id,
         };

@@ -81,42 +81,41 @@
         for (let i = 0; i < artwork.length; i++) {
           artwork[i].addEventListener("click", open_editor, false);
         }
+        $(function () {
+          $(document).on("mouseover", ".li", function (e) {
+            var icon = document.createElement("i");
+            icon.classList.add("bi", "bi-x-circle");
+            this.appendChild(icon);
+          });
+        });
+        $(function () {
+          $(document).on("mouseout", ".li", function (e) {
+            var icon = document.createElement("i");
+            icon.classList.add("bi", "bi-x-circle");
+            this.appendChild(icon);
+          });
+        });
         $(".li").hover(
           function () {
             var icon = document.createElement("i");
             icon.classList.add("bi", "bi-x-circle");
-            icon.setAttribute("id", $(this).attr("id"));
-            $(this).append(icon);
-            $(".bi-x-circle").on("click", deleteArt);
+            $this.appendChild(icon);
           },
           function () {
-            $(".bi-x-circle").remove();
+            var icon document.getElementsByClassName("");
           }
         );
       }
 
-      async function deleteArt() {
-        console.log("aaa");
-        var artwork = this.previousElementSibling;
-        const data = {
-          art_id: artwork.id,
-        };
-        const response = await httpDelete(
-          "//" + window.location.host + "/api/delete",
-          data
-        );
-        console.log("bbb");
-        location.reload();
-        console.log("ccc");
-      }
+      function disp_trash(e) {}
 
       async function open_editor(e) {
         location.href =
           "//" +
           window.location.host +
-          "/views/editor.html?=" +
+          "/views/editor.html?user_id=" +
           user_id +
-          "=" +
+          ",art_id=" +
           e.target.id;
       }
 

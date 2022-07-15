@@ -113,9 +113,8 @@
 
       var query = window.location.search;
       var value = query.split("=");
+      var user_id = value[1];
       var art_id = value[2];
-      var value2 = value[1].split(",");
-      var user_id = value2[0];
 
       getCode("html");
       getArtwork();
@@ -192,7 +191,6 @@
 
       $("#submit").on("click", async function () {
         const data = {
-          url: "editor.html",
           user_id: user_id,
           art_id: art_id,
         };

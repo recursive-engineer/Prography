@@ -21,9 +21,9 @@ router.get("/editor/:art_id", async function (req, res, next) {
 
 router.get("/newcode/:user_id", async function (req, res, next) {
   console.log("index.js,router.get 1");
-  const art_id = await artwork.createNewCode(req.params.user_id);
+  const art_id = await artwork.createArt(req.params.user_id);
   console.log(art_id);
-  const end = await artwork.createNewFile(art_id);
+  const end = await artwork.createCode(art_id);
   console.log("index.js,router.get 2");
   res.json({ id: art_id, end: end });
 });
@@ -40,6 +40,15 @@ router.patch("/editor/:art_id/:file_name", async function (req, res, next) {
   res.json({ text: updateArt });
 });
 
+router.patch("/delete", async function (req, res, next) {
+  console.log("index.js,router.patch 1");
+  await artwork.deleteThumbnail(req.body);
+  await artwork.deleteCode(req.body);
+  await artwork.deleteArt(req.body);
+  console.log("index.js,router.patch 2");
+  res.json({ end: 1 });
+});
+
 router.post("/editor/:art_id", async function (req, res, next) {
   //console.log("index.js router.post 1");
   const updateInfo = await artwork.updateInfo(req.params.art_id, req.body);
@@ -48,10 +57,10 @@ router.post("/editor/:art_id", async function (req, res, next) {
 });
 
 router.post("/submit", async function (req, res, next) {
-  //console.log("index.js router.post 1");
-  await artwork.editThumbnail(req.body);
+  console.log("index.js router.post 1");
+  await artwork.createThumbnail(req.body);
   const createArt = await artwork.publishArt(req.body);
-  //console.log("index.js router.post 2");
+  console.log("index.js router.post 2");
   res.send(createArt);
 });
 
