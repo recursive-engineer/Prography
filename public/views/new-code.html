@@ -115,9 +115,11 @@
         editor.save();
       });
 
-      var art_id = 1;
+      var art_id = 0;
 
-      init().then(function (id) {
+      init().then(function (response) {
+        console.log(response.end);
+        var id = response.id;
         getArtwork(id);
         getCode(id, "html");
         getInfo(id);
@@ -128,7 +130,7 @@
         const response = await httpGet(
           "//" + window.location.host + "/api/newcode/" + user_id
         );
-        return await response.id;
+        return await response;
       }
 
       function getArtwork(art_id) {
@@ -199,7 +201,7 @@
             file_name,
           data
         );
-        getArtwork();
+        getArtwork(art_id);
       }
 
       $("#update").on("click", async function () {
@@ -209,8 +211,14 @@
       });
 
       $("#submit").on("click", async function () {
-        const response = await httpPost2(
-          "//" + window.location.host + "/api/submit/" + art_id
+        const data = {
+          url: "new-code.html",
+          user_id: user_id,
+          art_id: art_id,
+        };
+        const response = await httpPost(
+          "//" + window.location.host + "/api/submit",
+          data
         );
       });
 

@@ -3,8 +3,8 @@ const config = require("../config.js");
 const fs = require("fs");
 const puppeteer = require("puppeteer");
 
-createThumbnail = async function (art_id) {
-  //console.log("artwork.js createThumbnail 1");
+editThumbnail = async function (data) {
+  console.log("artwork.js createThumbnail 1");
   const browser = await puppeteer.launch({
     executablePath:
       "node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium",
@@ -16,18 +16,25 @@ createThumbnail = async function (art_id) {
       width: 500,
       height: 500,
     });
-    //await page.goto("//" + window.location.host + "/views/artwork.html");
-    await page.goto("http://localhost:3000/views/editor.html?art_id=" + art_id);
+    if (data.url == "editor.html") {
+      var url =
+        data.url + "?user_id=" + data.user_id + ",art_id=" + data.art_id;
+    } else if (data.url == "new-code.html") {
+      var url = data.url + "?user_id=" + data.user_id;
+    }
+    console.log("http://localhost:3000/views/" + url);
+    await page.goto("http://localhost:3000/views/" + url);
+
     const selector = await page.$("#artwork");
     await selector.screenshot({
-      path: "public/image/thumbnail/" + art_id + ".png",
+      path: "public/image/thumbnail/" + data.art_id + ".png",
     });
   } catch (err) {
     console.log("error");
   } finally {
     await browser.close();
   }
-  //console.log("artwork.js createThumbnail 2");
+  console.log("artwork.js createThumbnail 2");
 };
 
 updateArt = function (art_id, file_name, data) {
@@ -47,13 +54,13 @@ updateArt = function (art_id, file_name, data) {
   return 0;
 };
 
-publishArt = async function (art_id) {
+publishArt = async function (data) {
   //console.log("artwork.js,postArt 1");
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
     var sql = "UPDATE t_artwork SET publish=1 WHERE id=?;";
-    let param = [art_id];
+    let param = [data.art_id];
     const [rows, fields] = await connection.query(sql, param);
     //console.log("artwork.js,postArt 2");
     return rows;
@@ -148,11 +155,28 @@ createNewFile = async function (art_id) {
     '.js"></script>\n<link rel="stylesheet" href="../artworks/scss/' +
     art_id +
     '.css" media="screen" type="text/css"/>';
-  var css = "";
+  var scss = "";
   var js = "";
-  fs.writeFileSync("public/artworks/html/" + art_id + ".html", html);
-  fs.writeFileSync("public/artworks/scss/" + art_id + ".scss", css);
-  fs.writeFileSync("public/artworks/js/" + art_id + ".js", js);
+  const html_path = "public/artworks/html/" + art_id + ".html";
+  const scss_path = "public/artworks/scss/" + art_id + ".scss";
+  const js_path = "public/artworks/js/" + art_id + ".js";
+  fs.writeFileSync(html_path, html);
+  fs.writeFileSync(scss_path, scss);
+  fs.writeFileSync(js_path, js);
+  var html_exist = 0;
+  var scss_exist = 0;
+  var js_exist = 0;
+  if (fs.existsSync(html_path)) {
+    html_exist = 1;
+  }
+  if (fs.existsSync(scss_path)) {
+    scss_exist = 1;
+  }
+  if (fs.existsSync(js_path)) {
+    js_exist = 1;
+  }
+
+  return html_exist * scss_exist * js_exist;
 };
 
 updateInfo = async function (art_id, data) {
@@ -184,4 +208,4 @@ exports.publishArt = publishArt;
 exports.updateArt = updateArt;
 exports.createNewCode = createNewCode;
 exports.createNewFile = createNewFile;
-exports.createThumbnail = createThumbnail;
+exports.editThumbnail = editThumbnail;

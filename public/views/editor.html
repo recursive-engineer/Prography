@@ -191,8 +191,14 @@
       });
 
       $("#submit").on("click", async function () {
-        const response = await httpPost2(
-          "//" + window.location.host + "/api/submit/" + art_id
+        const data = {
+          url: "editor.html",
+          user_id: user_id,
+          art_id: art_id,
+        };
+        const response = await httpPost(
+          "//" + window.location.host + "/api/submit",
+          data
         );
       });
 

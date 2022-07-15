@@ -66,6 +66,7 @@
         var artworks = document.getElementById("artworks");
         for (var i = 0; i < response.length; i++) {
           var li = document.createElement("li");
+          li.classList.add("li");
           var img = document.createElement("img");
           img.setAttribute(
             "src",
@@ -80,7 +81,33 @@
         for (let i = 0; i < artwork.length; i++) {
           artwork[i].addEventListener("click", open_editor, false);
         }
+        $(function () {
+          $(document).on("mouseover", ".li", function (e) {
+            var icon = document.createElement("i");
+            icon.classList.add("bi", "bi-x-circle");
+            this.appendChild(icon);
+          });
+        });
+        $(function () {
+          $(document).on("mouseout", ".li", function (e) {
+            var icon = document.createElement("i");
+            icon.classList.add("bi", "bi-x-circle");
+            this.appendChild(icon);
+          });
+        });
+        $(".li").hover(
+          function () {
+            var icon = document.createElement("i");
+            icon.classList.add("bi", "bi-x-circle");
+            $this.appendChild(icon);
+          },
+          function () {
+            var icon document.getElementsByClassName("");
+          }
+        );
       }
+
+      function disp_trash(e) {}
 
       async function open_editor(e) {
         location.href =
@@ -93,6 +120,10 @@
       }
 
       $("#portfolio").on("click", async function () {
+        console.log(document.getElementById("1").classList.contains("artwork"));
+      });
+
+      $(".artwork").on("click", async function () {
         console.log(document.getElementById("1").classList.contains("artwork"));
       });
 
