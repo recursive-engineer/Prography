@@ -16,6 +16,10 @@
         ・artwork_frame.htmlで読み込まれるスタイルシート
 
 Github関連
+    初期設定
+        ・git config --global user.name "GitHub の名前"
+        ・git config --global user.email "GitHub のメールアドレス"
+        ・git config -l
     clone（初回のみ）
         ・git clone git@github.com/recursive-engineer/Prography
     push関連（githubへの反映）
