@@ -40,7 +40,7 @@ createArt = async function (user_id) {
     connection = await mysql.createConnection(config.dbSetting);
     var sql1 = "SELECT id FROM t_artwork;";
     var sql2 =
-      "INSERT INTO t_artwork (id,author_id,title,subtitle) VALUES (?,?,?,?);";
+      "INSERT INTO t_artwork (art_id,author_id,title,subtitle) VALUES (?,?,?,?);";
     var [rows, fields] = await connection.query(sql1);
     console.log();
     if (rows.length == 0) {

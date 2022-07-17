@@ -16,7 +16,6 @@ updateThumbnail = async function (data) {
       width: 500,
       height: 500,
     });
-    console.log(data);
     var url = "editor.html?user_id=" + data.user_id + ",art_id=" + data.art_id;
     console.log("http://localhost:3000/views/" + url);
     await page.goto("http://localhost:3000/views/" + url);
@@ -65,7 +64,7 @@ getArtInfo = async function (art_id) {
   try {
     connection = await mysql.createConnection(config.dbSetting);
     var sql =
-      "SELECT * FROM t_artwork INNER JOIN t_user ON t_artwork.author_id = t_user.id where t_artwork.id = ?;";
+      "SELECT * FROM t_artwork INNER JOIN t_user ON t_artwork.author_id = t_user.user_id where t_artwork.art_id = ?;";
     let param = [art_id];
     const [rows, fields] = await connection.query(sql, param);
     //console.log(rows);
@@ -101,6 +100,58 @@ updateArt = function (data) {
   return 0;
 };
 
+updateInfo = async function (data) {
+  //console.log("artwork.js updateInfo 1");
+  let connection = null;
+  try {
+    connection = await mysql.createConnection(config.dbSetting);
+    if (data.type == "title") {
+      var sql = "UPDATE t_artwork SET title=? WHERE art_id=?;";
+    }
+    if (data.type == "subtitle") {
+      var sql = "UPDATE t_artwork SET subtitle=? WHERE art_id=?;";
+    }
+    if (data.type == "publish") {
+      var sql = "UPDATE t_artwork SET publish=? WHERE art_id=?;";
+    }
+    let param = [data.content, data.art_id];
+    const [rows, fields] = await connection.query(sql, param);
+    //console.log("artwork.js updateInfo 2");
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.end();
+  }
+};
+
+updateDate = async function (data) {
+  //console.log("artwork.js updateDate 1");
+  let connection = null;
+  try {
+    connection = await mysql.createConnection(config.dbSetting);
+    var sql = "UPDATE t_artwork SET date=? WHERE art_id=?;";
+
+    var now = new Date();
+    var Year = now.getFullYear();
+    var Month = now.getMonth() + 1;
+    var Day = now.getDate();
+    var Hour = now.getHours();
+    var Min = now.getMinutes();
+    var Sec = now.getSeconds();
+    var date =
+      Year + "-" + Month + "-" + Day + " " + Hour + ":" + Min + ":" + Sec;
+    console.log(date);
+    var param = [date, data.art_id];
+    const [rows, fields] = await connection.query(sql, param);
+    //console.log("artwork.js updateDate 2");
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.end();
+  }
+};
+
 deleteCode = async function (data) {
   console.log("artwork.js deleteCode 1");
   const html_path = "public/artworks/html/" + data.art_id + ".html";
@@ -123,7 +174,7 @@ deleteArt = async function (data) {
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
-    var sql = "DELETE FROM t_artwork WHERE id = ?;";
+    var sql = "DELETE FROM t_artwork WHERE art_id = ?;";
     var param = [data.art_id];
     await connection.query(sql, param);
     console.log("artwork.js deleteArt 2");
@@ -143,36 +194,14 @@ deleteThumbnail = async function (data) {
   console.log("artwork.js deleteThumbnail 2");
 };
 
-updateInfo = async function (art_id, data) {
-  //console.log("artwork.js updateInfo 1");
-  let connection = null;
-  try {
-    connection = await mysql.createConnection(config.dbSetting);
-    if (data.type == "title") {
-      var sql = "UPDATE t_artwork SET title=? WHERE id=?;";
-    }
-    if (data.type == "subtitle") {
-      var sql = "UPDATE t_artwork SET subtitle=? WHERE id=?;";
-    }
-    if (data.type == "publish") {
-      var sql = "UPDATE t_artwork SET publish=? WHERE id=?;";
-    }
-    let param = [data.content, art_id];
-    const [rows, fields] = await connection.query(sql, param);
-    //console.log("artwork.js updateInfo 2");
-    return rows;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.end();
-  }
-};
-
-exports.updateThumbnail = updateThumbnail;
 exports.getArt = getArt;
 exports.getArtInfo = getArtInfo;
+
+exports.updateThumbnail = updateThumbnail;
 exports.updateArt = updateArt;
+exports.updateInfo = updateInfo;
+exports.updateDate = updateDate;
+
 exports.deleteCode = deleteCode;
 exports.deleteArt = deleteArt;
 exports.deleteThumbnail = deleteThumbnail;
-exports.updateInfo = updateInfo;

@@ -9,13 +9,6 @@ const mypage = require("../../src/mypage.js");
 const gallery = require("../../src/gallery.js");
 const user = require("../../src/register.js");
 
-router.post("/artwork/:art_id", async function (req, res, next) {
-  //console.log("index.js router.post 1");
-  const updateInfo = await artwork.updateInfo(req.params.art_id, req.body);
-  //console.log("index.js router.post 2");
-  res.send(updateInfo);
-});
-
 router.get("/artwork/:art_id/:file_name", async function (req, res, next) {
   //console.log("index.js,router.get 1");
   const getArt = await artwork.getArt(req.params.art_id, req.params.file_name);
@@ -30,10 +23,19 @@ router.get("/artwork/:art_id", async function (req, res, next) {
   res.send(Info);
 });
 
-router.patch("/artwork/update", async function (req, res, next) {
+router.patch("/artwork/updateInfo", async function (req, res, next) {
+  //console.log("index.js router.post 1");
+  const updateInfo = await artwork.updateInfo(req.body);
+  await artwork.updateDate(req.body);
+  //console.log("index.js router.post 2");
+  res.send(updateInfo);
+});
+
+router.patch("/artwork/updateArt", async function (req, res, next) {
   //console.log("index.js,router.patch 1");
-  await artwork.updateThumbnail(req.body);
   const updateArt = await artwork.updateArt(req.body);
+  await artwork.updateThumbnail(req.body);
+  await artwork.updateDate(req.body);
   //console.log("index.js,router.patch 2");
   res.json({ text: updateArt });
 });
@@ -51,9 +53,7 @@ router.patch("/artwork/delete", async function (req, res, next) {
 router.get("/newcode/:user_id", async function (req, res, next) {
   console.log("index.js,router.get 1");
   const art_id = await newcode.createArt(req.params.user_id);
-  console.log(art_id);
   const end = await newcode.createCode(art_id);
-  console.log(end);
   console.log("index.js,router.get 2");
   res.json({ id: art_id, end: end });
 });
@@ -83,9 +83,9 @@ router.get("/mypage/:user_id", async function (req, res, next) {
 //gallery.html
 router.get("/gallery/get", async function (req, res, next) {
   console.log("index.js,router.get 1");
-  const getArts = await gallery.getArts(req.params.user_id);
-  res.send(getArts);
+  const getArts = await gallery.getArts();
   console.log("index.js,router.get 2");
+  res.send(getArts);
 });
 
 module.exports = router;

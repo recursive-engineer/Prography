@@ -45,21 +45,40 @@ body {
       padding-bottom: 100%;
       position: relative;
       background-color: $white-10;
-      img {
+      .artwork {
+        border: solid 1px $black-10;
         position: absolute;
         width: 100%;
         height: 100%;
         object-fit: cover;
         z-index: 2;
       }
-      img:hover {
+      .artwork:hover {
         opacity: 0.5;
       }
-      i {
+      .info {
         position: absolute;
         z-index: 3;
-        top: 10px;
-        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        display: flex;
+        .title {
+          font-size: 15px;
+          font-weight: 600;
+          margin-right: 20px;
+        }
+        .author {
+          display: flex;
+          .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+          }
+          .name {
+            font-size: 15px;
+            font-weight: 200;
+          }
+        }
       }
     }
   }
