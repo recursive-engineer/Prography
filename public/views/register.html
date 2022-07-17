@@ -11,6 +11,14 @@
     />
     <link
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="shortcut icon" href="../image/favicon.ico" />
+    <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
+
+    <link
+      rel="stylesheet"
       href="../scss/register-pc.css"
       media="screen"
       type="text/css"
@@ -22,42 +30,41 @@
       <div id="user-form">
         <div class="form-group">
           <label for="create-user-name">ユーザ名</label>
-          <input
-            type="text"
-            class="form-control"
-            id="create-user-name"
-            name="user-name"
-          />
+          <input type="text" class="form-control" id="name" name="user-name" />
+          <div class="message" id="name_err"></div>
         </div>
         <div class="form-group">
           <label for="create-email">メールアドレス</label>
-          <input
-            type="text"
-            class="form-control"
-            id="create-email"
-            name="email"
-          />
+          <input type="text" class="form-control" id="email" name="email" />
+          <div class="message" id="email_err"></div>
         </div>
         <div class="form-group">
           <label for="create-password">パスワード</label>
           <input
             type="password"
             class="form-control"
-            id="create-password"
+            id="password"
             name="password"
           />
+          <div class="message" id="password_err"></div>
         </div>
       </div>
       <div>
-        <button type="button" class="btn btn-secondary">キャンセル</button>
+        <button type="button" id="reset" class="btn btn-secondary">
+          リセット
+        </button>
+        <button type="button" id="cancel" class="btn btn-secondary">
+          キャンセル
+        </button>
         <button
           type="button"
-          id="create-user"
+          id="regist"
           data-dismiss="modal"
           class="btn btn-primary"
         >
           登録
         </button>
+        <div class="message" id="regist_err"></div>
       </div>
     </form>
 
@@ -70,21 +77,75 @@
     <script src="../js/index.js"></script>
 
     <script>
-      $("#create-user").on("click", async function () {
-        console.log("register.html 1");
+      var result = 0;
+      var empty = 1;
+      $("#user-form").on("change", async function () {
+        //console.log("register.html user-form change 1");
         const data = {
-          userName: $("#create-user-name").val(),
-          email: $("#create-email").val(),
-          password: $("#create-password").val(),
-          oid: $("#organization-id").val(),
+          name: $("#name").val(),
+          email: $("#email").val(),
         };
-
         const response = await httpPost(
-          "//" + window.location.host + "/api/regist/user",
+          "//" + window.location.host + "/api/register/check",
           data
         );
-        console.log("register.html 2");
-        window.location.reload();
+
+        if (
+          $("#name").val() != "" &&
+          $("#email").val() != "" &&
+          $("#password").val() != ""
+        ) {
+          empty = 0;
+        } else {
+          empty = 1;
+        }
+
+        result = response.result;
+        if (result % 2 == 1) {
+          $("#name_err").text("登録済みのユーザー名です");
+        } else {
+          $("#name_err").text("");
+        }
+        if (Math.floor(result / 2) == 1) {
+          $("#email_err").text("登録済みのメールアドレスです");
+        } else {
+          $("#email_err").text("");
+        }
+        //console.log("register.html user-form change 2");
+      });
+
+      $("#regist").on("click", async function () {
+        //console.log("register.html 1");
+        const data = {
+          name: $("#name").val(),
+          email: $("#email").val(),
+          password: $("#password").val(),
+        };
+        if (result != 0) {
+          $("#regist_err").text("登録済みのユーザー情報が含まれています");
+        }
+        if (empty != 0) {
+          $("#regist_err").text("未入力の項目があります");
+        }
+        if (result == 0 && empty == 0) {
+          const response = await httpPost(
+            "//" + window.location.host + "/api/register/create",
+            data
+          );
+          //location.reload();
+        }
+        //console.log("register.html 2");
+      });
+      $("#reset").on("click", async function () {
+        //console.log("register.html 1");
+        $("#name").val("");
+        $("#email").val("");
+        $("#password").val("");
+        $("#name_err").text("");
+        $("#email_err").text("");
+        $("#password_err").text("");
+        $("#regist_err").text("");
+        //console.log("register.html 2");
       });
     </script>
     <script

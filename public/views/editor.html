@@ -121,21 +121,14 @@
       getInfo();
 
       function getArtwork() {
-        //writeCode(art_id);
         $("#artwork").load("../artworks/html/" + art_id + ".html");
-      }
-
-      async function writeCode(art_id) {
-        const response = await httpCopy(
-          "//" + window.location.host + "/api/editor/" + art_id
-        );
       }
 
       async function getCode(file_name) {
         const response = await httpGet(
           "//" +
             window.location.host +
-            "/api/editor/" +
+            "/api/artwork/" +
             art_id +
             "/" +
             file_name
@@ -169,15 +162,13 @@
 
       async function updateCode(code, file_name) {
         const data = {
+          art_id: art_id,
+          user_id: user_id,
+          file_name: file_name,
           code: code,
         };
         const response = await httpUpdate(
-          "//" +
-            window.location.host +
-            "/api/editor/" +
-            art_id +
-            "/" +
-            file_name,
+          "//" + window.location.host + "/api/artwork/update",
           data
         );
         getArtwork();
@@ -191,11 +182,11 @@
 
       $("#submit").on("click", async function () {
         const data = {
-          user_id: user_id,
-          art_id: art_id,
+          type: "publish",
+          content: 1,
         };
         const response = await httpPost(
-          "//" + window.location.host + "/api/submit",
+          "//" + window.location.host + "/api/artwork/" + art_id,
           data
         );
       });
@@ -207,7 +198,7 @@
           content: this.value,
         };
         const response = await httpPost(
-          "//" + window.location.host + "/api/editor/" + art_id,
+          "//" + window.location.host + "/api/artwork/" + art_id,
           data
         );
         //console.log("editor.html title change 2");
@@ -219,14 +210,14 @@
           content: this.value,
         };
         const response = await httpPost(
-          "//" + window.location.host + "/api/editor/" + art_id,
+          "//" + window.location.host + "/api/artwork/" + art_id,
           data
         );
       });
 
       async function getInfo() {
         const response = await httpGet(
-          "//" + window.location.host + "/api/editor/" + art_id
+          "//" + window.location.host + "/api/artwork/" + art_id
         );
         var title = document.getElementById("title");
         var subtitle = document.getElementById("subtitle");

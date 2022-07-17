@@ -5,6 +5,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import "codemirror.css";
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -20209,27 +20210,63 @@ textarea.form-control-lg {
 }
 body {
   background-color: rgb(5, 5, 10);
+}
+body #header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+body #menu {
+  margin-top: 50px;
+  width: 100%;
+  height: 40px;
+  background-color: rgb(15, 15, 30);
   display: flex;
 }
-body form {
-  margin: auto;
-  margin-top: 50px;
+body #menu #menu-center {
+  margin: 0 auto;
+  width: 520px;
 }
-body form #user-form {
-  margin-bottom: 20px;
+body #menu #menu-center button {
+  margin: 0;
+  width: 100px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: rgb(245, 245, 255);
 }
-body form #user-form .form-group {
-  margin-bottom: 10px;
+body #menu #menu-center .selected {
+  background: rgb(30, 30, 60);
 }
-body form #user-form .form-group label {
-  color: rgb(250, 250, 255);
+body #artworks {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  z-index: 1;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
-body form #user-form .form-group .form-control {
-  width: 300px;
+body #artworks li {
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+  background-color: rgb(250, 250, 255);
 }
-body .message {
-  color: #c72d3a;
+body #artworks li img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
 }
-body button {
-  margin-left: 10px;
+body #artworks li img:hover {
+  opacity: 0.5;
+}
+body #artworks li i {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  right: 10px;
 }

@@ -8,6 +8,7 @@ body {
     margin: auto;
     margin-top: 50px;
     #user-form {
+      margin-bottom: 20px;
       .form-group {
         margin-bottom: 10px;
         label {
@@ -18,5 +19,11 @@ body {
         }
       }
     }
+  }
+  .message {
+    color: $red-30;
+  }
+  button {
+    margin-left: 10px;
   }
 }

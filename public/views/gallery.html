@@ -20,7 +20,7 @@
 
     <link
       rel="stylesheet"
-      href="../scss/my-page-pc.css"
+      href="../scss/gallery-pc.css"
       media="screen"
       type="text/css"
     />
@@ -28,23 +28,13 @@
   </head>
   <body>
     <header id="header"></header>
-    <div id="user-info">
-      <img id="background" src="../image/background.png" />
-      <div id="icons">
-        <div id="icon">
-          <img id="background" src="../image/vivi.png" />
-        </div>
-        <div id="author-name">author-name</div>
-        <div id="profession">profession</div>
-      </div>
-    </div>
     <div id="menu">
       <div id="menu-center">
-        <button class="selected" id="portfolio">Portfolio</button>
-        <button id="about">About</button>
-        <button id="likes">Likes</button>
-        <button id="following">Following</button>
-        <button id="followers">Followers</button>
+        <button class="menu selected" id="latest">Latest</button>
+        <button class="menu" id="ranking">Ranking</button>
+        <button class="menu" id="recommend">Recommend</button>
+        <button class="menu" id="following">Following</button>
+        <button class="menu" id="features">Features</button>
       </div>
     </div>
     <ul id="artworks"></ul>
@@ -57,11 +47,11 @@
       var query = window.location.search;
       var value = query.split("=");
       var user_id = value[1];
-      get_artworks(user_id);
+      get_artworks();
 
-      async function get_artworks(user_id) {
+      async function get_artworks() {
         const response = await httpGet(
-          "//" + window.location.host + "/api/my-page" + "/" + user_id
+          "//" + window.location.host + "/api/gallery/get"
         );
         var artworks = document.getElementById("artworks");
         for (var i = 0; i < response.length; i++) {
@@ -81,77 +71,40 @@
         for (let i = 0; i < artwork.length; i++) {
           artwork[i].addEventListener("click", open_editor, false);
         }
-        $(function () {
-          $(document).on("mouseover", ".li", function (e) {
-            var icon = document.createElement("i");
-            icon.classList.add("bi", "bi-x-circle");
-            this.appendChild(icon);
-          });
-        });
-        $(function () {
-          $(document).on("mouseout", ".li", function (e) {
-            var icon = document.createElement("i");
-            icon.classList.add("bi", "bi-x-circle");
-            this.appendChild(icon);
-          });
-        });
         $(".li").hover(
           function () {
             var icon = document.createElement("i");
             icon.classList.add("bi", "bi-x-circle");
-            $this.appendChild(icon);
+            icon.setAttribute("id", $(this).attr("id"));
+            $(this).append(icon);
+            $(".bi-x-circle").on("click", openUserPage);
           },
           function () {
-            var icon document.getElementsByClassName("");
+            $(".bi-x-circle").remove();
           }
         );
       }
-
-      function disp_trash(e) {}
 
       async function open_editor(e) {
         location.href =
           "//" +
           window.location.host +
-          "/views/editor.html?user_id=" +
+          "/views/editor.html?=" +
           user_id +
-          ",art_id=" +
+          "=" +
           e.target.id;
       }
-
-      $("#portfolio").on("click", async function () {
-        console.log(document.getElementById("1").classList.contains("artwork"));
-      });
-
-      $(".artwork").on("click", async function () {
-        console.log(document.getElementById("1").classList.contains("artwork"));
-      });
 
       artworkWidth();
 
       function artworkWidth() {
         var width = document.body.clientWidth;
-        if (width > 1200) {
-          $("#artworks").attr(
-            "style",
-            "grid-template-columns:repeat(6, minmax(0, 1fr));"
-          );
-        } else if (width > 600) {
-          $("#artworks").attr(
-            "style",
-            "grid-template-columns:repeat(3, minmax(0, 1fr));"
-          );
-        } else if (width > 400) {
-          $("#artworks").attr(
-            "style",
-            "grid-template-columns:repeat(2, minmax(0, 1fr));"
-          );
-        } else {
-          $("#artworks").attr(
-            "style",
-            "grid-template-columns:repeat(1, minmax(0, 1fr));"
-          );
-        }
+        $("#artworks").attr(
+          "style",
+          "grid-template-columns:repeat(" +
+            Math.floor(width / 200) +
+            ", minmax(0, 1fr));"
+        );
       }
 
       $(window).resize(function (event) {

@@ -118,7 +118,6 @@
       var art_id = 0;
 
       init().then(function (response) {
-        console.log(response.id);
         var id = response.id;
         getArtwork(id);
         getCode(id, "html");
@@ -141,7 +140,7 @@
         const response = await httpGet(
           "//" +
             window.location.host +
-            "/api/editor/" +
+            "/api/artwork/" +
             art_id +
             "/" +
             file_name
@@ -164,7 +163,7 @@
 
       async function getInfo(art_id) {
         const response = await httpGet(
-          "//" + window.location.host + "/api/editor/" + art_id
+          "//" + window.location.host + "/api/artwork/" + art_id
         );
         var title = document.getElementById("title");
         var subtitle = document.getElementById("subtitle");
@@ -173,7 +172,7 @@
 
         title.value = response[0].title;
         subtitle.value = response[0].subtitle;
-        user_name.textContent = response[0].user_name;
+        user_name.textContent = response[0].name;
         profession.textContent = response[0].profession;
       }
 
@@ -190,15 +189,13 @@
 
       async function updateCode(code, file_name) {
         const data = {
+          art_id: art_id,
+          user_id: user_id,
+          file_name: file_name,
           code: code,
         };
         const response = await httpUpdate(
-          "//" +
-            window.location.host +
-            "/api/editor/" +
-            art_id +
-            "/" +
-            file_name,
+          "//" + window.location.host + "/api/artwork/update",
           data
         );
         getArtwork(art_id);
@@ -212,11 +209,11 @@
 
       $("#submit").on("click", async function () {
         const data = {
-          user_id: user_id,
-          art_id: art_id,
+          type: "publish",
+          content: 1,
         };
         const response = await httpPost(
-          "//" + window.location.host + "/api/submit",
+          "//" + window.location.host + "/api/artwork",
           data
         );
       });
@@ -228,7 +225,7 @@
           content: this.value,
         };
         const response = await httpPost(
-          "//" + window.location.host + "/api/editor/" + art_id,
+          "//" + window.location.host + "/api/artwork/" + art_id,
           data
         );
         //console.log("editor.html title change 2");
@@ -240,7 +237,7 @@
           content: this.value,
         };
         const response = await httpPost(
-          "//" + window.location.host + "/api/editor/" + art_id,
+          "//" + window.location.host + "/api/artwork/" + art_id,
           data
         );
       });

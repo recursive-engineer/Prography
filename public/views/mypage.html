@@ -20,7 +20,7 @@
 
     <link
       rel="stylesheet"
-      href="../scss/my-page-pc.css"
+      href="../scss/mypage-pc.css"
       media="screen"
       type="text/css"
     />
@@ -61,7 +61,7 @@
 
       async function get_artworks(user_id) {
         const response = await httpGet(
-          "//" + window.location.host + "/api/my-page" + "/" + user_id
+          "//" + window.location.host + "/api/mypage" + "/" + user_id
         );
         var artworks = document.getElementById("artworks");
         for (var i = 0; i < response.length; i++) {
@@ -96,18 +96,15 @@
       }
 
       async function deleteArt() {
-        console.log("aaa");
         var artwork = this.previousElementSibling;
         const data = {
           art_id: artwork.id,
         };
         const response = await httpDelete(
-          "//" + window.location.host + "/api/delete",
+          "//" + window.location.host + "/api/artwork/delete",
           data
         );
-        console.log("bbb");
         location.reload();
-        console.log("ccc");
       }
 
       async function open_editor(e) {
@@ -120,39 +117,16 @@
           e.target.id;
       }
 
-      $("#portfolio").on("click", async function () {
-        console.log(document.getElementById("1").classList.contains("artwork"));
-      });
-
-      $(".artwork").on("click", async function () {
-        console.log(document.getElementById("1").classList.contains("artwork"));
-      });
-
       artworkWidth();
 
       function artworkWidth() {
         var width = document.body.clientWidth;
-        if (width > 1200) {
-          $("#artworks").attr(
-            "style",
-            "grid-template-columns:repeat(6, minmax(0, 1fr));"
-          );
-        } else if (width > 600) {
-          $("#artworks").attr(
-            "style",
-            "grid-template-columns:repeat(3, minmax(0, 1fr));"
-          );
-        } else if (width > 400) {
-          $("#artworks").attr(
-            "style",
-            "grid-template-columns:repeat(2, minmax(0, 1fr));"
-          );
-        } else {
-          $("#artworks").attr(
-            "style",
-            "grid-template-columns:repeat(1, minmax(0, 1fr));"
-          );
-        }
+        $("#artworks").attr(
+          "style",
+          "grid-template-columns:repeat(" +
+            Math.floor(width / 300) +
+            ", minmax(0, 1fr));"
+        );
       }
 
       $(window).resize(function (event) {

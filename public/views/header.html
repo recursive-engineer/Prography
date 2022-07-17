@@ -12,7 +12,7 @@
     aria-label="Search"
     aria-describedby="button-addon2"
   />
-  <button id="gallery">
+  <button id="gallery" onclick="openGallery()">
     <i class="bi bi-columns"></i>
     <div class="button-text">gallery</div>
   </button>
@@ -27,18 +27,22 @@
   <script>
     var query = window.location.search;
     var value = query.split("=");
+    var user_id = value[1];
     var art_id = value[2];
-    var value2 = value[1].split(",");
-    var user_id = value2[0];
+
+    async function openGallery() {
+      location.href =
+        "//" + window.location.host + "/views/gallery.html?=" + user_id;
+    }
 
     async function openMyPage() {
       location.href =
-        "//" + window.location.host + "/views/my-page.html?=" + user_id;
+        "//" + window.location.host + "/views/mypage.html?=" + user_id;
     }
 
     async function openNewCode() {
       location.href =
-        "//" + window.location.host + "/views/new-code.html?=" + user_id;
+        "//" + window.location.host + "/views/newcode.html?=" + user_id;
     }
 
     searchWidth();

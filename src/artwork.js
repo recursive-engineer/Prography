@@ -3,75 +3,7 @@ const config = require("../config.js");
 const fs = require("fs");
 const puppeteer = require("puppeteer");
 
-createCode = async function (art_id) {
-  var html =
-    '<script src="../artworks/js/' +
-    art_id +
-    '.js"></script>\n<link rel="stylesheet" href="../artworks/scss/' +
-    art_id +
-    '.css" media="screen" type="text/css"/>';
-  var scss = "";
-  var js = "";
-  const html_path = "public/artworks/html/" + art_id + ".html";
-  const scss_path = "public/artworks/scss/" + art_id + ".scss";
-  const js_path = "public/artworks/js/" + art_id + ".js";
-  fs.writeFileSync(html_path, html);
-  fs.writeFileSync(scss_path, scss);
-  fs.writeFileSync(js_path, js);
-  var html_exist = 0;
-  var scss_exist = 0;
-  var js_exist = 0;
-  if (fs.existsSync(html_path)) {
-    html_exist = 1;
-  }
-  if (fs.existsSync(scss_path)) {
-    scss_exist = 1;
-  }
-  if (fs.existsSync(js_path)) {
-    js_exist = 1;
-  }
-
-  return html_exist * scss_exist * js_exist;
-};
-
-createArt = async function (user_id) {
-  //console.log("artwork.js createNewCode 1");
-  let connection = null;
-  try {
-    connection = await mysql.createConnection(config.dbSetting);
-    var sql1 = "SELECT id FROM t_artwork;";
-    var sql2 =
-      "INSERT INTO t_artwork (id,author_id,title,subtitle) VALUES (?,?,?,?);";
-    var [rows, fields] = await connection.query(sql1);
-    console.log();
-    if (rows.length == 0) {
-      var min = 1;
-    } else {
-      var min = minValue(rows);
-    }
-    function minValue(rows) {
-      for (var i = 1; i < rows.length + 2; i++) {
-        for (var j = 0; j < rows.length; j++) {
-          if (rows[j].id == i) {
-            break;
-          } else if (j == rows.length - 1) {
-            return i;
-          }
-        }
-      }
-    }
-    var param = [min, user_id, "タイトル", "subtitle"];
-    await connection.query(sql2, param);
-    //console.log("artwork.js createNewCode 2");
-    return min;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.end();
-  }
-};
-
-createThumbnail = async function (data) {
+updateThumbnail = async function (data) {
   console.log("artwork.js createThumbnail 1");
   const browser = await puppeteer.launch({
     executablePath:
@@ -84,6 +16,7 @@ createThumbnail = async function (data) {
       width: 500,
       height: 500,
     });
+    console.log(data);
     var url = "editor.html?user_id=" + data.user_id + ",art_id=" + data.art_id;
     console.log("http://localhost:3000/views/" + url);
     await page.goto("http://localhost:3000/views/" + url);
@@ -145,60 +78,27 @@ getArtInfo = async function (art_id) {
   }
 };
 
-updateArt = function (art_id, file_name, data) {
+updateArt = function (data) {
   //console.log("artwork.js updateArt 1");
-  switch (file_name) {
+  switch (data.file_name) {
     case "html":
-      fs.writeFileSync("public/artworks/html/" + art_id + ".html", data.code);
+      fs.writeFileSync(
+        "public/artworks/html/" + data.art_id + ".html",
+        data.code
+      );
       break;
     case "scss":
-      fs.writeFileSync("public/artworks/scss/" + art_id + ".scss", data.code);
+      fs.writeFileSync(
+        "public/artworks/scss/" + data.art_id + ".scss",
+        data.code
+      );
       break;
     case "js":
-      fs.writeFileSync("public/artworks/js/" + art_id + ".js", data.code);
+      fs.writeFileSync("public/artworks/js/" + data.art_id + ".js", data.code);
       break;
   }
   //console.log("artwork.js updateArt 2");
   return 0;
-};
-
-updateInfo = async function (art_id, data) {
-  //console.log("artwork.js updateInfo 1");
-  let connection = null;
-  try {
-    connection = await mysql.createConnection(config.dbSetting);
-    if (data.type == "title") {
-      var sql = "UPDATE t_artwork SET title=? WHERE id=?;";
-    }
-    if (data.type == "subtitle") {
-      var sql = "UPDATE t_artwork SET subtitle=? WHERE id=?;";
-    }
-    let param = [data.content, art_id];
-    const [rows, fields] = await connection.query(sql, param);
-    //console.log("artwork.js updateInfo 2");
-    return rows;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.end();
-  }
-};
-
-publishArt = async function (data) {
-  //console.log("artwork.js,postArt 1");
-  let connection = null;
-  try {
-    connection = await mysql.createConnection(config.dbSetting);
-    var sql = "UPDATE t_artwork SET publish=1 WHERE id=?;";
-    let param = [data.art_id];
-    const [rows, fields] = await connection.query(sql, param);
-    //console.log("artwork.js,postArt 2");
-    return rows;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    connection.end();
-  }
 };
 
 deleteCode = async function (data) {
@@ -243,14 +143,36 @@ deleteThumbnail = async function (data) {
   console.log("artwork.js deleteThumbnail 2");
 };
 
-exports.createCode = createCode;
-exports.createArt = createArt;
-exports.createThumbnail = createThumbnail;
+updateInfo = async function (art_id, data) {
+  //console.log("artwork.js updateInfo 1");
+  let connection = null;
+  try {
+    connection = await mysql.createConnection(config.dbSetting);
+    if (data.type == "title") {
+      var sql = "UPDATE t_artwork SET title=? WHERE id=?;";
+    }
+    if (data.type == "subtitle") {
+      var sql = "UPDATE t_artwork SET subtitle=? WHERE id=?;";
+    }
+    if (data.type == "publish") {
+      var sql = "UPDATE t_artwork SET publish=? WHERE id=?;";
+    }
+    let param = [data.content, art_id];
+    const [rows, fields] = await connection.query(sql, param);
+    //console.log("artwork.js updateInfo 2");
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    connection.end();
+  }
+};
+
+exports.updateThumbnail = updateThumbnail;
 exports.getArt = getArt;
 exports.getArtInfo = getArtInfo;
 exports.updateArt = updateArt;
-exports.updateInfo = updateInfo;
-exports.publishArt = publishArt;
 exports.deleteCode = deleteCode;
 exports.deleteArt = deleteArt;
 exports.deleteThumbnail = deleteThumbnail;
+exports.updateInfo = updateInfo;
