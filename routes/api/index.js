@@ -7,7 +7,14 @@ const newcode = require("../../src/newcode.js");
 const editor = require("../../src/editor.js");
 const mypage = require("../../src/mypage.js");
 const gallery = require("../../src/gallery.js");
-const user = require("../../src/register.js");
+const user = require("../../src/user.js");
+
+router.get("/header/:user_id", async function (req, res, next) {
+  //console.log("index.js,router.get 1");
+  const getUser = await user.getUser(req.params.user_id);
+  //console.log("index.js,router.get 2");
+  res.send(getUser);
+});
 
 router.get("/artwork/:art_id/:file_name", async function (req, res, next) {
   //console.log("index.js,router.get 1");
@@ -58,19 +65,27 @@ router.get("/newcode/:user_id", async function (req, res, next) {
   res.json({ id: art_id, end: end });
 });
 
-//register.html
-router.post("/register/check", async function (req, res, next) {
+//signup.html
+router.post("/signup/check", async function (req, res, next) {
   console.log("index.js router.post 1");
   const checkUser = await user.checkUser(req.body);
   console.log("index.js router.post 2");
   res.json({ result: checkUser });
 });
 
-router.post("/register/create", async function (req, res, next) {
+router.post("/signup/create", async function (req, res, next) {
   //console.log("index.js router.post 1");
   const createUser = await user.createUser(req.body);
   //console.log("index.js router.post 2");
-  res.send(createUser);
+  res.json({ user_id: createUser });
+});
+
+//signin.html
+router.post("/signin", async function (req, res, next) {
+  console.log("index.js router.post 1");
+  const signUser = await user.signUser(req.body);
+  console.log("index.js router.post 2");
+  res.json({ user_id: signUser });
 });
 
 //mypage.html

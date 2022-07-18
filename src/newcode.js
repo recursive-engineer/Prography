@@ -42,7 +42,6 @@ createArt = async function (user_id) {
     var sql2 =
       "INSERT INTO t_artwork (art_id,author_id,title,subtitle) VALUES (?,?,?,?);";
     var [rows, fields] = await connection.query(sql1);
-    console.log();
     if (rows.length == 0) {
       var min = 1;
     } else {
@@ -51,7 +50,7 @@ createArt = async function (user_id) {
     function minValue(rows) {
       for (var i = 1; i < rows.length + 2; i++) {
         for (var j = 0; j < rows.length; j++) {
-          if (rows[j].id == i) {
+          if (rows[j].art_id == i) {
             break;
           } else if (j == rows.length - 1) {
             return i;

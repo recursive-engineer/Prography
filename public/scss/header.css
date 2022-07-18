@@ -20316,8 +20316,19 @@ nav #signin {
   background-color: #3a1fad;
 }
 nav #signup {
-  background-color: #889621;
+  background-color: #c72d3a;
 }
 nav button:hover {
   filter: saturate(200%);
+}
+
+#modal {
+  position: relative;
+  top: 0px;
+  right: 0px;
+  margin: auto;
+  display: none;
+  width: 500px;
+  height: 350px;
+  background-color: rgb(30, 30, 60);
 }

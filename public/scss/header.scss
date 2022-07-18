@@ -110,9 +110,19 @@ nav {
     background-color: $indigo-30;
   }
   #signup {
-    background-color: $yellow-30;
+    background-color: $red-30;
   }
   button:hover {
     filter: saturate(200%);
   }
+}
+#modal {
+  position: relative;
+  top: 0px;
+  right: 0px;
+  margin: auto;
+  display: none;
+  width: 500px;
+  height: 350px;
+  background-color: $black-60;
 }

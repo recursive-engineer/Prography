@@ -46,7 +46,10 @@
     load();
 
     async function load() {
-      $("#header_name").text("RaiRai");
+      const response = await httpGet(
+        "//" + window.location.host + "/api/header/"+user_id,
+      );
+      $("#header_name").text(response[0].name);
     }
 
     async function openGallery() {
