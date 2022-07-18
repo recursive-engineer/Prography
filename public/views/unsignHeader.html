@@ -16,19 +16,25 @@
     <i class="bi bi-columns"></i>
     <div class="button-text">gallery</div>
   </button>
-  <button id="new-code" onclick="openNewCode();">
-    <i class="bi bi-code-slash"></i>
-    <div class="button-text">new code</div>
+  <button id="signin" onclick="signin();">
+    <i class="bi bi-box-arrow-in-right"></i>
+    <div class="button-text">sign in</div>
   </button>
-  <button id="my-page" onclick="openMyPage();">
-    <i class="bi bi-house"></i>
-    <div class="button-text">my page</div>
+  <button id="signup" onclick="signup();">
+    <i class="bi bi-pencil-square"></i>
+    <div class="button-text">sign up</div>
   </button>
+
   <script>
     var query = window.location.search;
     var value = query.split("=");
     var user_id = value[1];
-    var art_id = value[2];
+
+    load();
+
+    async function load() {
+      $("#header_name").text("RaiRai");
+    }
 
     async function openGallery() {
       location.href =
@@ -43,6 +49,10 @@
     async function openNewCode() {
       location.href =
         "//" + window.location.host + "/views/newcode.html?=" + user_id;
+    }
+
+    async function logout() {
+      location.href = "//" + window.location.host + "/views/gallery.html?=0";
     }
 
     searchWidth();
@@ -62,6 +72,21 @@
 
     $(window).resize(function (event) {
       searchWidth();
+    });
+
+    var dropdown = 0;
+
+    $(window).click(function (e) {
+      if (!$(e.target).hasClass("user") && dropdown == 1) {
+        dropdown = 0;
+        $("#dropdown-menu").attr("style", "display:none;");
+      }
+    });
+    $("#user").click(function () {
+      if (dropdown == 0) {
+        dropdown = 1;
+        $("#dropdown-menu").attr("style", "display:block;");
+      }
     });
   </script>
 </nav>

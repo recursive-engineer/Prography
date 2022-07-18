@@ -20266,15 +20266,57 @@ nav button .button-text {
   font-size: 14px;
   color: rgb(250, 250, 255);
 }
+nav #user_wrap {
+  margin-left: 10px;
+}
+nav #user_wrap #user {
+  margin: 10px 0px 10px 0px;
+  padding: 0px 15px;
+  background-color: rgb(20, 20, 40);
+  position: static;
+}
+nav #user_wrap #user #header_icon {
+  width: 30px;
+  height: 30px;
+}
+nav #user_wrap #user #header_name {
+  margin-top: 5px;
+  font-size: 14px;
+}
+nav #user_wrap ul {
+  list-style: none;
+  text-align: center;
+}
+nav #user_wrap #dropdown-menu {
+  background-color: rgb(20, 20, 40);
+  color: rgb(250, 250, 255);
+  padding: 0px;
+  width: 120px;
+  display: none;
+  position: relative;
+  top: 0px;
+  right: 0px;
+}
+nav #user_wrap #dropdown-menu li {
+  margin: 0px;
+  padding: 5px 0px 5px 0px;
+  width: 120px;
+  background-color: rgb(20, 20, 40);
+}
+nav #user_wrap #dropdown-menu li:hover {
+  background-color: #889621;
+}
 nav #gallery {
   background-color: #3a1fad;
 }
 nav #new-code {
   background-color: #3a1fad;
 }
-nav #my-page {
-  margin-left: 10px;
+nav #signin {
   background-color: #3a1fad;
+}
+nav #signup {
+  background-color: #889621;
 }
 nav button:hover {
   filter: saturate(200%);

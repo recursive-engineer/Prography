@@ -83,11 +83,15 @@
     <script src="../js/index.js"></script>
 
     <script type="text/javascript">
-      $("#header").load("header.html");
-
       var query = window.location.search;
       var value = query.split("=");
       var user_id = value[1];
+
+      if (user_id == 0) {
+        $("#header").load("unsignHeader.html");
+      } else {
+        $("#header").load("signHeader.html");
+      }
 
       var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
         mode: "text/html",

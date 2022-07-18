@@ -42,18 +42,21 @@
     <script src="../js/index.js"></script>
 
     <script type="text/javascript">
-      $("#header").load("header.html");
-
       var query = window.location.search;
       var value = query.split("=");
       var user_id = value[1];
       get_artworks();
 
+      if (user_id == 0) {
+        $("#header").load("unsignHeader.html");
+      } else {
+        $("#header").load("signHeader.html");
+      }
+
       async function get_artworks() {
         const response = await httpGet(
           "//" + window.location.host + "/api/gallery/get"
         );
-        console.log(response);
         var artworks = document.getElementById("artworks");
         for (var i = 0; i < response.length; i++) {
           var li = document.createElement("li");
