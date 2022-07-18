@@ -53,11 +53,13 @@
         const response = await httpGet(
           "//" + window.location.host + "/api/gallery/get"
         );
+        console.log(response);
         var artworks = document.getElementById("artworks");
         for (var i = 0; i < response.length; i++) {
           var li = document.createElement("li");
           li.classList.add("li");
           li.setAttribute("data-art_id", response[i].art_id);
+          li.setAttribute("data-author_id", response[i].author_id);
           li.setAttribute("data-name", response[i].name);
           li.setAttribute("data-title", response[i].title);
           var img = document.createElement("img");
@@ -83,13 +85,18 @@
             title.textContent = $(this).attr("data-title");
             var author = document.createElement("div");
             author.setAttribute("class", "author");
-            author.setAttribute("id", $(this).attr("data-id"));
+            author.setAttribute(
+              "data-author_id",
+              $(this).attr("data-author_id")
+            );
             var icon = document.createElement("img");
             icon.setAttribute("class", "icon");
             icon.setAttribute("src", "../image/vivi.png");
+            icon.setAttribute("data-author_id", $(this).attr("data-author_id"));
             var name = document.createElement("div");
             name.setAttribute("class", "name");
             name.textContent = $(this).attr("data-name");
+            name.setAttribute("data-author_id", $(this).attr("data-author_id"));
             author.append(icon);
             author.append(name);
             info.append(title);
@@ -104,20 +111,21 @@
       }
 
       async function openUserPage(e) {
+        var author_id = e.target.getAttribute("data-author_id");
         location.href =
           "//" +
           window.location.host +
-          "/views/editor.html?=" +
+          "/views/userpage.html?=" +
           user_id +
           "=" +
-          e.target.id;
+          author_id;
       }
 
       async function openViewer(e) {
         location.href =
           "//" +
           window.location.host +
-          "/views/editor.html?=" +
+          "/views/viewer.html?=" +
           user_id +
           "=" +
           e.target.id;

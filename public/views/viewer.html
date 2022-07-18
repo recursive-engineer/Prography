@@ -13,50 +13,39 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
     />
-    <script
-      src="https://code.jquery.com/jquery-3.5.0.min.js"
-      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
-      crossorigin="anonymous"
-    ></script>
-    <script src="../js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="shortcut icon" href="../image/favicon.ico" />
     <link rel="stylesheet" href="../scss/header.css" />
+    <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
+
+    <link
+      rel="stylesheet"
+      href="../scss/viewer-pc.css"
+      media="screen"
+      type="text/css"
+    />
     <link rel="stylesheet" href="../scss/codemirror.css" />
     <link rel="stylesheet" href="../scss/monokai.css" />
     <script src="../js/codemirror.js"></script>
     <script src="../mode/javascript/javascript.js"></script>
     <script src="../mode/xml/xml.js"></script>
     <script src="../mode/css/css.js"></script>
-    <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
-    <link
-      rel="stylesheet"
-      href="../scss/editor-pc.css"
-      media="screen"
-      type="text/css"
-    />
+
     <title>Prography</title>
   </head>
   <body>
     <header id="header"></header>
     <div class="outer_frame">
       <div class="inner_frame">
-        <iframe
-          id="artwork"
-          class="iframe-preview"
-          src="artwork.html"
-          width="500px"
-          height="500px"
-          frameborder="0"
-        ></iframe>
+        <div id="artwork"></div>
         <div id="code-area">
           <form method="post">
             <div id="buttons">
               <select id="codes" class="form-control" onchange="codeChange();">
-                <option value="HTML">HTML</option>
-                <option value="CSS">CSS</option>
-                <option value="JavaScript">JavaScript</option>
+                <option value="html">html</option>
+                <option value="scss">scss</option>
+                <option value="js">javascript</option>
               </select>
-              <button id="update" type="button">更新</button>
-              <button id="submit" type="button">投稿</button>
             </div>
             <textarea
               id="editor"
@@ -70,46 +59,24 @@
       </div>
       <div id="caption" class="d-flex">
         <div id="titles">
-          <p id="title">Title Here</p>
-          <p id="subtitle">Subtitle Here</p>
+          <div type="text" id="title">Title Here</div>
+          <div type="text" id="subtitle">Subtitle Here</div>
         </div>
         <div id="author_frame" class="d-flex">
           <div id="author_icon"></div>
           <div id="author_info">
-            <p id="author_name">Author Name Here</p>
-            <p id="author_profession">Profession Here</p>
+            <p id="user_name">Author Name Here</p>
+            <p id="profession">Profession Here</p>
             <button class="btn" type="submit">Follow</button>
           </div>
         </div>
       </div>
     </div>
-    <div id="viewers">
-      <div id="floor">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <div id="viewer"></div>
-    </div>
-    <div id="reputation"></div>
 
     <script src="../js/index.js"></script>
 
     <script type="text/javascript">
       $("#header").load("header.html");
-      var query = location.search;
-      var value = query.split("=");
-      var art_id = value[1];
-      get_code("html");
-
-      async function get_code(file_name) {
-        const response = await httpGet(
-          "//" + window.location.host + "/api/editor" + "/" + art_id
-        );
-        display_code(response, file_name);
-        document.getElementById("artwork").contentWindow.location.reload();
-      }
 
       var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
         mode: "text/html",
@@ -123,6 +90,7 @@
         enterMode: "keep",
         lineWrapping: false,
         smartIndent: true,
+        readOnly: "nocursor",
         onCursorActivity: function () {
           editor.setLineClass(hlLine, null, null);
           hlLine = editor.setLineClass(
@@ -133,99 +101,63 @@
         },
       });
       editor.setSize(490, 460);
-      editor.on("change", function () {
-        editor.save();
-      });
 
-      function display_code(response, file_name) {
-        var code = document.getElementById("editor");
+      var query = window.location.search;
+      var value = query.split("=");
+      var user_id = value[1];
+      var art_id = value[2];
+
+      getCode("html");
+      getArtwork();
+      getInfo();
+
+      function getArtwork() {
+        $("#artwork").load("../artworks/html/" + art_id + ".html");
+      }
+
+      async function getCode(file_name) {
+        const response = await httpGet(
+          "//" +
+            window.location.host +
+            "/api/artwork/" +
+            art_id +
+            "/" +
+            file_name
+        );
+        var doc = editor.getDoc();
+        doc.setValue(response.text);
+        editor.clearHistory();
         switch (file_name) {
           case "html":
-            editor.setValue(response[0].html);
             editor.setOption("mode", "text/html");
             break;
-          case "js":
-            editor.setValue(response[0].js);
-            editor.setOption("mode", "javascript");
-            break;
-          case "css":
-            editor.setValue(response[0].css);
+          case "scss":
             editor.setOption("mode", "css");
             break;
+          case "js":
+            editor.setOption("mode", "javascript");
+            break;
         }
       }
-
-      $("#update").on("click", async function () {
-        console.log("html update");
-        var code = document.getElementById("editor");
-        var file_name = document.getElementById("codes").value;
-
-        const data = {
-          file: code.value,
-          file_name: file_name,
-        };
-        const response = await httpUpdate(
-          "//" + window.location.host + "/api/editor",
-          data,
-          art_id
-        );
-        console.log(response);
-        location.reload();
-      });
 
       function codeChange() {
-        if (document.getElementById("codes")) {
-          var file_name = document.getElementById("codes").value;
-          if (file_name == "HTML") {
-            get_code("html");
-          } else if (file_name == "CSS") {
-            get_code("css");
-          } else if (file_name == "JavaScript") {
-            get_code("js");
-          }
-        }
-        window.onload = codeChange;
+        var file_name = document.getElementById("codes").value;
+        getCode(file_name);
       }
 
-      $("#submit").on("click", async function () {
-        console.log("edit-artwork.html 1");
-        const response = await httpPost2(
-          "//" + window.location.host + "/api/submit" + "/" + art_id
+      async function getInfo() {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/artwork/" + art_id
         );
-        console.log("edit-artwork.html 2");
-      });
-
-      var title = document.getElementById("title");
-      var code = document.getElementById("code");
-      var subtitle = document.getElementById("subtitle");
-      var author_name = document.getElementById("author_name");
-      var profession = document.getElementById("author_profession");
-      var artwork = document.getElementById("artwork");
-      //artwork.setAttribute("src","artwork"+art_id+".html");
-      switch (art_id) {
-        case 1:
-          title.textContent = "The Sierpinski";
-          author_name.textContent = "RaiRai000";
-          break;
-        case 2:
-          title.textContent = "色空間におけるアフィン変換";
-          subtitle.textContent = "The Affine-Transforming of Color-Space";
-          author_name.textContent = "RaiRai000";
-          profession.textContent = "Media Artist";
-          break;
-        case 3:
-          title.textContent = "空間描画";
-          subtitle.textContent = "3d drawing";
-          author_name.textContent = "RaiRai000";
-          profession.textContent = "Media Artist";
-          break;
-        default:
+        var title = document.getElementById("title");
+        var subtitle = document.getElementById("subtitle");
+        var user_name = document.getElementById("user_name");
+        var profession = document.getElementById("profession");
+        title.textContent = response[0].title;
+        subtitle.textContent = response[0].subtitle;
+        user_name.textContent = response[0].name;
+        profession.textContent = response[0].profession;
       }
     </script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>

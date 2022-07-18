@@ -5,6 +5,7 @@
 body {
   background-color: $black-10;
   #header {
+    z-index: 10;
     position: fixed;
     top: 0;
     left: 0;
@@ -105,7 +106,7 @@ body {
         #author_info {
           margin-left: 5px;
           height: 45px;
-          #author_name {
+          #user_name {
             margin: 0px;
             padding: 0px;
             height: 15px;
@@ -113,7 +114,7 @@ body {
             font-size: 15px;
             font-weight: 500;
           }
-          #author_profession {
+          #profession {
             margin-top: 5px;
             margin-bottom: 5px;
             padding: 0px;
@@ -134,58 +135,6 @@ body {
         }
       }
     }
-  }
-  #viewers {
-    margin: auto;
-    width: 100%;
-    height: 100px;
-    position: relative;
-    #floor {
-      padding-top: 50px;
-      margin-left: 2%;
-      margin-right: 2%;
-      z-index: 10;
-      height: 0px;
-      width: 96%;
-      border-bottom: 50px solid $black-40;
-      border-left: 50px solid transparent;
-      border-right: 50px solid transparent;
-      div {
-        position: absolute;
-      }
-      div:nth-of-type(1) {
-        width: calc(96% - 100px);
-        border-top: 1px solid $black-60;
-      }
-      div:nth-of-type(2) {
-        border-left: 1px solid $black-60;
-        height: 71px;
-        width: 0px;
-        transform: translate(-25px, -10.5px) rotate(45deg);
-      }
-      div:nth-of-type(3) {
-        border-right: 1px solid $black-60;
-        height: 71px;
-        left: calc(98% - 25px);
-        width: 0px;
-        transform: translate(0px, -10.5px) rotate(315deg);
-      }
-      div:nth-of-type(4) {
-        width: 96%;
-        left: 2%;
-        top: 100px;
-        border-bottom: 1px solid $black-60;
-      }
-    }
-    #viewer {
-      z-index: 20;
-    }
-  }
-  #reputation {
-    margin: auto;
-    width: 96%;
-    height: 500px;
-    background-color: $black-30;
   }
 }
 

@@ -20212,6 +20212,7 @@ body {
   background-color: rgb(5, 5, 10);
 }
 body #header {
+  z-index: 10;
   position: fixed;
   width: 100%;
   top: 0;

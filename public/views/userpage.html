@@ -20,7 +20,7 @@
 
     <link
       rel="stylesheet"
-      href="../scss/mypage-pc.css"
+      href="../scss/userpage-pc.css"
       media="screen"
       type="text/css"
     />
@@ -57,11 +57,12 @@
       var query = window.location.search;
       var value = query.split("=");
       var user_id = value[1];
-      get_artworks(user_id);
+      var author_id = value[2];
+      get_artworks(author_id);
 
-      async function get_artworks(user_id) {
+      async function get_artworks(author_id) {
         const response = await httpGet(
-          "//" + window.location.host + "/api/mypage" + "/" + user_id
+          "//" + window.location.host + "/api/mypage" + "/" + author_id
         );
         var artworks = document.getElementById("artworks");
         for (var i = 0; i < response.length; i++) {
@@ -79,39 +80,15 @@
         }
         const artwork = document.getElementsByClassName("artwork");
         for (let i = 0; i < artwork.length; i++) {
-          artwork[i].addEventListener("click", open_editor, false);
+          artwork[i].addEventListener("click", openViewer, false);
         }
-        $(".li").hover(
-          function () {
-            var icon = document.createElement("i");
-            icon.classList.add("bi", "bi-x-circle");
-            icon.setAttribute("id", $(this).attr("id"));
-            $(this).append(icon);
-            $(".bi-x-circle").on("click", deleteArt);
-          },
-          function () {
-            $(".bi-x-circle").remove();
-          }
-        );
       }
 
-      async function deleteArt() {
-        var artwork = this.previousElementSibling;
-        const data = {
-          art_id: artwork.id,
-        };
-        const response = await httpDelete(
-          "//" + window.location.host + "/api/artwork/delete",
-          data
-        );
-        location.reload();
-      }
-
-      async function open_editor(e) {
+      async function openViewer(e) {
         location.href =
           "//" +
           window.location.host +
-          "/views/editor.html?=" +
+          "/views/viewer.html?=" +
           user_id +
           "=" +
           e.target.id;

@@ -5,6 +5,7 @@
 body {
   background-color: $black-10;
   #header {
+    z-index: 10;
     position: fixed;
     width: 100%;
     top: 0;
