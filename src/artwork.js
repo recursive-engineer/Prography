@@ -60,7 +60,7 @@ getArt = async function (art_id, file_name) {
 };
 
 getArtInfo = async function (art_id) {
-  //console.log("artwork.js getArtInfo 1");
+  console.log("artwork.js getArtInfo 1");
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
@@ -68,8 +68,8 @@ getArtInfo = async function (art_id) {
       "SELECT * FROM t_artwork INNER JOIN t_user ON t_artwork.author_id = t_user.user_id where t_artwork.art_id = ?;";
     let param = [art_id];
     const [rows, fields] = await connection.query(sql, param);
-    //console.log(rows);
-    //console.log("artwork.js getArtInfo 2");
+    console.log(rows);
+    console.log("artwork.js getArtInfo 2");
     return rows;
   } catch (err) {
     console.log(err);
