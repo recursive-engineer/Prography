@@ -43,7 +43,7 @@
     var value = query.split("=");
     var user_id = value[1];
 
-    load();
+    load(user_id);
 
     async function load(user_id) {
       const response = await httpGet(
