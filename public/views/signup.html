@@ -52,7 +52,7 @@
       email: $("#email").val(),
     };
     const response = await httpPost(
-      "//" + window.location.host + "/api/signup/check",
+      "//" + window.location.host + "/api/user/signup/check",
       data
     );
 
@@ -90,7 +90,7 @@
     }
     if (result == 0 && empty == 0) {
       const response = await httpPost(
-        "//" + window.location.host + "/api/signup/create",
+        "//" + window.location.host + "/api/user/signup/create",
         data
       );
       var query = window.location.search;

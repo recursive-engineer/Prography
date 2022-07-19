@@ -35,7 +35,7 @@
         <div id="icon">
           <img id="background" src="../image/vivi.png" />
         </div>
-        <div id="author-name">author-name</div>
+        <div id="user-name" class="name">user-name</div>
         <div id="profession">profession</div>
       </div>
     </div>
@@ -62,9 +62,10 @@
       } else {
         $("#header").load("signHeader.html");
       }
-      get_artworks(user_id);
+      getArtworks(user_id);
+      getUser(user_id);
 
-      async function get_artworks(user_id) {
+      async function getArtworks(user_id) {
         const response = await httpGet(
           "//" + window.location.host + "/api/mypage" + "/" + user_id
         );
@@ -98,6 +99,14 @@
             $(".bi-x-circle").remove();
           }
         );
+      }
+
+      async function getUser(user_id) {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/user/" + user_id
+        );
+        $("#user-name").text(response[0].name);
+        $("#profession").text(response[0].profession);
       }
 
       async function deleteArt() {

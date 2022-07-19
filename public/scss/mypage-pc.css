@@ -20246,7 +20246,7 @@ body #user-info #icons #icon img {
   width: 150px;
   height: 150px;
 }
-body #user-info #icons #author-name {
+body #user-info #icons .name {
   margin: 0 auto;
   padding-top: 5px;
   width: 250px;

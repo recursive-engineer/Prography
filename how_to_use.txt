@@ -44,8 +44,11 @@ Github関連
     sshが通っているか確認
         ・ssh -T git@github.com
 
-npm use v16.15.1
-sudo netstat -anp | grep sshd
+EC2関係
+    ssh -i .ssh/rairai0523.pem ec2-user@54.238.179.114 
+    npm use v16.15.1
+    sudo netstat -anp | grep sshd
+
 //host=prography.cikxxk8vmgy2.ap-northeast-1.rds.amazonaws.com
 //port = 3306
 //host=192.168.64.3

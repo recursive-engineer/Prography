@@ -35,7 +35,7 @@
         <div id="icon">
           <img id="background" src="../image/vivi.png" />
         </div>
-        <div id="author-name">author-name</div>
+        <div id="author-name" class="name">author-name</div>
         <div id="profession">profession</div>
       </div>
     </div>
@@ -64,9 +64,10 @@
         $("#header").load("signHeader.html");
       }
 
-      get_artworks(author_id);
+      getArtworks(author_id);
+      getUser(author_id);
 
-      async function get_artworks(author_id) {
+      async function getArtworks(author_id) {
         const response = await httpGet(
           "//" + window.location.host + "/api/mypage" + "/" + author_id
         );
@@ -88,6 +89,14 @@
         for (let i = 0; i < artwork.length; i++) {
           artwork[i].addEventListener("click", openViewer, false);
         }
+      }
+
+      async function getUser(author_id) {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/user/" + author_id
+        );
+        $("#author-name").text(response[0].name);
+        $("#profession").text(response[0].profession);
       }
 
       async function openViewer(e) {

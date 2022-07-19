@@ -60,7 +60,7 @@
       $("#signin_err").text("未入力の項目があります");
     } else {
       const response = await httpPost(
-        "//" + window.location.host + "/api/signin",
+        "//" + window.location.host + "/api/user/signin",
         data
       );
       if (response.user_id == 0) {

@@ -47,7 +47,7 @@
 
     async function load() {
       const response = await httpGet(
-        "//" + window.location.host + "/api/header/"+user_id,
+        "//" + window.location.host + "/api/user/"+user_id,
       );
       $("#header_name").text(response[0].name);
     }
