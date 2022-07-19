@@ -20,6 +20,7 @@
     "dotenv": "^16.0.1",
     "express": "~4.16.1",
     "FileReader": "^0.10.2",
+    "forever": "^4.0.3",
     "fs": "^0.0.1-security",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
