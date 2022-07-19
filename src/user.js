@@ -67,6 +67,8 @@ getUser = async function (user_id) {
     const sql = "SELECT * FROM t_user WHERE user_id = ?;";
     var param = [user_id];
     const [rows, fields] = await connection.query(sql, param);
+    console.log(rows);
+    console.log("user.js getUser 1");
     return rows;
   } catch (err) {
     console.log(err);
