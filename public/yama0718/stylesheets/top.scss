@@ -1,0 +1,126 @@
+
+$test1:#4123c2;
+$test2:#21968f;
+$test3:#2dc73a;
+$test4:#95a51c;
+$test5:#f81a29;
+*{
+    margin:0;
+    font-size:20px;
+}
+.container{
+    padding: 0 80px;
+    background-color: #272727;
+}
+.tabs{
+    
+    display: flex;
+    padding-top: 95px;
+}
+.tab{
+    width: 170px;
+    border-bottom: 40px solid #c7c7c7;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    margin-left:20px;
+    text-align: center;
+    position: relative;
+}
+.index{
+    background-color: #efefef;
+    width:150px;
+    height: 39px;
+    text-align: center;
+    position: absolute;
+    left:10px;
+    top:0;
+    line-height:39px;
+}
+.test1{
+    $test:$test1;
+    border:$test solid 3px;
+    box-sizing: border-box;
+    color:$test1;
+}
+.test2{
+    $test:$test2;
+    border:$test solid 3px;
+    box-sizing: border-box;
+    color:$test2;
+}
+.test3{
+    $test:$test3;
+    border:$test solid 3px;
+    box-sizing: border-box;
+    color:$test3;
+}
+.test4{
+    $test:$test4;
+    border:$test solid 3px;
+    box-sizing: border-box;
+    color:$test4;
+}
+.test5{
+    $test:$test5;
+    border:$test solid 3px;
+    box-sizing: border-box;
+    color:$test5;
+}
+
+.file{
+    background-color: #c7c7c7;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 38px;
+    
+}
+.line{
+    text-align: center;
+}
+.line img{
+    width: 180px;
+    height: 180px;
+    margin: 30px 25px;
+    border: 1px solid #272727;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: #272727;
+    display: inline-block;
+}
+.pages{
+    /*text-align:center;
+    display: flex;
+    margin:0 auto;*/
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    line-height:40px;
+}
+ul.pagelist{
+    list-style: none;
+    padding:0px;
+    display: flex;
+}
+li{
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    margin: 20px 10px;
+    border: 1px solid #272727;
+    text-align: center;
+}
+
+.this{
+    background-color: #272727;
+    color: #efefef;
+}
+.pageNumber{
+    padding:auto;
+}
+
+.pageNumber:hover{
+    background-color: $test2;
+}
