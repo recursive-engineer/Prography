@@ -51,8 +51,11 @@ EC2関係
     mysql -u admin -p -h prography.cikxxk8vmgy2.ap-northeast-1.rds.amazonaws.com
     password:prography
 
+    eval `ssh-agent`
+    ssh-add ~/.ssh/ec2_github_key
+
     nvm use v16.15.1
-    npm install forever
+    npm install forever -g
     npm install puppeteer
     npm install fs
 
