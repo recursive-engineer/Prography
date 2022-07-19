@@ -51,10 +51,13 @@ EC2関係
     mysql -u admin -p -h prography.cikxxk8vmgy2.ap-northeast-1.rds.amazonaws.com
     password:prography
     nvm use v16.15.1
-    nvm install v16.15.1
+    //nvm install v16.15.1
     forever start -c "npm run start" ./
     forever list
     forever stop "PID"
+    ssh -T github
+    eval `ssh-agent`
+    ssh-add ~/.ssh/ec2_github_key
 
 //host=prography.cikxxk8vmgy2.ap-northeast-1.rds.amazonaws.com
 //port = 3306
