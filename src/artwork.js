@@ -18,7 +18,7 @@ updateThumbnail = async function (data) {
       width: 500,
       height: 500,
     });
-    var url = "editor.html?user_id=" + data.user_id + ",art_id=" + data.art_id;
+    var url = "editor.html?=" + data.user_id + "=" + data.art_id;
     console.log("http://54.238.179.114:3000/views/" + url);
     await page.goto("http://54.238.179.114:3000/views/" + url);
     const selector = await page.$("#artwork");
