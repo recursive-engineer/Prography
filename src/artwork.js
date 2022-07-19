@@ -79,7 +79,7 @@ getArtInfo = async function (art_id) {
 };
 
 updateArt = function (data) {
-  //console.log("artwork.js updateArt 1");
+  console.log("artwork.js updateArt 1");
   switch (data.file_name) {
     case "html":
       fs.writeFileSync(
@@ -97,7 +97,7 @@ updateArt = function (data) {
       fs.writeFileSync("public/artworks/js/" + data.art_id + ".js", data.code);
       break;
   }
-  //console.log("artwork.js updateArt 2");
+  console.log("artwork.js updateArt 2");
   return 0;
 };
 

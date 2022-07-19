@@ -32,11 +32,13 @@ router.patch("/artwork/updateInfo", async function (req, res, next) {
 });
 
 router.patch("/artwork/updateArt", async function (req, res, next) {
-  //console.log("index.js,router.patch 1");
+  console.log("index.js,router.patch 1");
+  console.log(req.body);
   const updateArt = await artwork.updateArt(req.body);
+  console.log(updateArt);
   await artwork.updateThumbnail(req.body);
   await artwork.updateDate(req.body);
-  //console.log("index.js,router.patch 2");
+  console.log("index.js,router.patch 2");
   res.json({ text: updateArt });
 });
 
