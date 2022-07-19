@@ -38,7 +38,7 @@ createArt = async function (user_id) {
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
-    var sql1 = "SELECT id FROM t_artwork;";
+    var sql1 = "SELECT art_id FROM t_artwork;";
     var sql2 =
       "INSERT INTO t_artwork (art_id,author_id,title,subtitle) VALUES (?,?,?,?);";
     var [rows, fields] = await connection.query(sql1);
