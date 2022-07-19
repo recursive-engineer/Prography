@@ -63,7 +63,7 @@ createArt = async function (user_id) {
     //console.log("artwork.js createNewCode 2");
     return min;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }

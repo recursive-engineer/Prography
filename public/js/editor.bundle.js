@@ -25725,7 +25725,7 @@
     return tree.parent && tree.from == pos;
   }
   function probablyInString(state, pos, quoteToken) {
-    console.log("check pos", pos);
+   //console.log("check pos", pos);
     let node = syntaxTree(state).resolveInner(pos, -1);
     for (let i = 0; i < 5; i++) {
       if (
@@ -27778,7 +27778,7 @@
         if (finished) return this.stackToTree(finished);
         if (this.parser.strict) {
           if (verbose && stopped)
-            console.log(
+           //console.log(
               "Stuck with token " +
                 (this.tokens.mainToken
                   ? this.parser.getName(this.tokens.mainToken.value)
@@ -27867,7 +27867,7 @@
           ) {
             stack.useNode(cached, match);
             if (verbose)
-              console.log(
+             //console.log(
                 base +
                   this.stackID(stack) +
                   ` (via reuse of ${parser.getName(cached.type.id)})`
@@ -27889,7 +27889,7 @@
       if (defaultReduce > 0) {
         stack.reduce(defaultReduce);
         if (verbose)
-          console.log(
+         //console.log(
             base +
               this.stackID(stack) +
               ` (via always-reduce ${parser.getName(
@@ -27910,7 +27910,7 @@
         let localStack = last ? stack : stack.split();
         localStack.apply(action, term, end);
         if (verbose)
-          console.log(
+         //console.log(
             base +
               this.stackID(localStack) +
               ` (via ${
@@ -27954,7 +27954,7 @@
           if (restarted) continue;
           restarted = true;
           stack.restart();
-          if (verbose) console.log(base + this.stackID(stack) + " (restarted)");
+          if (verbose)//console.log(base + this.stackID(stack) + " (restarted)");
           let done = this.advanceFully(stack, newStacks);
           if (done) continue;
         }
@@ -27966,7 +27966,7 @@
           j++
         ) {
           if (verbose)
-            console.log(
+           //console.log(
               forceBase + this.stackID(force) + " (via force-reduce)"
             );
           let done = this.advanceFully(force, newStacks);
@@ -27975,7 +27975,7 @@
         }
         for (let insert of stack.recoverByInsert(token)) {
           if (verbose)
-            console.log(base + this.stackID(insert) + " (via recover-insert)");
+           //console.log(base + this.stackID(insert) + " (via recover-insert)");
           this.advanceFully(insert, newStacks);
         }
         if (this.stream.end > stack.pos) {
@@ -27985,7 +27985,7 @@
           }
           stack.recoverByDelete(token, tokenEnd);
           if (verbose)
-            console.log(
+           //console.log(
               base +
                 this.stackID(stack) +
                 ` (via recover-delete ${this.parser.getName(token)})`
@@ -31499,5 +31499,5 @@
     parent: document.body,
   });
 
-  console.log("editor.js");
+ //console.log("editor.js");
 })();

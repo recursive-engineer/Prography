@@ -4,7 +4,7 @@ const fs = require("fs");
 const puppeteer = require("puppeteer");
 
 updateThumbnail = async function (data) {
-  console.log("artwork.js createThumbnail 1");
+  //console.log("artwork.js createThumbnail 1");
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-gpu"],
     ignoreHTTPSErrors: false,
@@ -19,22 +19,22 @@ updateThumbnail = async function (data) {
       height: 500,
     });
     var url = "artwork.html?=" + data.art_id;
-    console.log("http://54.238.179.114:3000/views/" + url);
+    //console.log("http://54.238.179.114:3000/views/" + url);
     await page.goto("http://54.238.179.114:3000/views/" + url);
     const selector = await page.$("#artwork");
     await selector.screenshot({
       path: "public/image/thumbnail/" + data.art_id + ".png",
     });
-    console.log("artwork.js createThumbnail 2");
+    //console.log("artwork.js createThumbnail 2");
   } catch (err) {
-    console.log("error");
+    //console.log("error");
   } finally {
     await browser.close();
   }
 };
 
 getArt = async function (art_id, file_name) {
-  console.log("artwork.js,getArt 1");
+  //console.log("artwork.js,getArt 1");
   switch (file_name) {
     case "html":
       var code = fs.readFileSync(
@@ -55,12 +55,12 @@ getArt = async function (art_id, file_name) {
       );
       break;
   }
-  console.log("artwork.js,getArt 2");
+  //console.log("artwork.js,getArt 2");
   return code;
 };
 
 getArtInfo = async function (art_id) {
-  console.log("artwork.js getArtInfo 1");
+  //console.log("artwork.js getArtInfo 1");
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
@@ -68,18 +68,18 @@ getArtInfo = async function (art_id) {
       "SELECT * FROM t_artwork INNER JOIN t_user ON t_artwork.author_id = t_user.user_id where t_artwork.art_id = ?;";
     let param = [art_id];
     const [rows, fields] = await connection.query(sql, param);
-    console.log(rows);
-    console.log("artwork.js getArtInfo 2");
+    //console.log(rows);
+    //console.log("artwork.js getArtInfo 2");
     return rows;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }
 };
 
 updateArt = function (data) {
-  console.log("artwork.js updateArt 1");
+  //console.log("artwork.js updateArt 1");
   switch (data.file_name) {
     case "html":
       fs.writeFileSync(
@@ -97,7 +97,7 @@ updateArt = function (data) {
       fs.writeFileSync("public/artworks/js/" + data.art_id + ".js", data.code);
       break;
   }
-  console.log("artwork.js updateArt 2");
+  //console.log("artwork.js updateArt 2");
   return 0;
 };
 
@@ -120,7 +120,7 @@ updateInfo = async function (data) {
     //console.log("artwork.js updateInfo 2");
     return rows;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }
@@ -142,19 +142,19 @@ updateDate = async function (data) {
     var Sec = now.getSeconds();
     var date =
       Year + "-" + Month + "-" + Day + " " + Hour + ":" + Min + ":" + Sec;
-    console.log(date);
+    //console.log(date);
     var param = [date, data.art_id];
     const [rows, fields] = await connection.query(sql, param);
     //console.log("artwork.js updateDate 2");
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }
 };
 
 deleteCode = async function (data) {
-  console.log("artwork.js deleteCode 1");
+  //console.log("artwork.js deleteCode 1");
   const html_path = "public/artworks/html/" + data.art_id + ".html";
   const scss_path = "public/artworks/scss/" + data.art_id + ".scss";
   const js_path = "public/artworks/js/" + data.art_id + ".js";
@@ -167,32 +167,32 @@ deleteCode = async function (data) {
   if (fs.existsSync(js_path)) {
     fs.unlinkSync(js_path);
   }
-  console.log("artwork.js deleteCode 2");
+  //console.log("artwork.js deleteCode 2");
 };
 
 deleteArt = async function (data) {
-  console.log("artwork.js deleteArt 1");
+  //console.log("artwork.js deleteArt 1");
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
     var sql = "DELETE FROM t_artwork WHERE art_id = ?;";
     var param = [data.art_id];
     await connection.query(sql, param);
-    console.log("artwork.js deleteArt 2");
+    //console.log("artwork.js deleteArt 2");
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }
 };
 
 deleteThumbnail = async function (data) {
-  console.log("artwork.js deleteThumbnail 1");
+  //console.log("artwork.js deleteThumbnail 1");
   const path = "public/image/thumbnail/" + data.art_id + ".png";
   if (fs.existsSync(path)) {
     fs.unlinkSync(path);
   }
-  console.log("artwork.js deleteThumbnail 2");
+  //console.log("artwork.js deleteThumbnail 2");
 };
 
 exports.getArt = getArt;

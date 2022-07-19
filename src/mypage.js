@@ -2,7 +2,7 @@ const mysql = require("mysql2/promise");
 const config = require("../config.js");
 
 getMyArts = async function (user_id) {
-  console.log("user.js getArts");
+  //console.log("user.js getArts");
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
@@ -11,7 +11,7 @@ getMyArts = async function (user_id) {
     const [rows, fields] = await connection.query(sql, param);
     return rows;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }

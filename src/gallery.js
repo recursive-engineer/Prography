@@ -12,7 +12,7 @@ getArts = async function () {
     //console.log("user.js getArts 2");
     return rows;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }

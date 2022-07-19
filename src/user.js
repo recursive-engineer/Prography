@@ -5,7 +5,7 @@ const config = require("../config.js");
 checkUser = async function (data) {
   let connection = null;
   try {
-    console.log("user.js checkUser 1");
+    //console.log("user.js checkUser 1");
     connection = await mysql.createConnection(config.dbSetting);
     const sql = "SELECT * FROM t_user WHERE email = ?;";
     const [rows, fields] = await connection.query(sql, data.email);
@@ -13,11 +13,11 @@ checkUser = async function (data) {
     if (rows.length != 0) {
       result = 1;
     }
-    console.log(result);
-    console.log("user.js checkUser 2");
+    //console.log(result);
+    //console.log("user.js checkUser 2");
     return result;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }
@@ -26,7 +26,7 @@ checkUser = async function (data) {
 createUser = async function (data) {
   let connection = null;
   try {
-    console.log("user.js createUser 1");
+    //console.log("user.js createUser 1");
     connection = await mysql.createConnection(config.dbSetting);
     const sql1 = "SELECT * FROM t_user;";
     const [rows1, fields1] = await connection.query(sql1);
@@ -50,10 +50,10 @@ createUser = async function (data) {
       "INSERT INTO `t_user`(`user_id`,`name`,`email`,`password`) VALUES(?,?,?,?);";
     var param = [min, data.name, data.email, data.password];
     const [rows2, fields2] = await connection.query(sql2, param);
-    console.log("user.js createUser 2");
+    //console.log("user.js createUser 2");
     return min;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }
@@ -62,16 +62,16 @@ createUser = async function (data) {
 getUser = async function (user_id) {
   let connection = null;
   try {
-    console.log("user.js getUser 1");
+    //console.log("user.js getUser 1");
     connection = await mysql.createConnection(config.dbSetting);
     const sql = "SELECT * FROM t_user WHERE user_id = ?;";
     var param = [user_id];
     const [rows, fields] = await connection.query(sql, param);
-    console.log(rows);
-    console.log("user.js getUser 2");
+    //console.log(rows);
+    //console.log("user.js getUser 2");
     return rows;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }
@@ -80,7 +80,7 @@ getUser = async function (user_id) {
 signUser = async function (data) {
   let connection = null;
   try {
-    console.log("user.js getUser 1");
+    //console.log("user.js getUser 1");
     connection = await mysql.createConnection(config.dbSetting);
     const sql = "SELECT * FROM t_user WHERE email = ?;";
     var param = [data.email];
@@ -89,10 +89,10 @@ signUser = async function (data) {
     if (rows[0].password == data.password) {
       user_id = rows[0].user_id;
     }
-    console.log(rows);
+    //console.log(rows);
     return user_id;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     connection.end();
   }
