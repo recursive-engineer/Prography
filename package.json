@@ -5,7 +5,7 @@
   "scripts": {
     "node": "nodemon -e ejs,js,json ./bin/www",
     "sass": "sass public/scss/:public/scss/ public/views/:public/views/ public/artworks/scss/:public/artworks/scss/ --no-source-map --watch",
-    "start": "node ./bin/www & npm run sass"
+    "start": "forever start ./bin/www & npm run sass"
   },
   "dependencies": {
     "@codemirror/lang-html": "^6.1.0",
