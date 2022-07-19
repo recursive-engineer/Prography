@@ -52,7 +52,7 @@ EC2関係
     password:prography
     nvm use v16.15.1
     nvm install v16.15.1
-    forever start -c "npm run start"
+    forever start -c "npm run start" ./
     forever list
     forever stop "PID"
 
