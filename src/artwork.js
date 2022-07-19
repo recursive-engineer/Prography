@@ -17,9 +17,8 @@ updateThumbnail = async function (data) {
       height: 500,
     });
     var url = "editor.html?user_id=" + data.user_id + ",art_id=" + data.art_id;
-    console.log("http://localhost:3000/views/" + url);
-    await page.goto("http://localhost:3000/views/" + url);
-
+    console.log("http://54.238.179.114:3000/views/" + url);
+    await page.goto("http://54.238.179.114:3000/views/" + url);
     const selector = await page.$("#artwork");
     await selector.screenshot({
       path: "public/image/thumbnail/" + data.art_id + ".png",
