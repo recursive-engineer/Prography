@@ -36,45 +36,6 @@
     <div class="outer_frame">
       <div class="inner_frame">
         <div id="artwork"></div>
-        <div id="code-area">
-          <form method="post">
-            <div id="buttons">
-              <select
-                id="codes"
-                class="form-control"
-                onchange="codeChange();"
-                onclick="codeClick();"
-              >
-                <option value="html">html</option>
-                <option value="scss">scss</option>
-                <option value="js">javascript</option>
-              </select>
-              <button id="update" type="button">更新</button>
-              <button id="submit" type="button">投稿</button>
-            </div>
-            <textarea
-              id="editor"
-              cols="30"
-              rows="15"
-              wrap="off"
-              style="overflow: scroll"
-            ></textarea>
-          </form>
-        </div>
-      </div>
-      <div id="caption" class="d-flex">
-        <div id="titles">
-          <input type="text" id="title" value="Title Here" />
-          <input type="text" id="subtitle" value="Subtitle Here" />
-        </div>
-        <div id="author_frame" class="d-flex">
-          <div id="author_icon"></div>
-          <div id="author_info">
-            <p id="user_name">Author Name Here</p>
-            <p id="profession">Profession Here</p>
-            <button class="btn" type="submit">Follow</button>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -85,9 +46,7 @@
       var value = query.split("=");
       var art_id = value[1];
 
-      getCode("html");
       getArtwork();
-      getInfo();
 
       function getArtwork() {
         $("#artwork").load("../artworks/html/" + art_id + ".html");
