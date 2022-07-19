@@ -68,7 +68,7 @@ getUser = async function (user_id) {
     var param = [user_id];
     const [rows, fields] = await connection.query(sql, param);
     console.log(rows);
-    console.log("user.js getUser 1");
+    console.log("user.js getUser 2");
     return rows;
   } catch (err) {
     console.log(err);

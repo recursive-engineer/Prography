@@ -84,9 +84,10 @@ router.post("/user/signin", async function (req, res, next) {
 });
 
 router.get("/user/:user_id", async function (req, res, next) {
-  //console.log("index.js,router.get 1");
+  console.log("index.js,router.get 1");
+  console.log(req.params.user_id);
   const getUser = await user.getUser(req.params.user_id);
-  //console.log("index.js,router.get 2");
+  console.log("index.js,router.get 2");
   res.send(getUser);
 });
 
