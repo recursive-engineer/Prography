@@ -8,7 +8,7 @@ updateThumbnail = async function (data) {
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-gpu"],
     ignoreHTTPSErrors: false,
-    headless: true,
+    headless: false,
     slowMo: 300,
   });
   const page = await browser.newPage();
