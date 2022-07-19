@@ -45,10 +45,11 @@
 
     load();
 
-    async function load() {
+    async function load(user_id) {
       const response = await httpGet(
         "//" + window.location.host + "/api/user/"+user_id,
       );
+      console.log(user_id);
       console.log("response");
       console.log(response);
       $("#header_name").text(response[0].name);
