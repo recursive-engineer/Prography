@@ -66,8 +66,15 @@
     }
 
     async function openNewCode() {
-      location.href =
+      const response = await httpGet(
+        "//" + window.location.host + "/api/mypage/"+user_id,
+      );
+      if(response.length<=5){
+        location.href =
         "//" + window.location.host + "/views/newcode.html?=" + user_id;
+      }else{
+        alert("現在作成可能な作品数は6つまでです");
+      }
     }
 
     async function logout() {

@@ -20280,7 +20280,7 @@ nav #user_wrap #user #header_icon {
   height: 30px;
 }
 nav #user_wrap #user #header_name {
-  margin-top: 5px;
+  line-height: 14px;
   font-size: 14px;
 }
 nav #user_wrap ul {

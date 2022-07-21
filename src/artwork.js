@@ -6,7 +6,9 @@ const puppeteer = require("puppeteer");
 updateThumbnail = async function (data) {
   //console.log("artwork.js createThumbnail 1");
   const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-gpu"],
+    executablePath:
+      "node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium",
+    //args: ["--no-sandbox", "--disable-gpu"],
     ignoreHTTPSErrors: false,
     headless: true,
     slowMo: 300,

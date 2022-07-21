@@ -45,29 +45,32 @@ Github関連
         ・ssh -T git@github.com
 
 EC2関係
-    ssh -i .ssh/rairai0523.pem ec2-user@54.238.179.114 
-    npm use v16.15.1
-    sudo netstat -anp | grep sshd
+    ssh -i .ssh/rairai0523.pem ec2-user@54.238.179.114
+    cd Prography
+
+    Mysqlに入るなら...
     mysql -u admin -p -h prography.cikxxk8vmgy2.ap-northeast-1.rds.amazonaws.com
     password:prography
+    use prography;
 
-    eval `ssh-agent`
-    ssh-add ~/.ssh/ec2_github_key
-
+    サイトを見たいなら...
     nvm use v16.15.1
-    npm install forever -g
     npm install puppeteer
     npm install fs
+    npm run start
 
 
-    //nvm install v16.15.1
-    forever start -c "npm run start" ./
-    forever list
-    forever stop "PID"
-    ssh -T github
-    eval `ssh-agent`
-    ssh-add ~/.ssh/ec2_github_key
-
+その他緊急時の覚書
+forever start -c "npm run start" ./
+forever list
+forever stop "PID"
+ssh -T github
+eval `ssh-agent`
+ssh-add ~/.ssh/ec2_github_key
+//npm install forever -g
+//eval `ssh-agent`
+//ssh-add ~/.ssh/ec2_github_key
+//sudo netstat -anp | grep sshd
 //host=prography.cikxxk8vmgy2.ap-northeast-1.rds.amazonaws.com
 //port = 3306
 //host=192.168.64.3

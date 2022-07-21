@@ -25,6 +25,7 @@ body {
     #icons {
       padding-top: 50px;
       position: absolute;
+      text-align: center;
       top: 25px;
       left: 50%;
       transform: translate(-50%, 0);
@@ -37,23 +38,27 @@ body {
           height: 150px;
         }
       }
-      .name {
-        margin: 0 auto;
-        padding-top: 5px;
+      #user-name {
+        padding: 0px;
         width: 250px;
-        height: 20px;
+        height: 30px;
         text-align: center;
+        background-color: transparent;
+        margin: 0px 100px;
+        border: none;
         font-size: 20px;
         font-weight: 500;
         color: $white-20;
         text-shadow: 0 0 7px $black-10;
       }
       #profession {
-        margin: 0 auto;
-        padding-top: 10px;
+        padding: 0px;
         width: 250px;
-        height: 20px;
+        height: 25px;
         text-align: center;
+        margin: 0px 100px;
+        background-color: transparent;
+        border: none;
         font-size: 15px;
         font-weight: 200;
         color: $white-40;
@@ -61,6 +66,7 @@ body {
       }
     }
   }
+
   #menu {
     width: 100%;
     height: 40px;

@@ -20233,6 +20233,7 @@ body #user-info img {
 body #user-info #icons {
   padding-top: 50px;
   position: absolute;
+  text-align: center;
   top: 25px;
   left: 50%;
   transform: translate(-50%, 0);
@@ -20246,23 +20247,27 @@ body #user-info #icons #icon img {
   width: 150px;
   height: 150px;
 }
-body #user-info #icons .name {
-  margin: 0 auto;
-  padding-top: 5px;
+body #user-info #icons #user-name {
+  padding: 0px;
   width: 250px;
-  height: 20px;
+  height: 30px;
   text-align: center;
+  background-color: transparent;
+  margin: 0px 100px;
+  border: none;
   font-size: 20px;
   font-weight: 500;
   color: rgb(245, 245, 255);
   text-shadow: 0 0 7px rgb(5, 5, 10);
 }
 body #user-info #icons #profession {
-  margin: 0 auto;
-  padding-top: 10px;
+  padding: 0px;
   width: 250px;
-  height: 20px;
+  height: 25px;
   text-align: center;
+  margin: 0px 100px;
+  background-color: transparent;
+  border: none;
   font-size: 15px;
   font-weight: 200;
   color: rgb(235, 235, 255);
