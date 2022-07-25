@@ -1,0 +1,92 @@
+<form>
+  <div id="form-wrap" class="modals">
+    <div id="user-form">
+      <div class="form-group">
+        <label for="create-email">メールアドレス</label>
+        <input type="text" class="form-control" id="email" name="email" />
+        <div class="message" id="email_err"></div>
+      </div>
+      <div class="form-group">
+        <label for="create-password">パスワード</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+        />
+        <div class="message" id="password_err"></div>
+      </div>
+    </div>
+    <div>
+      <button type="button" id="reset" class="btn btn-secondary">
+        リセット
+      </button>
+      <button type="button" id="cancel" class="btn btn-secondary">
+        キャンセル
+      </button>
+      <button
+        type="button"
+        id="login"
+        data-dismiss="modal"
+        class="btn btn-primary"
+      >
+        サインイン
+      </button>
+      <div class="message" id="signin_err"></div>
+    </div>
+  </div>
+</form>
+
+<script>
+  var result = 0;
+  var empty = 1;
+  $("#user-form").on("change", async function () {
+    //console.log("register.html user-form change 1");
+    if ($("#email").val() != "" && $("#password").val() != "") {
+      empty = 0;
+    } else {
+      empty = 1;
+    }
+    //console.log("register.html user-form change 2");
+  });
+
+  $("#login").on("click", async function () {
+    //console.log("register.html 1");
+    const data = {
+      email: $("#email").val(),
+      password: $("#password").val(),
+    };
+    if (empty != 0) {
+      $("#signin_err").text("未入力の項目があります");
+    } else {
+      const response = await httpPost(
+        "//" + window.location.host + "/api/user/signin",
+        data
+      );
+      if (response.user_id == 0) {
+        $("#signin_err").text("メールアドレスまたはパスワードが間違っています");
+      } else {
+        var query = window.location.search;
+        var value = query.split("=");
+        if (value[2]) {
+          location.href = value[0] + "=" + response.user_id + "=" + value[2];
+        } else {
+          location.href = value[0] + "=" + response.user_id;
+        }
+      }
+      //location.reload();
+    }
+    //console.log("register.html 2");
+  });
+  $("#reset").on("click", async function () {
+    //console.log("register.html 1");
+    $("#name").val("");
+    $("#email").val("");
+    $("#password").val("");
+    $("#name_err").text("");
+    $("#email_err").text("");
+    $("#password_err").text("");
+    $("#signin_err").text("");
+    //console.log("register.html 2");
+  });
+</script>

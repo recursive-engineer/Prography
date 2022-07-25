@@ -1,0 +1,17 @@
+/* Error: expected "{".
+ *   ,
+ * 2 | <link rel="stylesheet" href="../artworks/scss/3.css" media="screen" type="text/css"/>
+ *   |                                                                                      ^
+ *   '
+ *   public/artworks/scss/3.scss 2:86  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: 'Error: expected "{".\a   \2577 \a 2 \2502  <link rel="stylesheet" href="../artworks/scss/3.css" media="screen" type="text/css"/>\a   \2502                                                                                       ^\a   \2575 \a   public/artworks/scss/3.scss 2:86  root stylesheet';
+}

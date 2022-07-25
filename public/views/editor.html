@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="shortcut icon" href="../image/favicon.ico" />
+    <link rel="stylesheet" href="../scss/header.css" />
+    <link rel="stylesheet" href="../scss/register-pc.css" />
+    <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
+
+    <link
+      rel="stylesheet"
+      href="../scss/editor-pc.css"
+      media="screen"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="../scss/codemirror.css" />
+    <link rel="stylesheet" href="../scss/monokai.css" />
+    <script src="../js/codemirror.js"></script>
+    <script src="../mode/javascript/javascript.js"></script>
+    <script src="../mode/xml/xml.js"></script>
+    <script src="../mode/css/css.js"></script>
+
+    <title>Prography</title>
+  </head>
+  <body>
+    <header id="header"></header>
+    <div class="outer_frame">
+      <div class="inner_frame">
+        <div id="artwork"></div>
+        <div id="code-area">
+          <form method="post">
+            <div id="buttons">
+              <select
+                id="codes"
+                class="form-control"
+                onchange="codeChange();"
+                onclick="codeClick();"
+              >
+                <option value="html">html</option>
+                <option value="scss">scss</option>
+                <option value="js">javascript</option>
+              </select>
+              <button id="update" type="button">更新</button>
+              <button id="submit" type="button">投稿</button>
+            </div>
+            <textarea
+              id="editor"
+              cols="30"
+              rows="15"
+              wrap="off"
+              style="overflow: scroll"
+            ></textarea>
+          </form>
+        </div>
+      </div>
+      <div id="caption" class="d-flex">
+        <div id="titles">
+          <input type="text" id="title" value="Title Here" />
+          <input type="text" id="subtitle" value="Subtitle Here" />
+        </div>
+        <div id="author_frame" class="d-flex">
+          <div id="author_icon"></div>
+          <div id="author_info">
+            <p id="user_name">Author Name Here</p>
+            <p id="profession">Profession Here</p>
+            <button class="btn" type="submit">Follow</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/index.js"></script>
+
+    <script type="text/javascript">
+      var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        mode: "text/html",
+        tabMode: "indent",
+        theme: "monokai",
+        lineNumbers: true,
+        heyMap: "default",
+        matchBrackets: true,
+        indentUnit: 4,
+        indentWithTabs: true,
+        enterMode: "keep",
+        lineWrapping: false,
+        smartIndent: true,
+        onCursorActivity: function () {
+          editor.setLineClass(hlLine, null, null);
+          hlLine = editor.setLineClass(
+            editor.getCursor().line,
+            null,
+            "activeline"
+          );
+        },
+      });
+      editor.setSize(490, 460);
+      editor.on("change", function () {
+        editor.save();
+      });
+
+      var query = window.location.search;
+      var value = query.split("=");
+      var user_id = value[1];
+      var art_id = value[2];
+
+      if (user_id == 0) {
+        $("#header").load("unsignHeader.html");
+      } else {
+        $("#header").load("signHeader.html");
+      }
+
+      getCode("html");
+      getArtwork();
+      getInfo();
+
+      function getArtwork() {
+        $("#artwork").load("../artworks/html/" + art_id + ".html");
+      }
+
+      async function getCode(file_name) {
+        const response = await httpGet(
+          "//" +
+            window.location.host +
+            "/api/artwork/" +
+            art_id +
+            "/" +
+            file_name
+        );
+        var doc = editor.getDoc();
+        doc.setValue(response.text);
+        editor.clearHistory();
+        switch (file_name) {
+          case "html":
+            editor.setOption("mode", "text/html");
+            break;
+          case "scss":
+            editor.setOption("mode", "css");
+            break;
+          case "js":
+            editor.setOption("mode", "javascript");
+            break;
+        }
+      }
+
+      function codeChange() {
+        var file_name = document.getElementById("codes").value;
+        getCode(file_name);
+      }
+
+      function codeClick() {
+        var code = document.getElementById("editor");
+        var file_name = document.getElementById("codes").value;
+        updateCode(code.value, file_name);
+      }
+
+      async function updateCode(code, file_name) {
+        const data = {
+          art_id: art_id,
+          user_id: user_id,
+          file_name: file_name,
+          code: code,
+        };
+        const response = await httpUpdate(
+          "//" + window.location.host + "/api/artwork/updateArt",
+          data
+        );
+        getArtwork();
+      }
+
+      $("#update").on("click", async function () {
+        var code = document.getElementById("editor");
+        var file_name = document.getElementById("codes").value;
+        updateCode(code.value, file_name);
+      });
+
+      $("#submit").on("click", async function () {
+        const data = {
+          art_id: art_id,
+          type: "publish",
+          content: 1,
+        };
+        const response = await httpUpdate(
+          "//" + window.location.host + "/api/artwork/updateInfo",
+          data
+        );
+      });
+
+      $("#title").on("change", async function () {
+        //console.log("editor.html title change 1");
+        const data = {
+          art_id: art_id,
+          type: "title",
+          content: this.value,
+        };
+        const response = await httpUpdate(
+          "//" + window.location.host + "/api/artwork/updateInfo",
+          data
+        );
+        //console.log("editor.html title change 2");
+      });
+
+      $("#subtitle").on("change", async function () {
+        const data = {
+          art_id: art_id,
+          type: "subtitle",
+          content: this.value,
+        };
+        const response = await httpUpdate(
+          "//" + window.location.host + "/api/artwork/updateInfo",
+          data
+        );
+      });
+
+      async function getInfo() {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/artwork/" + art_id
+        );
+        var title = document.getElementById("title");
+        var subtitle = document.getElementById("subtitle");
+        var user_name = document.getElementById("user_name");
+        var profession = document.getElementById("profession");
+        title.value = response[0].title;
+        subtitle.value = response[0].subtitle;
+        user_name.textContent = response[0].name;
+        profession.textContent = response[0].profession;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "variable";
+@import "codemirror.css";
+
+body {
+  background-color: $black-10;
+  #header {
+    z-index: 10;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+  #menu {
+    margin-top: 50px;
+    width: 100%;
+    height: 40px;
+    background-color: $black-30;
+    display: flex;
+    #menu-center {
+      margin: 0 auto;
+      width: 520px;
+      button {
+        margin: 0;
+        width: 100px;
+        height: 40px;
+        border: none;
+        background: transparent;
+        color: $white-20;
+      }
+      .selected {
+        background: $black-60;
+      }
+    }
+  }
+  #artworks {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    z-index: 1;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    li {
+      height: 0;
+      padding-bottom: 100%;
+      position: relative;
+      background-color: $white-10;
+      .artwork {
+        border: solid 1px $black-10;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 2;
+      }
+      .artwork:hover {
+        opacity: 0.5;
+      }
+      .info {
+        position: absolute;
+        z-index: 3;
+        bottom: 10px;
+        left: 10px;
+        display: flex;
+        .title {
+          font-size: 15px;
+          font-weight: 600;
+          margin-right: 20px;
+        }
+        .author {
+          display: flex;
+          .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+          }
+          .name {
+            font-size: 15px;
+            font-weight: 200;
+          }
+        }
+      }
+    }
+  }
+}
