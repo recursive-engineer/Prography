@@ -34,7 +34,7 @@ createCode = async function (art_id) {
 };
 
 createArt = async function (user_id) {
-  //console.log("artwork.js createNewCode 1");
+  console.log("artwork.js createNewCode 1");
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
@@ -60,7 +60,7 @@ createArt = async function (user_id) {
     }
     var param = [min, user_id, "タイトル", "subtitle"];
     await connection.query(sql2, param);
-    //console.log("artwork.js createNewCode 2");
+    console.log("artwork.js createNewCode 2");
     return min;
   } catch (err) {
     //console.log(err);

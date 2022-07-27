@@ -76,12 +76,15 @@
   });
 
   $("#regist").on("click", async function () {
-    //console.log("register.html 1");
+    console.log("register.html 1");
     const data = {
       name: $("#name").val(),
       email: $("#email").val(),
       password: $("#password").val(),
     };
+    console.log(data);
+    console.log(result);
+    console.log(empty);
     if (result != 0) {
       $("#regist_err").text("登録済みのユーザー情報が含まれています");
     }
@@ -95,11 +98,11 @@
       );
       var query = window.location.search;
       var value = query.split("=");
-      if (value[2]) {
+       if (value[2]) {
         location.href = value[0] + "=" + response.user_id + "=" + value[2];
       } else {
         location.href = value[0] + "=" + response.user_id;
-      }
+      } 
       //location.reload();
     }
     //console.log("register.html 2");

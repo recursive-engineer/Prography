@@ -4,7 +4,7 @@ const fs = require("fs");
 const puppeteer = require("puppeteer");
 
 updateThumbnail = async function (data) {
-  //console.log("artwork.js createThumbnail 1");
+  console.log("artwork.js createThumbnail 1");
   const browser = await puppeteer.launch({
     executablePath:
       "node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium",
@@ -20,14 +20,14 @@ updateThumbnail = async function (data) {
       width: 500,
       height: 500,
     });
-    var url = "artwork.html?=" + data.art_id;
-    //console.log("http://54.238.179.114:3000/views/" + url);
-    await page.goto("http://54.238.179.114:3000/views/" + url);
+    var url = "editor.html?=" + data.user_id + "=" + data.art_id;
+    console.log("http://localhost:3000/views/" + url);
+    await page.goto("http://localhost:3000/views/" + url);
     const selector = await page.$("#artwork");
     await selector.screenshot({
       path: "public/image/thumbnail/" + data.art_id + ".png",
     });
-    //console.log("artwork.js createThumbnail 2");
+    console.log("artwork.js createThumbnail 2");
   } catch (err) {
     //console.log("error");
   } finally {

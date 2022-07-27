@@ -53,10 +53,10 @@ router.patch("/artwork/delete", async function (req, res, next) {
 
 //newcode.html
 router.get("/newcode/:user_id", async function (req, res, next) {
-  //console.log("index.js,router.get 1");
+  console.log("index.js,router.get 1");
   const art_id = await newcode.createArt(req.params.user_id);
   const end = await newcode.createCode(art_id);
-  //console.log("index.js,router.get 2");
+  console.log("index.js,router.get 2");
   res.json({ id: art_id, end: end });
 });
 
@@ -67,11 +67,11 @@ router.post("/user/signup/check", async function (req, res, next) {
   //console.log("index.js router.post 2");
   res.json({ result: checkUser });
 });
-
+console.log("aa");
 router.post("/user/signup/create", async function (req, res, next) {
-  //console.log("index.js router.post 1");
+  console.log("index.js router.post 1");
   const createUser = await user.createUser(req.body);
-  //console.log("index.js router.post 2");
+  console.log("index.js router.post 2");
   res.json({ user_id: createUser });
 });
 

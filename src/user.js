@@ -26,10 +26,11 @@ checkUser = async function (data) {
 createUser = async function (data) {
   let connection = null;
   try {
-    //console.log("user.js createUser 1");
+    console.log("user.js createUser 1");
     connection = await mysql.createConnection(config.dbSetting);
     const sql1 = "SELECT * FROM t_user;";
     const [rows1, fields1] = await connection.query(sql1);
+    console.log(rows1);
     if (rows1.length == 0) {
       var min = 1;
     } else {
@@ -49,8 +50,11 @@ createUser = async function (data) {
     const sql2 =
       "INSERT INTO `t_user`(`user_id`,`name`,`email`,`password`) VALUES(?,?,?,?);";
     var param = [min, data.name, data.email, data.password];
+    console.log(param);
+
     const [rows2, fields2] = await connection.query(sql2, param);
-    //console.log("user.js createUser 2");
+    console.log(rows2);
+    console.log("user.js createUser 2");
     return min;
   } catch (err) {
     //console.log(err);

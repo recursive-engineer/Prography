@@ -8,6 +8,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+console.log("qq");
 var apiRouter = require("./routes/api/index.js");
 
 var app = express();

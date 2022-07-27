@@ -133,9 +133,12 @@
       });
 
       async function init() {
+        console.log("newcode.html init1");
         const response = await httpGet(
           "//" + window.location.host + "/api/newcode/" + user_id
         );
+        console.log("newcode.html init2");
+        console.log(response);
         return await response;
       }
 
@@ -195,6 +198,7 @@
       }
 
       async function updateCode(code, file_name) {
+        console.log("newcode.html updatecode1");
         const data = {
           art_id: art_id,
           user_id: user_id,
@@ -206,6 +210,7 @@
           data
         );
         getArtwork(art_id);
+        console.log("newcode.html updatecode2");
       }
 
       $("#update").on("click", async function () {
