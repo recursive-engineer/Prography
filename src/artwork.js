@@ -20,7 +20,7 @@ updateThumbnail = async function (data) {
       width: 500,
       height: 500,
     });
-    var url = "artwork.html?=" + data.user_id + "=" + data.art_id;
+    let url = "artwork.html?=" + data.user_id + "=" + data.art_id;
     console.log("http://localhost:3000/views/" + url);
     await page.goto("http://localhost:3000/views/" + url);
     const selector = await page.$("#artwork");
