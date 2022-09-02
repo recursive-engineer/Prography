@@ -10,16 +10,16 @@ const gallery = require("../../src/gallery.js");
 const user = require("../../src/user.js");
 
 router.get("/artwork/:art_id/:file_name", async function (req, res, next) {
-  //console.log("index.js,router.get 1");
+  console.log("index.js,router.get 1");
   const getArt = await artwork.getArt(req.params.art_id, req.params.file_name);
-  //console.log("index.js,router.get 2");
+  console.log("index.js,router.get 2");
   res.json({ text: getArt });
 });
 
 router.get("/artwork/:art_id", async function (req, res, next) {
-  //console.log("index.js,router.get 1");
+  console.log("index.js,router.get 1");
   const Info = await artwork.getArtInfo(req.params.art_id);
-  //console.log("index.js,router.get 2");
+  console.log("index.js,router.get 2");
   res.send(Info);
 });
 

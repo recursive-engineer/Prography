@@ -55,9 +55,11 @@
       }
 
       async function get_artworks() {
+	console.log("hello1");
         const response = await httpGet(
           "//" + window.location.host + "/api/gallery/get"
         );
+	console.log("hello2");
         var artworks = document.getElementById("artworks");
         for (var i = 0; i < response.length; i++) {
           var li = document.createElement("li");

@@ -1,6 +1,5 @@
 require("dotenv").config();
 const env = process.env.environment;
-console.log(env);
 
 var createError = require("http-errors");
 var express = require("express");
@@ -8,9 +7,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-console.log("qq");
 var apiRouter = require("./routes/api/index.js");
-
 var app = express();
 
 app.set("views", path.join(__dirname, "views"));
@@ -34,5 +31,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-
+console.log("cc");
 module.exports = app;

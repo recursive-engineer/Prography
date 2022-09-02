@@ -1,5 +1,6 @@
+console.log("hello1.5");
 const httpGet = async function (url) {
-  //console.log("index.js httpGet 1");
+  console.log("index.js httpGet 1");
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -7,7 +8,7 @@ const httpGet = async function (url) {
     //console.log("index.js httpGet 2");
     return response.json();
   } catch (err) {
-    //console.log(err);
+    console.log(err);
   }
 };
 
