@@ -26,7 +26,7 @@ checkUser = async function (data) {
 createUser = async function (data) {
   let connection = null;
   try {
-    console.log("user.js createUser 1");
+    //console.log("user.js createUser 1");
     connection = await mysql.createConnection(config.dbSetting);
     const sql1 = "SELECT * FROM t_user;";
     const [rows1, fields1] = await connection.query(sql1);
@@ -54,7 +54,7 @@ createUser = async function (data) {
 
     const [rows2, fields2] = await connection.query(sql2, param);
     console.log(rows2);
-    console.log("user.js createUser 2");
+    //console.log("user.js createUser 2");
     return min;
   } catch (err) {
     //console.log(err);
@@ -63,7 +63,7 @@ createUser = async function (data) {
   }
 };
 
-getUser = async function (user_id) {
+getUserInfo = async function (user_id) {
   let connection = null;
   try {
     //console.log("user.js getUser 1");
@@ -104,5 +104,5 @@ signUser = async function (data) {
 
 exports.checkUser = checkUser;
 exports.createUser = createUser;
-exports.getUser = getUser;
+exports.getUserInfo = getUserInfo;
 exports.signUser = signUser;

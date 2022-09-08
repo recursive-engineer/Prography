@@ -46,6 +46,18 @@
       var query = window.location.search;
       var value = query.split("=");
       var user_id = value[1];
+      var user_id = 0;
+
+      get_user();
+
+      async function get_user(){
+        const response = await httpGet(
+          "//" + window.location.host + "/api/user/get"
+        );
+        console.log("user_id:"+response);
+      }
+       
+
       get_artworks();
 
       if (user_id == 0) {
@@ -55,11 +67,10 @@
       }
 
       async function get_artworks() {
-	console.log("hello1");
         const response = await httpGet(
           "//" + window.location.host + "/api/gallery/get"
         );
-	console.log("hello2");
+	      console.log(response);
         var artworks = document.getElementById("artworks");
         for (var i = 0; i < response.length; i++) {
           var li = document.createElement("li");

@@ -76,15 +76,15 @@
   });
 
   $("#regist").on("click", async function () {
-    console.log("register.html 1");
+    console.log("register.html 2");
     const data = {
       name: $("#name").val(),
       email: $("#email").val(),
       password: $("#password").val(),
     };
-    console.log(data);
-    console.log(result);
-    console.log(empty);
+    //console.log(data);
+    //console.log(result);
+    //console.log(empty);
     if (result != 0) {
       $("#regist_err").text("登録済みのユーザー情報が含まれています");
     }

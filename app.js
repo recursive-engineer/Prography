@@ -10,8 +10,18 @@ var logger = require("morgan");
 var apiRouter = require("./routes/api/index.js");
 var app = express();
 
+//セッション
+const session = require('express-session');
+var session_opt = {
+  secret: 'keyword  cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 * 1000 }
+}
+app.use(session(session_opt));
+
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+app.set("view engine", "Pug");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -31,5 +41,4 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-console.log("cc");
 module.exports = app;

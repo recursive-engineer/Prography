@@ -67,7 +67,7 @@ router.post("/user/signup/check", async function (req, res, next) {
   //console.log("index.js router.post 2");
   res.json({ result: checkUser });
 });
-console.log("aa");
+
 router.post("/user/signup/create", async function (req, res, next) {
   console.log("index.js router.post 1");
   const createUser = await user.createUser(req.body);
@@ -77,23 +77,38 @@ router.post("/user/signup/create", async function (req, res, next) {
 
 //signin.html
 router.post("/user/signin", async function (req, res, next) {
-  //console.log("index.js router.post 1");
+  console.log("index.js /user/signin 1");
   const signUser = await user.signUser(req.body);
-  //console.log("index.js router.post 2");
-  res.json({ user_id: signUser });
+  console.log(signUser);
+  req.session.user_id = signUser;
+  console.log(req.session.user_id);
+  console.log("index.js /user/signin 2");
+  res.render('gallery', {
+    data: req.session.user_id
+  });
+  //res.redirect('/normal/home');
+  //res.json({ user_id: signUser });
 });
 
 router.get("/user/:user_id", async function (req, res, next) {
-  //console.log("index.js,router.get 1");
-  //console.log(req.params.user_id);
-  const getUser = await user.getUser(req.params.user_id);
-  //console.log("index.js,router.get 2");
-  res.send(getUser);
+  console.log("index.js,router.get 1");
+  console.log(req.params.user_id);
+  const getUserInfo = await user.getUserInfo(req.params.user_id);
+  console.log("index.js,router.get 2");
+  res.send(getUserInfo);
+});
+
+router.get("/user/get", async function (req, res, next) {
+  console.log("index.js,router.get 1");
+  //const user_id = req.session.user_id;
+  console.log(req.session.user_id);
+  console.log("index.js,router.get 2");
+  res.send(user_id);
 });
 
 //mypage.html
 router.get("/mypage/:user_id", async function (req, res, next) {
-  //console.log("index.js,router.get");
+  console.log("index.js,router.get");
   const getMyArts = await mypage.getMyArts(req.params.user_id);
   res.send(getMyArts);
 });
@@ -105,5 +120,4 @@ router.get("/gallery/get", async function (req, res, next) {
   //console.log("index.js,router.get 2");
   res.send(getArts);
 });
-
 module.exports = router;

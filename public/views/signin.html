@@ -65,14 +65,14 @@
       );
       if (response.user_id == 0) {
         $("#signin_err").text("メールアドレスまたはパスワードが間違っています");
-      } else {
-        var query = window.location.search;
-        var value = query.split("=");
-        if (value[2]) {
-          location.href = value[0] + "=" + response.user_id + "=" + value[2];
-        } else {
-          location.href = value[0] + "=" + response.user_id;
-        }
+      // } else {
+      //   var query = window.location.search;
+      //   var value = query.split("=");
+      //   if (value[2]) {
+      //     location.href = value[0] + "=" + response.user_id + "=" + value[2];
+      //   } else {
+      //     location.href = value[0] + "=" + response.user_id;
+      //   }
       }
       //location.reload();
     }
