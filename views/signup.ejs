@@ -1,0 +1,121 @@
+<form>
+  <div id="form-wrap">
+    <div id="user-form">
+      <div class="form-group">
+        <label for="create-user-name">ユーザ名</label>
+        <input type="text" class="form-control" id="name" name="user-name" />
+        <div class="message" id="name_err"></div>
+      </div>
+      <div class="form-group">
+        <label for="create-email">メールアドレス</label>
+        <input type="text" class="form-control" id="email" name="email" />
+        <div class="message" id="email_err"></div>
+      </div>
+      <div class="form-group">
+        <label for="create-password">パスワード</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+        />
+        <div class="message" id="password_err"></div>
+      </div>
+    </div>
+    <div>
+      <button type="button" id="reset" class="btn btn-secondary">
+        リセット
+      </button>
+      <button type="button" id="cancel" class="btn btn-secondary">
+        キャンセル
+      </button>
+      <button
+        type="button"
+        id="regist"
+        data-dismiss="modal"
+        class="btn btn-primary"
+      >
+        登録
+      </button>
+      <div class="message" id="regist_err"></div>
+    </div>
+  </div>
+</form>
+
+<script>
+  var result = 0;
+  var empty = 1;
+  $("#user-form").on("change", async function () {
+    //console.log("register.html user-form change 1");
+    const data = {
+      name: $("#name").val(),
+      email: $("#email").val(),
+    };
+    const response = await httpPost(
+      "//" + window.location.host + "/api/user/signup/check",
+      data
+    );
+
+    if (
+      $("#name").val() != "" &&
+      $("#email").val() != "" &&
+      $("#password").val() != ""
+    ) {
+      empty = 0;
+    } else {
+      empty = 1;
+    }
+
+    result = response.result;
+    if (result == 1) {
+      $("#email_err").text("登録済みのメールアドレスです");
+    } else {
+      $("#email_err").text("");
+    }
+    //console.log("register.html user-form change 2");
+  });
+
+  $("#regist").on("click", async function () {
+    console.log("register.html 2");
+    const data = {
+      name: $("#name").val(),
+      email: $("#email").val(),
+      password: $("#password").val(),
+    };
+    //console.log(data);
+    //console.log(result);
+    //console.log(empty);
+    if (result != 0) {
+      $("#regist_err").text("登録済みのユーザー情報が含まれています");
+    }
+    if (empty != 0) {
+      $("#regist_err").text("未入力の項目があります");
+    }
+    if (result == 0 && empty == 0) {
+      const response = await httpPost(
+        "//" + window.location.host + "/api/user/signup/create",
+        data
+      );
+      var query = window.location.search;
+      var value = query.split("=");
+       if (value[2]) {
+        location.href = value[0] + "=" + response.user_id + "=" + value[2];
+      } else {
+        location.href = value[0] + "=" + response.user_id;
+      } 
+      //location.reload();
+    }
+    //console.log("register.html 2");
+  });
+  $("#reset").on("click", async function () {
+    //console.log("register.html 1");
+    $("#name").val("");
+    $("#email").val("");
+    $("#password").val("");
+    $("#name_err").text("");
+    $("#email_err").text("");
+    $("#password_err").text("");
+    $("#regist_err").text("");
+    //console.log("register.html 2");
+  });
+</script>

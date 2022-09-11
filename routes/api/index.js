@@ -84,7 +84,7 @@ router.post("/user/signin", async function (req, res, next) {
   console.log(req.session.user_id);
   console.log("index.js /user/signin 2");
   res.render('gallery', {
-    data: req.session.user_id
+    nid: req.session.user_id
   });
   //res.redirect('/normal/home');
   //res.json({ user_id: signUser });

@@ -1,0 +1,99 @@
+<nav>
+  <div id="site_name">
+    <img id="logo" src="../image/logo_dark.png" alt="" width="40" height="40" />
+    <div class="title pro">Pro</div>
+    <div class="title graphy">graphy</div>
+  </div>
+  <input
+    id="search"
+    class="form-control"
+    type="search"
+    placeholder="Search"
+    aria-label="Search"
+    aria-describedby="button-addon2"
+  />
+  <button id="gallery" onclick="openGallery()">
+    <i class="bi bi-columns"></i>
+    <div class="button-text">gallery</div>
+  </button>
+  <button id="signin" class="modals" onclick="signin();">
+    <i class="bi bi-box-arrow-in-right modals"></i>
+    <div class="button-text modals">sign in</div>
+  </button>
+  <button id="signup" class="modals" onclick="signup();">
+    <i class="bi bi-pencil-square"></i>
+    <div class="button-text">sign up</div>
+  </button>
+</nav>
+<div class="modals" id="modal"></div>
+
+<script>
+  var query = window.location.search;
+  var value = query.split("=");
+  var user_id = value[1];
+
+  load();
+
+  async function load() {
+    $("#header_name").text("RaiRai");
+  }
+
+  async function openGallery() {
+    location.href =
+      "//" + window.location.host + "/views/gallery.ejs?=" + user_id;
+  }
+
+  var modal = 0;
+
+  async function signin() {
+    if (modal == 0) {
+      modal = 1;
+      $("#modal").attr("style", "display:block;");
+      $("#modal").load("signin.ejs");
+    }
+  }
+  async function signup() {
+    if (modal == 0) {
+      modal = 1;
+      $("#modal").attr("style", "display:block;");
+      $("#modal").load("signup.ejs");
+    }
+  }
+  $(window).click(function (e) {
+    if (!$(e.target).parents().hasClass("modals") && modal == 1) {
+      modal = 0;
+      $("#modal").attr("style", "display:none;");
+    }
+  });
+
+  searchWidth();
+  function searchWidth() {
+    var width = document.body.clientWidth;
+    if (width > 1060) {
+      $("#search").attr("style", "margin: 10px calc(100% - 1010px) 10px 50px;");
+      $("#search").outerWidth(400);
+    } else {
+      $("#search").attr("style", "margin: 10px 50px 10px 50px;");
+      $("#search").outerWidth(width - 660);
+    }
+  }
+
+  $(window).resize(function (event) {
+    searchWidth();
+  });
+
+  var dropdown = 0;
+
+  $(window).click(function (e) {
+    if (!$(e.target).hasClass("user") && dropdown == 1) {
+      dropdown = 0;
+      $("#dropdown-menu").attr("style", "display:none;");
+    }
+  });
+  $("#user").click(function () {
+    if (dropdown == 0) {
+      dropdown = 1;
+      $("#dropdown-menu").attr("style", "display:block;");
+    }
+  });
+</script>
