@@ -9,6 +9,7 @@ const mypage = require("../../src/mypage.js");
 const gallery = require("../../src/gallery.js");
 const user = require("../../src/user.js");
 
+
 router.get("/artwork/:art_id/:file_name", async function (req, res, next) {
   console.log("index.js,router.get 1");
   const getArt = await artwork.getArt(req.params.art_id, req.params.file_name);

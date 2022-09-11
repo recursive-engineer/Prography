@@ -8,6 +8,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var apiRouter = require("./routes/api/index.js");
+var home = require("./routes/home.js");
+
 var app = express();
 
 //セッション
@@ -32,6 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api", apiRouter);
+app.use("/views/gallery.ejs", home);
 
 app.use(function (req, res, next) {
   next(createError(404));
