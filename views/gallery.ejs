@@ -3,32 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
-    />
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <link rel="shortcut icon" href="../image/favicon.ico" />
-    <link rel="stylesheet" href="header.css" />
-    <link rel="stylesheet" href="register-pc.css" />
-    <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
+    
+    <% /* %>
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+      />
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <link rel="shortcut icon" href="../image/favicon.ico" />
+      <link rel="stylesheet" href="header.css" />
+      <link rel="stylesheet" href="register-pc.css" />
+      <!--<link rel="stylesheet" href="scss/artwork-mobile.css" media="screen and (max-width:559px)">-->
 
-    <link
-      rel="stylesheet"
-      href="gallery-pc.css"
-      media="screen"
-      type="text/css"
-    />
-    <title>Prography</title>
+      <link
+        rel="stylesheet"
+        href="gallery-pc.css"
+        media="screen"
+        type="text/css"
+      />
+    <% */ %>
+    <title><%= title %></title>
   </head>
   <body>
-    <input type="hidden" id="normal-id" value="<%= nid %>" />
     <header id="header"></header>
     <div id="menu">
       <div id="menu-center">
@@ -41,142 +43,142 @@
     </div>
     <ul id="artworks"></ul>
 
-    
+    <% /* %>
+      <script src="index.js"></script>
 
-    <script src="index.js"></script>
+      <script>
+        //const board= JSON.parse("<%= JSON.stringify(nid) %>");  //var test is now assigned to getTest which will only work on browsers
+        //const id = $("#normal-id").val();
+        console.log($("#normal-id").val());  // successfully prints 101 on browser
+      </script>
 
-    <script>
-      //const board= JSON.parse("<%= JSON.stringify(nid) %>");  //var test is now assigned to getTest which will only work on browsers
-      //const id = $("#normal-id").val();
-      console.log($("#normal-id").val());  // successfully prints 101 on browser
-   </script>
+      <script type="text/javascript">
+        var query = window.location.search;
+        var value = query.split("=");
+        var user_id = value[1];
+        var user_id = 0;
 
-    <script type="text/javascript">
-      var query = window.location.search;
-      var value = query.split("=");
-      var user_id = value[1];
-      var user_id = 0;
+        get_user();
 
-      get_user();
-
-      async function get_user(){
-        const response = await httpGet(
-          "//" + window.location.host + "/api/user/get"
-        );
-        console.log("user_id:"+response);
-      }
-       
-
-      get_artworks();
-
-      if (user_id == 0) {
-        $("#header").load("unsignHeader.ejs");
-      } else {
-        $("#header").load("signHeader.ejs");
-      }
-
-      async function get_artworks() {
-        const response = await httpGet(
-          "//" + window.location.host + "/api/gallery/get"
-        );
-	      console.log(response);
-        var artworks = document.getElementById("artworks");
-        for (var i = 0; i < response.length; i++) {
-          var li = document.createElement("li");
-          li.classList.add("li");
-          li.setAttribute("data-art_id", response[i].art_id);
-          li.setAttribute("data-author_id", response[i].author_id);
-          li.setAttribute("data-name", response[i].name);
-          li.setAttribute("data-title", response[i].title);
-          var img = document.createElement("img");
-          img.setAttribute(
-            "src",
-            "../image/thumbnail/" + response[i].art_id + ".png"
+        async function get_user(){
+          const response = await httpGet(
+            "//" + window.location.host + "/api/user/get"
           );
-          img.setAttribute("id", response[i].art_id);
-          img.classList.add("artwork");
-          li.appendChild(img);
-          artworks.appendChild(li);
+          console.log("user_id:"+response);
         }
-        const artwork = document.getElementsByClassName("artwork");
-        for (let i = 0; i < artwork.length; i++) {
-          artwork[i].addEventListener("click", openViewer, false);
+        
+
+        get_artworks();
+
+        if (user_id == 0) {
+          $("#header").load("unsignHeader.ejs");
+        } else {
+          $("#header").load("signHeader.ejs");
         }
-        $(".li").hover(
-          function () {
-            var info = document.createElement("div");
-            info.setAttribute("class", "info");
-            var title = document.createElement("div");
-            title.setAttribute("class", "title");
-            title.textContent = $(this).attr("data-title");
-            var author = document.createElement("div");
-            author.setAttribute("class", "author");
-            author.setAttribute(
-              "data-author_id",
-              $(this).attr("data-author_id")
+
+        async function get_artworks() {
+          const response = await httpGet(
+            "//" + window.location.host + "/api/gallery/get"
+          );
+          console.log(response);
+          var artworks = document.getElementById("artworks");
+          for (var i = 0; i < response.length; i++) {
+            var li = document.createElement("li");
+            li.classList.add("li");
+            li.setAttribute("data-art_id", response[i].art_id);
+            li.setAttribute("data-author_id", response[i].author_id);
+            li.setAttribute("data-name", response[i].name);
+            li.setAttribute("data-title", response[i].title);
+            var img = document.createElement("img");
+            img.setAttribute(
+              "src",
+              "../image/thumbnail/" + response[i].art_id + ".png"
             );
-            var icon = document.createElement("img");
-            icon.setAttribute("class", "icon");
-            icon.setAttribute("src", "../image/vivi.png");
-            icon.setAttribute("data-author_id", $(this).attr("data-author_id"));
-            var name = document.createElement("div");
-            name.setAttribute("class", "name");
-            name.textContent = $(this).attr("data-name");
-            name.setAttribute("data-author_id", $(this).attr("data-author_id"));
-            author.append(icon);
-            author.append(name);
-            info.append(title);
-            info.append(author);
-            $(this).append(info);
-            $(".author").on("click", openUserPage);
-          },
-          function () {
-            $(".info").remove();
+            img.setAttribute("id", response[i].art_id);
+            img.classList.add("artwork");
+            li.appendChild(img);
+            artworks.appendChild(li);
           }
-        );
-      }
+          const artwork = document.getElementsByClassName("artwork");
+          for (let i = 0; i < artwork.length; i++) {
+            artwork[i].addEventListener("click", openViewer, false);
+          }
+          $(".li").hover(
+            function () {
+              var info = document.createElement("div");
+              info.setAttribute("class", "info");
+              var title = document.createElement("div");
+              title.setAttribute("class", "title");
+              title.textContent = $(this).attr("data-title");
+              var author = document.createElement("div");
+              author.setAttribute("class", "author");
+              author.setAttribute(
+                "data-author_id",
+                $(this).attr("data-author_id")
+              );
+              var icon = document.createElement("img");
+              icon.setAttribute("class", "icon");
+              icon.setAttribute("src", "../image/vivi.png");
+              icon.setAttribute("data-author_id", $(this).attr("data-author_id"));
+              var name = document.createElement("div");
+              name.setAttribute("class", "name");
+              name.textContent = $(this).attr("data-name");
+              name.setAttribute("data-author_id", $(this).attr("data-author_id"));
+              author.append(icon);
+              author.append(name);
+              info.append(title);
+              info.append(author);
+              $(this).append(info);
+              $(".author").on("click", openUserPage);
+            },
+            function () {
+              $(".info").remove();
+            }
+          );
+        }
 
-      async function openUserPage(e) {
-        var author_id = e.target.getAttribute("data-author_id");
-        location.href =
-          "//" +
-          window.location.host +
-          "/views/userpage.html?=" +
-          user_id +
-          "=" +
-          author_id;
-      }
+        async function openUserPage(e) {
+          var author_id = e.target.getAttribute("data-author_id");
+          location.href =
+            "//" +
+            window.location.host +
+            "/views/userpage.html?=" +
+            user_id +
+            "=" +
+            author_id;
+        }
 
-      async function openViewer(e) {
-        location.href =
-          "//" +
-          window.location.host +
-          "/views/viewer.html?=" +
-          user_id +
-          "=" +
-          e.target.id;
-      }
+        async function openViewer(e) {
+          location.href =
+            "//" +
+            window.location.host +
+            "/views/viewer.html?=" +
+            user_id +
+            "=" +
+            e.target.id;
+        }
 
-      artworkWidth();
-
-      function artworkWidth() {
-        var width = document.body.clientWidth;
-        $("#artworks").attr(
-          "style",
-          "grid-template-columns:repeat(" +
-            Math.floor(width / 200) +
-            ", minmax(0, 1fr));"
-        );
-      }
-
-      $(window).resize(function (event) {
         artworkWidth();
-      });
-    </script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
+
+        function artworkWidth() {
+          var width = document.body.clientWidth;
+          $("#artworks").attr(
+            "style",
+            "grid-template-columns:repeat(" +
+              Math.floor(width / 200) +
+              ", minmax(0, 1fr));"
+          );
+        }
+
+        $(window).resize(function (event) {
+          artworkWidth();
+        });
+      </script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+      ></script>
+    <% */ %>
   </body>
 </html>
