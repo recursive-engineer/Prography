@@ -1,26 +1,26 @@
 require("dotenv").config();
 const env = process.env.environment;
 
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+let path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
-var apiRouter = require("./routes/api/index.js");
-var home = require("./routes/home.js");
+const apiRouter = require("./routes/api/index.js");
+const gallary = require("./routes/gallary.js");
 
-var app = express();
+let app = express();
 
 //セッション
-const session = require('express-session');
-var session_opt = {
-  secret: 'keyword  cat',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 60 * 60 * 1000 }
-}
-app.use(session(session_opt));
+// const session = require('express-session');
+// var session_opt = {
+//   secret: 'keyword  cat',
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { maxAge: 60 * 60 * 1000 }
+// }
+// app.use(session(session_opt));
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -34,7 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api", apiRouter);
-app.use("/views/gallery.ejs", home);
+app.use("/gallary", gallary);
 
 app.use(function (req, res, next) {
   next(createError(404));
