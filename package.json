@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "node": "nodemon -e ejs,js,json ./bin/www",
+    "node": "node ./bin/www",
     "sass": "sass public/scss/:public/css/ public/artworks/scss/:public/artworks/css/ --no-source-map --watch",
     "start": "run-p node sass"
   },

@@ -6,43 +6,37 @@
       <div class="title pro">Pro</div>
       <div class="title graphy">graphy</div>
     </div>
-    <input
-      id="search"
-      class="form-control"
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
-      aria-describedby="button-addon2"
-    />
+    <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search"
+      aria-describedby="button-addon2" />
     <button id="gallery" href="/gallery">
       <i class="bi bi-columns"></i>
       <div class="button-text">gallery</div>
     </button>
+    <form type="hidden" id="newcode" action="/newcode" method="post">
+      <input type="hidden" id="aid" class="form-control" name="aid" />
+      <input type="hidden" id="uid" class="form-control" name="uid" />
+    </form>
     <button id="new-code" onclick="newcode();">
       <i class="bi bi-code-slash"></i>
       <div class="button-text">new code</div>
     </button>
     <div id="user_wrap">
-      <button
-        id="user"
-        class="user"
-        type="button"
-      >
+      <button id="user" class="user" type="button">
         <image class="user" id="header_icon" src="../image/vivi.png">
-        <div class="button-text user" id="header_name">your name</div>
+          <div class="button-text user" id="header_name">your name</div>
       </button>
-      <form id="mypage" action="/signout" method="post">
-        <ul id="dropdown-menu">
-          <li href="/mypage">Portfolio</li>
-          <li>About</li>
-          <li>Likes</li>
-          <li>Following</li>
-          <li>Followers</li>
-          <li onclick="mypage.submit();">
-              Sign out
-          </li>
-        </ul>
-      </form>
+      <ul id="dropdown-menu">
+        <form id="mypage" action="/mypage" method="post">
+          <li onclick="mypage.submit();">Portfolio</li>
+        </form>
+        <li>About</li>
+        <li>Likes</li>
+        <li>Following</li>
+        <li>Followers</li>
+        <form id="signout" action="/signout" method="post">
+          <li onclick="signout.submit();">Sign out</li>
+        </form>
+      </ul>
     </div>
   </nav>
 </header>
@@ -53,21 +47,30 @@
 
   async function load() {
     const response = await httpGet(
-      "//" + window.location.host + "/api/users/get/info/"+uid,
+      "//" + window.location.host + "/api/users/get/info/" + uid,
     );
     $("#header_name").text(response.info[0].name);
   }
 
   async function newcode() {
     const response = await httpGet(
-      "//" + window.location.host + "/api/users/get/mypage/"+uid,
+      "//" + window.location.host + "/api/artworks/get/mypage/" + uid,
     );
-    if(response.length<=5){
-      location.href =
-      "//" + window.location.host + "/newcode"
-    }else{
+    if (response.length <= 5) {
+      const new_artwork = await init();
+      $("#aid").val(new_artwork.id);
+      $("#uid").val(uid);
+      $("#newcode").submit();
+    } else {
       alert("現在作成可能な作品数は6つまでです");
     }
+  }
+
+  async function init() {
+    const response = await httpGet(
+      "//" + window.location.host + "/api/artworks/create/" + uid
+    );
+    return response;
   }
 
   async function logout() {
@@ -94,18 +97,18 @@
     searchWidth();
   });
 
-  var dropdown=0;
-  
+  var dropdown = 0;
+
   $(window).click(function (e) {
-    if(!$(e.target).hasClass("user") &&dropdown==1){
-      dropdown=0;
-      $("#dropdown-menu").attr("style","display:none;");
+    if (!$(e.target).hasClass("user") && dropdown == 1) {
+      dropdown = 0;
+      $("#dropdown-menu").attr("style", "display:none;");
     }
   });
   $("#user").click(function () {
-    if(dropdown==0){
-      dropdown=1;
-      $("#dropdown-menu").attr("style","display:block;");
+    if (dropdown == 0) {
+      dropdown = 1;
+      $("#dropdown-menu").attr("style", "display:block;");
     }
   });
 

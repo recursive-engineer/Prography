@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<%- include("../partials/head") %>
+		<link rel="stylesheet" href="../css/editor-pc.css" media="screen" type="text/css" />
+		<title>新規作成ページ</title>
+</head>
+
+<body>
+	<%- include("../partials/header-login") %>
+		<input type="hidden" id="artwork-id" value="<%= aid %>" />
+		<div class="outer_frame">
+			<div class="inner_frame">
+				<iframe id="artwork" scrolling="no"></iframe>
+				<div id="code-area">
+					<form method="post">
+						<div id="buttons">
+							<select id="codes" class="form-control" onchange="codeChange();" onclick="codeClick();">
+								<option value="html">html</option>
+								<option value="scss">scss</option>
+								<option value="js">javascript</option>
+							</select>
+							<button id="update" type="button">更新</button>
+							<button id="submit" type="button">投稿</button>
+						</div>
+						<textarea id="editor" cols="30" rows="15" wrap="off" style="overflow: scroll"></textarea>
+					</form>
+				</div>
+			</div>
+			<div id="caption" class="d-flex">
+				<div id="titles">
+					<input type="text" id="title" value="Title Here" />
+					<input type="text" id="subtitle" value="Subtitle Here" />
+				</div>
+				<div id="author_frame" class="d-flex">
+					<div id="author_icon"></div>
+					<div id="author_info">
+						<p id="user_name">Author Name Here</p>
+						<p id="profession">Profession Here</p>
+						<button class="btn" type="submit">Follow</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			const aid = $("#artwork-id").val();
+
+			var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+				mode: "text/html",
+				tabMode: "indent",
+				theme: "monokai",
+				lineNumbers: true,
+				heyMap: "default",
+				matchBrackets: true,
+				indentUnit: 4,
+				indentWithTabs: true,
+				enterMode: "keep",
+				lineWrapping: false,
+				smartIndent: true,
+				onCursorActivity: function () {
+					editor.setLineClass(hlLine, null, null);
+					hlLine = editor.setLineClass(
+						editor.getCursor().line,
+						null,
+						"activeline"
+					);
+				},
+			});
+			editor.setSize(490, 460);
+			editor.on("change", function () {
+				editor.save();
+			});
+
+			getArtwork();
+			getCode("html");
+			getInfo();
+
+			function getArtwork() {
+				$("#artwork").attr("src", "/artworks/html/" + aid + ".html");
+			}
+
+			async function getCode(file_name) {
+				const response = await httpGet(
+					"//" +
+					window.location.host +
+					"/api/artworks/get/code/" +
+					aid +
+					"/" +
+					file_name
+				);
+				var doc = editor.getDoc();
+				doc.setValue(response.text);
+				editor.clearHistory();
+				switch (file_name) {
+					case "html":
+						editor.setOption("mode", "text/html");
+						break;
+					case "scss":
+						editor.setOption("mode", "css");
+						break;
+					case "js":
+						editor.setOption("mode", "javascript");
+						break;
+				}
+			}
+
+			async function getInfo() {
+				const response = await httpGet(
+					"//" + window.location.host + "/api/artworks/get/info/" + aid
+				);
+				var title = document.getElementById("title");
+				var subtitle = document.getElementById("subtitle");
+				var user_name = document.getElementById("user_name");
+				var profession = document.getElementById("profession");
+
+				title.value = response.title;
+				subtitle.value = response.subtitle;
+				user_name.textContent = response.name;
+				profession.textContent = response.profession;
+			}
+
+			function codeChange() {
+				var file_name = document.getElementById("codes").value;
+				getCode(file_name);
+			}
+
+			function codeClick() {
+				var code = document.getElementById("editor");
+				var file_name = document.getElementById("codes").value;
+				updateCode(code.value, file_name);
+			}
+
+			async function updateCode(code, file_name) {
+				const data = {
+					aid: aid,
+					uid: uid,
+					file_name: file_name,
+					code: code,
+				};
+				const response = await httpUpdate(
+					"//" + window.location.host + "/api/artworks/update/artwork",
+					data
+				);
+				getArtwork();
+			}
+
+			$("#update").on("click", async function () {
+				var code = document.getElementById("editor");
+				var file_name = document.getElementById("codes").value;
+				updateCode(code.value, file_name);
+			});
+
+			$("#submit").on("click", async function () {
+				const data = {
+					aid: aid,
+					type: "publish",
+					content: 1,
+				};
+				const response = await httpUpdate(
+					"//" + window.location.host + "/api/artworks/update/info",
+					data
+				);
+			});
+
+			$("#title").on("change", async function () {
+				const data = {
+					aid: aid,
+					type: "title",
+					content: this.value,
+				};
+				const response = await httpUpdate(
+					"//" + window.location.host + "/api/artworks/update/info",
+					data
+				);
+			});
+
+			$("#subtitle").on("change", async function () {
+				const data = {
+					aid: aid,
+					type: "subtitle",
+					content: this.value,
+				};
+				const response = await httpUpdate(
+					"//" + window.location.host + "/api/artworks/update/info",
+					data
+				);
+			});
+		</script>
+</body>
+
+</html>

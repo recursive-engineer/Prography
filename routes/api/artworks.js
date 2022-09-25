@@ -12,9 +12,16 @@ router.get("/get/code/:art_id/:file_name", async function (req, res, next) {
   res.json({ text: getArt });
 });
 
-router.get("/get/art/:art_id", async function (req, res, next) {
+router.get("/get/info/:art_id", async function (req, res, next) {
   const Info = await get.getArtInfo(req.params.art_id);
-  res.send(Info);
+  res.json({
+    title: Info[0].title,
+    subtitle: Info[0].subtitle,
+    publish: Info[0].publish,
+    date: Info[0].date,
+    name: Info[0].name,
+    profession: Info[0].profession,
+  });
 });
 
 router.get("/get/mypage/:user_id", async function (req, res, next) {
@@ -29,14 +36,14 @@ router.get("/get/gallery", async function (req, res, next) {
 
 router.patch("/update/info", async function (req, res, next) {
   const updateInfo = await upd.updateInfo(req.body);
-  await artwork.updateDate(req.body);
+  await upd.updateDate(req.body);
   res.send(updateInfo);
 });
 
 router.patch("/update/artwork", async function (req, res, next) {
   const updateArt = await upd.updateArt(req.body);
-  await artwork.updateThumbnail(req.body);
-  await artwork.updateDate(req.body);
+  await upd.updateThumbnail(req.body);
+  await upd.updateDate(req.body);
   res.json({ text: updateArt });
 });
 
@@ -49,8 +56,8 @@ router.patch("/delete", async function (req, res, next) {
 
 router.get("/create/:user_id", async function (req, res, next) {
   const art_id = await cre.createArt(req.params.user_id);
-  const end = await cre.createCode(art_id);
-  res.json({ id: art_id, end: end });
+  await cre.createCode(art_id);
+  res.json({ id: art_id });
 });
 
 module.exports = router;

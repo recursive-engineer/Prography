@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<%- include("../partials/head") %>
+		<link rel="stylesheet" href="../css/mypage-pc.css" media="screen" type="text/css" />
+		<title>マイページ</title>
+</head>
+
+<body>
+	<%- include("../partials/header-login") %>
+		<div id="user-info">
+			<img id="background" src="../image/background.png" />
+			<div id="icons">
+				<div id="icon">
+					<img id="background" src="../image/vivi.png" />
+				</div>
+				<input id="user-name" class="name" value="user-name" />
+				<input id="profession" value="profession" />
+			</div>
+		</div>
+		<div id="menu">
+			<div id="menu-center">
+				<button class="selected" id="portfolio">Portfolio</button>
+				<button id="about">About</button>
+				<button id="likes">Likes</button>
+				<button id="following">Following</button>
+				<button id="followers">Followers</button>
+			</div>
+		</div>
+		<ul id="artworks"></ul>
+
+		<script type="text/javascript">
+			getArtworks(uid);
+			getUser(uid);
+
+			async function getArtworks(uid) {
+				const response = await httpGet(
+					"//" + window.location.host + "/api/artworks/get/mypage/" + uid
+				);
+				var artworks = document.getElementById("artworks");
+				for (var i = 0; i < response.length; i++) {
+					var li = document.createElement("li");
+					var form = document.createElement("form");
+					form.classList.add("form");
+					form.setAttribute("method", "post");
+					form.setAttribute("action", "/editor");
+					var input = document.createElement("input");
+					input.setAttribute("type", "submit");
+					input.setAttribute("value", response[i].id);
+					var img = document.createElement("img");
+					img.setAttribute(
+						"src",
+						"../image/thumbnail/" + response[i].id + ".png"
+					);
+					img.setAttribute("id", response[i].id);
+					img.classList.add("artwork");
+					form.appendChild(input);
+					form.appendChild(img);
+					li.appendChild(form);
+					artworks.appendChild(li);
+				}
+				// const artwork = document.getElementsByClassName("artwork");
+				// for (let i = 0; i < artwork.length; i++) {
+				// 	artwork[i].addEventListener("click", "location.href='/editor'", false);
+				// }
+				$(".form").hover(
+					function () {
+						var icon = document.createElement("i");
+						icon.classList.add("bi", "bi-x-circle");
+						icon.setAttribute("id", $(this).attr("id"));
+						$(this).append(icon);
+						$(".bi-x-circle").on("click", deleteArt);
+					},
+					function () {
+						$(".bi-x-circle").remove();
+					}
+				);
+			}
+
+			async function getUser(uid) {
+				const response = await httpGet(
+					"//" + window.location.host + "/api/users/get/info/" + uid
+				);
+				$("#user-name").val(response.info[0].name);
+				$("#profession").val(response.info[0].profession);
+			}
+
+			async function deleteArt() {
+				var artwork = this.previousElementSibling;
+				const data = {
+					art_id: artwork.id,
+				};
+				const response = await httpDelete(
+					"//" + window.location.host + "/api/artworks/delete",
+					data
+				);
+				location.reload();
+			}
+
+			async function open_editor(e) {
+				const data = {
+					aid: e.target.id,
+				};
+				await httpPost(
+					"//" + window.location.host + "/editor",
+					data
+				);
+			}
+
+			artworkWidth();
+
+			function artworkWidth() {
+				var width = document.body.clientWidth;
+				$("#artworks").attr(
+					"style",
+					"grid-template-columns:repeat(" +
+					Math.floor(width / 300) +
+					", minmax(0, 1fr));"
+				);
+			}
+
+			$(window).resize(function (event) {
+				artworkWidth();
+			});
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -21,9 +21,8 @@ deleteArt = async function (data) {
   let connection = null;
   try {
     connection = await mysql.createConnection(config.dbSetting);
-    var sql = "DELETE FROM t_artwork WHERE art_id = ?;";
-    var param = [data.art_id];
-    await connection.query(sql, param);
+    var sql = "DELETE FROM t_artworks WHERE id = ?;";
+    await connection.query(sql, data.art_id);
   } catch (err) {
     console.log(err);
   } finally {

@@ -21633,19 +21633,28 @@ body #artworks li {
   position: relative;
   background-color: rgb(250, 250, 255);
 }
-body #artworks li img {
+body #artworks li form input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: white;
+  display: block;
+  z-index: 3;
+}
+body #artworks li form img {
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: 2;
 }
-body #artworks li img:hover {
+body #artworks li form input:hover {
   opacity: 0.5;
 }
-body #artworks li i {
+body #artworks li form i {
   position: absolute;
-  z-index: 3;
+  z-index: 4;
   top: 10px;
   right: 10px;
 }

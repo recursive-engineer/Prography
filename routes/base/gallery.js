@@ -1,20 +1,14 @@
 var express = require("express");
 var router = express.Router();
 
-router.get('/', async function (req, res, next) {
+router.get("/", async function (req, res, next) {
   if (req.session.uid) {
-    console.log("login");
-    res.render('login/gallery.ejs',{
-        uid: req.session.uid
+    res.render("login/gallery.ejs", {
+      uid: req.session.uid,
     });
-  }else{
-    console.log("logout");
-    res.render('logout/gallery.ejs');
+  } else {
+    res.render("logout/gallery.ejs");
   }
-});
-
-router.post('/', async function (req, res, next) {
-  console.log("gallery");
 });
 
 module.exports = router;
