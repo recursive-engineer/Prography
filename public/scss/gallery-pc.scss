@@ -3,6 +3,7 @@
 @import "codemirror.css";
 
 body {
+  position: relative;
   background-color: $black-10;
   #header {
     z-index: 10;

@@ -53,3 +53,8 @@ const httpDelete = async function (url, data) {
     console.log(err);
   }
 };
+
+exports.httpPost = httpPost;
+exports.httpGet = httpGet;
+exports.httpUpdate = httpUpdate;
+exports.httpDelete = httpDelete;

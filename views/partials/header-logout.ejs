@@ -1,0 +1,32 @@
+<header id="header">
+  <nav>
+    <div id="site_name">
+      <img id="logo" src="../image/logo_dark.png" alt="" width="40" height="40" />
+      <div class="title pro">Pro</div>
+      <div class="title graphy">graphy</div>
+    </div>
+    <input
+      id="search"
+      class="form-control"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+      aria-describedby="button-addon2"
+    />
+    <button id="gallery" onclick="openGallery()">
+      <i class="bi bi-columns"></i>
+      <div class="button-text">gallery</div>
+    </button>
+    <button id="open-signin" class="open-modal">
+      <i class="bi bi-box-arrow-in-right modals"></i>
+      <div class="button-text modals">sign in</div>
+    </button>
+    <button id="open-signup" class="open-modal">
+      <i class="bi bi-pencil-square"></i>
+      <div class="button-text">sign up</div>
+    </button>
+  </nav>
+  <%- include("../partials/signin") %>
+  <%- include("../partials/signup") %>
+</header>
+<script type="module" type=”text/javascript” src="../js/header.js"></script>

@@ -1,0 +1,112 @@
+<header id="header">
+  <input type="hidden" id="user-id" value="<%= uid %>" />
+  <nav>
+    <div id="site_name">
+      <img id="logo" src="../image/logo_dark.png" alt="" width="40" height="40" />
+      <div class="title pro">Pro</div>
+      <div class="title graphy">graphy</div>
+    </div>
+    <input
+      id="search"
+      class="form-control"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+      aria-describedby="button-addon2"
+    />
+    <button id="gallery" href="/gallery">
+      <i class="bi bi-columns"></i>
+      <div class="button-text">gallery</div>
+    </button>
+    <button id="new-code" onclick="newcode();">
+      <i class="bi bi-code-slash"></i>
+      <div class="button-text">new code</div>
+    </button>
+    <div id="user_wrap">
+      <button
+        id="user"
+        class="user"
+        type="button"
+      >
+        <image class="user" id="header_icon" src="../image/vivi.png">
+        <div class="button-text user" id="header_name">your name</div>
+      </button>
+      <form id="mypage" action="/signout" method="post">
+        <ul id="dropdown-menu">
+          <li href="/mypage">Portfolio</li>
+          <li>About</li>
+          <li>Likes</li>
+          <li>Following</li>
+          <li>Followers</li>
+          <li onclick="mypage.submit();">
+              Sign out
+          </li>
+        </ul>
+      </form>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const uid = $("#user-id").val();
+  load();
+
+  async function load() {
+    const response = await httpGet(
+      "//" + window.location.host + "/api/users/get/info/"+uid,
+    );
+    $("#header_name").text(response.info[0].name);
+  }
+
+  async function newcode() {
+    const response = await httpGet(
+      "//" + window.location.host + "/api/users/get/mypage/"+uid,
+    );
+    if(response.length<=5){
+      location.href =
+      "//" + window.location.host + "/newcode"
+    }else{
+      alert("現在作成可能な作品数は6つまでです");
+    }
+  }
+
+  async function logout() {
+    location.href =
+      "//" + window.location.host + "/gallery";
+  }
+
+  searchWidth();
+  function searchWidth() {
+    var width = document.body.clientWidth;
+    if (width > 1060) {
+      $("#search").attr(
+        "style",
+        "margin: 10px calc(100% - 1010px) 10px 50px;"
+      );
+      $("#search").outerWidth(400);
+    } else {
+      $("#search").attr("style", "margin: 10px 50px 10px 50px;");
+      $("#search").outerWidth(width - 660);
+    }
+  }
+
+  $(window).resize(function (event) {
+    searchWidth();
+  });
+
+  var dropdown=0;
+  
+  $(window).click(function (e) {
+    if(!$(e.target).hasClass("user") &&dropdown==1){
+      dropdown=0;
+      $("#dropdown-menu").attr("style","display:none;");
+    }
+  });
+  $("#user").click(function () {
+    if(dropdown==0){
+      dropdown=1;
+      $("#dropdown-menu").attr("style","display:block;");
+    }
+  });
+
+</script>

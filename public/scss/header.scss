@@ -1,128 +1,132 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "variable";
 
-nav {
-  padding: 0px 10px;
-  margin: 0px;
-  height: 50px;
-  width: 100%;
-  background-color: $black-40;
-  border-bottom: solid 1px $black-60;
-  display: flex;
-  #site_name {
-    padding: 0px;
-    margin: 5px;
-    height: 40px;
+header{
+  nav {
+    padding: 0px 10px;
+    margin: 0px;
+    height: 50px;
+    width: 100%;
+    background-color: $black-40;
+    border-bottom: solid 1px $black-60;
     display: flex;
-    #logo {
-      margin-right: 10px;
-    }
-    .title {
-      margin-top: 5px;
-      vertical-align: middle;
-      font-size: 20px;
-      color: $white-10;
-    }
-    .pro {
-      font-weight: 500;
-    }
-    .graphy {
-      font-weight: 200;
-    }
-  }
-  #search {
-    height: 30px;
-    padding: 0px 8px;
-    font-size: 15px;
-    color: $black-90;
-    background-color: $black-10;
-    border-color: $black-40;
-  }
-  #search:focus {
-    border-color: $black-60;
-  }
-  button {
-    border-radius: 5px;
-    margin: 10px 0px 10px 10px;
-    width: 120px;
-    height: 30px;
-    border: none;
-    display: flex;
-    padding: 5px 15px;
-    i {
-      color: $white-10;
-      font-weight: 1000;
-    }
-    .button-text {
-      margin-left: 10px;
-      font-size: 14px;
-      color: $white-10;
-    }
-  }
-  #user_wrap {
-    margin-left: 10px;
-    #user {
-      margin: 10px 0px 10px 0px;
-      padding: 0px 15px;
-      background-color: $black-40;
-      position: static;
-      #header_icon {
-        width: 30px;
-        height: 30px;
-      }
-      #header_name {
-        line-height: 14px;
-        font-size: 14px;
-      }
-    }
-    ul {
-      list-style: none;
-      text-align: center;
-    }
-    #dropdown-menu {
-      background-color: $black-40;
-      color: $white-10;
+    #site_name {
       padding: 0px;
-      width: 120px;
-      display: none;
-      position: relative;
-      top: 0px;
-      right: 0px;
-      li {
-        margin: 0px;
-        padding: 5px 0px 5px 0px;
-        width: 120px;
-        background-color: $black-40;
+      margin: 5px;
+      height: 40px;
+      display: flex;
+      #logo {
+        margin-right: 10px;
       }
-      li:hover {
-        background-color: $red-30;
+      .title {
+        margin-top: 5px;
+        vertical-align: middle;
+        font-size: 20px;
+        color: $white-10;
+      }
+      .pro {
+        font-weight: 500;
+      }
+      .graphy {
+        font-weight: 200;
       }
     }
+    #search {
+      height: 30px;
+      padding: 0px 8px;
+      font-size: 15px;
+      color: $black-90;
+      background-color: $black-10;
+      border-color: $black-40;
+    }
+    #search:focus {
+      border-color: $black-60;
+    }
+    button {
+      border-radius: 5px;
+      margin: 10px 0px 10px 10px;
+      width: 120px;
+      height: 30px;
+      border: none;
+      display: flex;
+      padding: 5px 15px;
+      i {
+        color: $white-10;
+        font-weight: 1000;
+      }
+      .button-text {
+        margin-left: 10px;
+        font-size: 14px;
+        color: $white-10;
+      }
+    }
+    #user_wrap {
+      margin-left: 10px;
+      #user {
+        margin: 10px 0px 10px 0px;
+        padding: 0px 15px;
+        background-color: $black-40;
+        position: static;
+        #header_icon {
+          width: 30px;
+          height: 30px;
+        }
+        #header_name {
+          line-height: 14px;
+          font-size: 14px;
+        }
+      }
+      ul {
+        list-style: none;
+        text-align: center;
+      }
+      #dropdown-menu {
+        background-color: $black-40;
+        color: $white-10;
+        padding: 0px;
+        width: 120px;
+        display: none;
+        position: relative;
+        top: 0px;
+        right: 0px;
+        li {
+          margin: 0px;
+          padding: 5px 0px 5px 0px;
+          width: 120px;
+          background-color: $black-40;
+        }
+        li:hover {
+          background-color: $red-30;
+        }
+      }
+    }
+    #open-signin {
+      background-color: $indigo-30;
+    }
+    #open-signup {
+      background-color: $red-30;
+    }
+    button:hover {
+      filter: saturate(200%);
+    }
+    #gallery {
+      background-color: $indigo-30;
+    }
+    #new-code {
+      background-color: $indigo-30;
+    }
   }
+  .modal{
+    position: absolute;
+    z-index: 3;
+    top: 50vh;
+    left: 50vw;
+    display: none;
+    width: 500px;
+    height: 400px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 20px;
+  }
+}
 
-  #gallery {
-    background-color: $indigo-30;
-  }
-  #new-code {
-    background-color: $indigo-30;
-  }
-  #signin {
-    background-color: $indigo-30;
-  }
-  #signup {
-    background-color: $red-30;
-  }
-  button:hover {
-    filter: saturate(200%);
-  }
-}
-#modal {
-  position: relative;
-  top: 0px;
-  right: 0px;
-  margin: auto;
-  display: none;
-  width: 500px;
-  height: 350px;
-  background-color: $black-60;
-}

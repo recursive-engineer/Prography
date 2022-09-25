@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../partials/head") %>
+    <link
+      rel="stylesheet"
+      href="../css/gallery-pc.css"
+      media="screen"
+      type="text/css"
+    />
+    <script type="module" type=”text/javascript” src="../js/gallery.js"></script>
+    <title>ギャラリー</title>
+  </head>
+  <body>
+    <%- include("../partials/header-login") %>
+    <div id="menu">
+      <div id="menu-center">
+        <button class="menu selected" id="latest">Latest</button>
+        <button class="menu" id="ranking">Ranking</button>
+        <button class="menu" id="recommend">Recommend</button>
+        <button class="menu" id="following">Following</button>
+        <button class="menu" id="features">Features</button>
+      </div>
+    </div>
+    <ul id="artworks"></ul>
+  </body>
+</html>
