@@ -11,4 +11,9 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+router.post("/", async function (req, res, next) {
+  req.session.uid = req.body.uid;
+  res.redirect("/gallery");
+});
+
 module.exports = router;

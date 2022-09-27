@@ -8,15 +8,18 @@
     </div>
     <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search"
       aria-describedby="button-addon2" />
-    <button id="gallery" href="/gallery">
+    <form type="hidden" id="openGallery" action="/gallery" method="post">
+      <input type="hidden" class="uid" class="form-control" name="uid" />
+    </form>
+    <button id="gallery" onclick="gallery();">
       <i class="bi bi-columns"></i>
       <div class="button-text">gallery</div>
     </button>
-    <form type="hidden" id="newcode" action="/newcode" method="post">
-      <input type="hidden" id="aid" class="form-control" name="aid" />
-      <input type="hidden" id="uid" class="form-control" name="uid" />
+    <form type="hidden" id="openNewcode" action="/newcode" method="post">
+      <input type="hidden" class="aid" class="form-control" name="aid" />
+      <input type="hidden" class="uid" class="form-control" name="uid" />
     </form>
-    <button id="new-code" onclick="newcode();">
+    <button id="newcode" onclick="newcode();">
       <i class="bi bi-code-slash"></i>
       <div class="button-text">new code</div>
     </button>
@@ -58,12 +61,17 @@
     );
     if (response.length <= 5) {
       const new_artwork = await init();
-      $("#aid").val(new_artwork.id);
-      $("#uid").val(uid);
-      $("#newcode").submit();
+      $(".aid").val(new_artwork.id);
+      $(".uid").val(uid);
+      $("#openNewcode").submit();
     } else {
       alert("現在作成可能な作品数は6つまでです");
     }
+  }
+
+  async function gallery() {
+    $(".uid").val(uid);
+    $("#openGallery").submit();
   }
 
   async function init() {

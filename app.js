@@ -8,16 +8,17 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var baseRouter = require("./routes/base.js");
-var usersRouter = require("./routes/api/users.js");
-var artworksRouter = require("./routes/api/artworks.js");
-var signin = require("./routes/sign/signin.js");
-var signup = require("./routes/sign/signup.js");
-var signout = require("./routes/sign/signout.js");
-var gallery = require("./routes/base/gallery.js");
-var newcode = require("./routes/base/newcode.js");
-var mypage = require("./routes/base/mypage.js");
-var editor = require("./routes/base/editor.js");
+const baseRouter = require("./routes/base.js");
+const usersRouter = require("./routes/api/users.js");
+const artworksRouter = require("./routes/api/artworks.js");
+const signin = require("./routes/sign/signin.js");
+const signup = require("./routes/sign/signup.js");
+const signout = require("./routes/sign/signout.js");
+const gallery = require("./routes/base/gallery.js");
+const newcode = require("./routes/base/newcode.js");
+const mypage = require("./routes/base/mypage.js");
+const editor = require("./routes/base/editor.js");
+const viewer = require("./routes/base/viewer.js");
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use("/gallery", gallery);
 app.use("/newcode", newcode);
 app.use("/mypage", mypage);
 app.use("/editor", editor);
+app.use("/viewer", viewer);
 
 app.use(function (req, res, next) {
   next(createError(404));

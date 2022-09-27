@@ -8,11 +8,17 @@ async function get_artworks() {
   var artworks = document.getElementById("artworks");
   for (var i = 0; i < response.length; i++) {
     var li = document.createElement("li");
-    li.classList.add("li");
-    li.setAttribute("data-art_id", response[i].id);
-    li.setAttribute("data-author_id", response[i].author_id);
-    li.setAttribute("data-name", response[i].name);
-    li.setAttribute("data-title", response[i].title);
+    var form = document.createElement("form");
+    form.classList.add("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "/viewer");
+    form.setAttribute("data-art_id", response[i].id);
+    form.setAttribute("data-author_id", response[i].author_id);
+    form.setAttribute("data-name", response[i].name);
+    form.setAttribute("data-title", response[i].title);
+    var input = document.createElement("input");
+    input.setAttribute("type", "submit");
+    input.setAttribute("value", response[i].id);
     var img = document.createElement("img");
     img.setAttribute(
       "src",
@@ -20,14 +26,12 @@ async function get_artworks() {
     );
     img.setAttribute("id", response[i].id);
     img.classList.add("artwork");
-    li.appendChild(img);
+    form.appendChild(input);
+    form.appendChild(img);
+    li.appendChild(form);
     artworks.appendChild(li);
   }
-  const artwork = document.getElementsByClassName("artwork");
-  for (let i = 0; i < artwork.length; i++) {
-    artwork[i].addEventListener("click", openViewer, false);
-  }
-  $(".li").hover(
+  $(".form").hover(
     function () {
       var info = document.createElement("div");
       info.setAttribute("class", "info");

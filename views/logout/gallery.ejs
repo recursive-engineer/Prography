@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <%- include("../partials/head") %>
-    <link
-      rel="stylesheet"
-      href="../css/gallery-pc.css"
-      media="screen"
-      type="text/css"
-    />
-    <script type="module" type=”text/javascript” src="../js/gallery.js"></script>
+
+<head>
+  <%- include("../partials/head") %>
+    <link rel="stylesheet" href="../css/gallery-pc.css" media="screen" type="text/css" />
     <title>ギャラリー</title>
-  </head>
-  <body>
-    <%- include("../partials/header-logout") %>
+</head>
+
+<body>
+  <%- include("../partials/header-logout") %>
     <div id="menu">
       <div id="menu-center">
         <button class="menu selected" id="latest">Latest</button>
@@ -23,5 +19,7 @@
       </div>
     </div>
     <ul id="artworks"></ul>
-  </body>
+</body>
+<script type="module" type=”text/javascript” src="../js/gallery.js"></script>
+
 </html>
